@@ -1,0 +1,35 @@
+/* 
+  Localizable.strings
+  Quizzie
+
+  Created by hieu nguyen on 02/11/2022.
+  
+*/
+"logout" = "Logout";
+"studying" = "Studying";
+"favorite" = "Favorite";
+"review" = "Review";
+"trash" = "Trash";
+"words" = "Words";
+"type_folder_name" = "Type folder name";
+"term" = "Term";
+"definition" = "Definition";
+"example" = "Example";
+"signin" = "Sign In";
+"signup" = "Sign Up";
+"signin_note" = "You are using app without signing in. You data is at risk of being lost";
+"signin_success" = "Sign In Success";
+"email" = "Email";
+"password" = "Password";
+"signin_with_email" = "Sign In With Email";
+"quickly_signin_with" = "Quickly Sign In With";
+"or" = "Or";
+"done" = "Done";
+"folder" = "Folder";
+"folder_name" = "Foleder Name";
+"create_new_folder" = "Create Folder";
+"update_folder" = "Update Folder";
+"data_format_not_available" = "Data Format Not Available";
+"all_topics" = "All Topics";
+"study" = "Study";
+"test" = "Test";

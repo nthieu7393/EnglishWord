@@ -1,0 +1,276 @@
+//
+//  TermsPresenter.swift
+//  Quizzie
+//
+//  Created by hieu nguyen on 19/11/2022.
+//
+
+import Foundation
+import RealmSwift
+
+class TermsPresenter: BasePresenter {
+    private let storageService: StorageProtocol
+    private let networkVocabularySerivce: NetworkVocabularyProtocol
+    private let realmVocabularyService: RealmVocabularyService<PhrasalVerbEntity>
+    private var phrasalVerbsFileProvider: (any FileDataProvider)?
+    private var dispathQueue = DispatchQueue(
+        label: "concurrentQueue",
+        attributes: .concurrent)
+    var searchDataOfCardDispatchWork: DispatchWorkItem!
+
+    private var topic: TopicModel
+    private var folder: SetTopicModel
+    private var cards: [any Card]? = []
+    private let view: TermsViewProtocol
+    
+    func getTopic() -> TopicModel {
+        return topic
+    }
+    
+    func getFolder() -> SetTopicModel {
+        return folder
+    }
+
+    init(
+        view: TermsViewProtocol,
+        set: SetTopicModel,
+        topic: TopicModel,
+        storageService: StorageProtocol,
+        networkVocabularyService: NetworkVocabularyProtocol
+    ) {
+        self.view = view
+        self.topic = topic
+        self.folder = set
+        self.storageService = storageService
+        self.networkVocabularySerivce = networkVocabularyService
+
+        view.showLoadingIndicator()
+
+        phrasalVerbsFileProvider = BundleFileDataProvider<PhrasalVerbList>(
+            fileName: "phrasal-verbs",
+            extension: "json")
+        self.realmVocabularyService = RealmVocabularyService(realm: RealmProvider.phrasalVerbs.realm!)
+        
+        let verbs: [PhrasalVerbWordItem]? = ((try? phrasalVerbsFileProvider?.loadData()) as? PhrasalVerbList)?.list
+        let verbEntities = verbs?.compactMap({
+            return PhrasalVerbEntity(
+                term: $0.word,
+                derivatives: $0.derivatives ?? [],
+                descriptions: $0.descriptions ?? [],
+                examples: $0.examples ?? []
+            )
+        })
+        self.realmVocabularyService.saveMany(items: verbEntities ?? []) { _, _ in
+        }
+        cards = []
+        view.dismissLoadingIndicator()
+    }
+
+    func loadData() {
+        view.hideSaveButton()
+        view.displayTopicName(name: topic.name)
+        getAllTerms()
+    }
+
+    func getAllTerms() {
+        view.showLoadingIndicator()
+        Task {
+            do {
+                let topicDetails: TopicModel? = try await storageService.getTopicDetails(
+                    set: folder,
+                    topic: topic
+                )
+                self.cards = topicDetails?.terms ?? []
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    self.view.displayTerms(terms: self.cards ?? [])
+                    self.view.dismissLoadingIndicator()
+                }
+            } catch {
+                self.view.dismissLoadingIndicator()
+            }
+        }
+    }
+    
+    func loadDataOf(card: any Card, at cell: TermTableCell, forceUpdateCardView: Bool) {
+        searchDataOfCardDispatchWork?.cancel()
+        guard !card.termDisplay.isEmpty else { return }
+        if card.hasRecommendedData,
+            let index = cards?.firstIndex(where: { $0.idOfCard == card.idOfCard }) {
+            if card.isEqual(card: cards?[index]) {
+                view.updateCell(card: card, at: index, needUpdateCardView: false)
+            } else {
+                updateCardList(card: card)
+            }
+            return
+        }
+
+        searchDataOfCardDispatchWork = DispatchWorkItem(block: {
+            if card.termDisplay.components(separatedBy: " ").count == 1 {
+                self.getDataOfWord(card: card, cell: cell, needUpdateCardView: forceUpdateCardView)
+            } else {
+                self.getDataOfPhrasalVerbs(card: card, cell: cell, needUpdateCardView: forceUpdateCardView)
+            }
+        })
+
+        dispathQueue.asyncAfter(
+            deadline: .now() + 1,
+            execute: searchDataOfCardDispatchWork
+        )
+    }
+    
+    func getDataOfPhrasalVerbs(card: any Card, cell: TermTableCell, needUpdateCardView: Bool) {
+        DispatchQueue.main.async {
+            let result = self.realmVocabularyService.object(
+                type: PhrasalVerbEntity.self,
+                predicateFormat: "term == %@",
+                args: card.termDisplay
+            )
+            guard let phrasalVerb = result?.first else { return }
+            let index = self.updateCardList(card: phrasalVerb)
+        }
+    }
+    
+    func getDataOfWord(card: any Card, cell: TermTableCell, needUpdateCardView: Bool) {
+        print("😀: \(card.termDisplay)")
+        networkVocabularySerivce.getDefination(
+            term: card.termDisplay) { [weak self] (wordItem: WordsApiWordItem?, error: Error?) in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    if let error = error {
+                        debugPrint("☠️: \(error.localizedDescription)")
+                    } else if var wordItem = wordItem {
+                        wordItem.idOfCard = card.idOfCard
+                        let ordinalNumber = self.updateCardList(card: wordItem)
+                        self.view.updateCell(
+                            card: wordItem,
+                            at: ordinalNumber ?? 0,
+                            needUpdateCardView: needUpdateCardView)
+                    }
+                }
+            }
+    }
+    
+    func addNewCard() {
+        cards?.insert(WordsApiWordItem(), at: 0)
+        view.addNewCard()
+        view.showSaveButton()
+    }
+    
+    @discardableResult
+    func updateCardList(card: (any Card)?) -> Int? {
+        guard let card = card else { return nil }
+        if (cards?.count ?? 0) == 1 && cards?.first?.isEmpty == true || cards == nil {
+            cards = [card]
+            return nil
+        }
+        guard let index = cards?.firstIndex(where: { $0.idOfCard == card.idOfCard })
+        else {
+            debugPrint("‼️ not found term")
+            return nil
+        }
+
+        let oldCard = cards?[index]
+        if card.termDisplay == oldCard?.termDisplay
+            && card.selectedExample == oldCard?.selectedExample
+            && card.selectedDefinition == oldCard?.selectedDefinition {
+            view.showSaveButton()
+        }
+        cards?[index] = card
+        return index
+    }
+
+    func topicNameChange(text: String) {
+        topic.name = text
+        view.showSaveButton()
+    }
+
+    func saveTopic() {
+        if !topic.topicId.isNotEmpty() {
+            createTopic()
+        } else {
+            updateTopic()
+        }
+
+    }
+
+    func createTopic() {
+        Task {
+            do {
+                topic.terms = cards?.map({
+                    TermModel(
+                        id: $0.idOfCard,
+                        term: $0.termDisplay,
+                        definition: $0.selectedDefinition,
+                        partOfSpeech: $0.partOfSpeechDisplay,
+                        pronunciation: $0.phoneticDisplay,
+                        phrases: $0.selectedExample
+                    )
+                })
+                if let newTopic = try await storageService.createNewTopic(topic, folder: folder) {
+                    topic = newTopic
+                }
+            } catch {
+                view.showErrorAlert(msg: error.localizedDescription)
+            }
+        }
+    }
+
+    func updateTopic() {
+        view.showLoadingIndicator()
+        Task {
+            do {
+                topic.terms = cards?.map({
+                    TermModel(
+                        id: $0.idOfCard,
+                        term: $0.termDisplay,
+                        definition: $0.selectedDefinition,
+                        partOfSpeech: $0.partOfSpeechDisplay,
+                        pronunciation: $0.phoneticDisplay,
+                        phrases: $0.selectedExample
+                    )
+                })
+                topic.numberOfTerms = topic.terms?.count ?? 0
+                let index = folder.topics.firstIndex {
+                    $0.topicId == topic.topicId
+                }
+                if let index = index {
+                    folder.topics[index] = topic
+                    try await storageService.updateTopic(topic, folder: folder)
+                }
+                view.dismissLoadingIndicator()
+            } catch {
+                view.dismissLoadingIndicator()
+                view.showErrorAlert(msg: error.localizedDescription)
+            }
+        }
+    }
+
+    func removeCard(_ card: (any Card)?) {
+        if let deleteIndex = cards?.firstIndex(where: { $0.isEqual(card: card) }) {
+            cards?.remove(at: deleteIndex)
+            view.deleteCard(at: deleteIndex)
+        } else {
+            cards?.removeFirst()
+            view.deleteCard(at: 0)
+        }
+        view.showSaveButton()
+    }
+
+    func numberOfCards() -> Int {
+        return cards?.count ?? 0
+    }
+
+    func getCard(at index: Int) -> (any Card)? {
+        guard !(cards ?? []).isEmpty else { return nil }
+        return cards?[index]
+    }
+
+    func getAllCards() -> [any Card] {
+        return cards ?? []
+    }
+
+    func reviewCard(card: any Card) {
+        view.reviewCard(card: card)
+    }
+}
