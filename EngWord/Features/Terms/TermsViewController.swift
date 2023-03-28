@@ -226,6 +226,13 @@ extension TermsViewController: TermActivitiesCellDelegate {
 
 extension TermsViewController: TermTableCellDelegate {
 
+    func cardTableCell(_ cell: TermTableCell, didUpdate card: Card) {
+        heightOfRowCache.removeAll()
+        tableView.beginUpdates()
+        tableView.endUpdates()
+        termsPresenter.updateCardList(card: card)
+    }
+
     func cardTableCell(_ cell: TermTableCell, onDelete card: (any Card)?) {
         termsPresenter?.removeCard(card)
     }
@@ -246,13 +253,22 @@ extension TermsViewController: TermTableCellDelegate {
 
     func cardTableCell(
         _ cell: TermTableCell,
-        didUpdate card: any Card,
-        forceUpdateUI: Bool) {
-        termsPresenter?.loadDataOf(
-            card: card,
-            at: cell,
-            forceUpdateCardView: forceUpdateUI
-        )
+        didUpdateTerm card: any Card,
+        forceUpdateUI: Bool,
+        loadRecommendation: Bool
+    ) {
+        if loadRecommendation {
+            termsPresenter?.loadDataOf(
+                card: card,
+                at: cell,
+                forceUpdateCardView: forceUpdateUI
+            )
+        } else {
+            heightOfRowCache.removeAll()
+            tableView.beginUpdates()
+            tableView.endUpdates()
+            termsPresenter.updateCardList(card: card)
+        }
     }
 
     func cardTableCell(_ cell: TermTableCell, onReview card: (any Card)) {

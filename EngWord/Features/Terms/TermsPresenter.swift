@@ -141,6 +141,8 @@ class TermsPresenter: BasePresenter {
                         debugPrint("☠️: \(error.localizedDescription)")
                     } else if var wordItem = wordItem {
                         wordItem.idOfCard = card.idOfCard
+                        wordItem.selectedExample = card.selectedExample
+                        wordItem.selectedDefinition = card.selectedDefinition
                         let ordinalNumber = self.updateCardList(card: wordItem)
                         self.view.updateCell(
                             card: wordItem,
@@ -169,11 +171,10 @@ class TermsPresenter: BasePresenter {
             debugPrint("‼️ not found term")
             return nil
         }
-
         let oldCard = cards?[index]
-        if card.termDisplay == oldCard?.termDisplay
-            && card.selectedExample == oldCard?.selectedExample
-            && card.selectedDefinition == oldCard?.selectedDefinition {
+        if card.termDisplay != oldCard?.termDisplay
+            || card.selectedExample != oldCard?.selectedExample
+            || card.selectedDefinition != oldCard?.selectedDefinition {
             view.showSaveButton()
         }
         cards?[index] = card

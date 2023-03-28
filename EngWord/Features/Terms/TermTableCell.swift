@@ -13,7 +13,11 @@ protocol TermTableCellDelegate: AnyObject {
     func cardTableCell(_ cell: TermTableCell, onDelete card: (any Card)?)
     func cardTableCell(_ cell: TermTableCell, onReview card: (any Card))
     func cardTableCell(_ cell: TermTableCell, didTapPartOfSpeech card: (any Card)?)
-    func cardTableCell(_ cell: TermTableCell, didUpdate card: any Card, forceUpdateUI: Bool)
+    func cardTableCell(
+        _ cell: TermTableCell,
+        didUpdateTerm card: any Card,
+        forceUpdateUI: Bool, loadRecommendation: Bool)
+//    func cardTableCell(_ cell: TermTableCell, didUpdate card: any Card)
     func cardTableCell(_ cell: TermTableCell)
 }
 
@@ -47,11 +51,10 @@ class TermTableCell: UITableViewCell {
                 visibleRecommendedExamples = false
                 visibleRecommendedDefinitions = !recommendedDefinitionView.arrangedSubviews.isEmpty
             } else if textViewInProcess == exampleTextView {
-                visibleRecommendedDefinitions = false // !recommendedDefinitionView.arrangedSubviews.isEmpty
+                visibleRecommendedDefinitions = false
                 visibleRecommendedExamples = !recommendedExampleView.arrangedSubviews.isEmpty
             }
-            delegate?.cardTableCell(self)
-//            delegate?.cardTableCell(self, didUpdate: card!, forceUpdateUI: false)
+            delegate?.cardTableCell(self, didUpdateTerm: card!, forceUpdateUI: false, loadRecommendation: false)
         }
     }
     private var card: (any Card)?
@@ -177,7 +180,12 @@ class TermTableCell: UITableViewCell {
         guard var uwrCard = card else { return }
         uwrCard.termDisplay = sender.text ?? ""
         startLoading()
-        delegate?.cardTableCell(self, didUpdate: uwrCard, forceUpdateUI: true)
+        delegate?.cardTableCell(
+            self,
+            didUpdateTerm: uwrCard,
+            forceUpdateUI: true,
+            loadRecommendation: true
+        )
     }
 
     @objc func termTfEditingDidBegin(_ sender: UITextField) {
@@ -283,10 +291,6 @@ class TermTableCell: UITableViewCell {
         textViewInProcess = nil
         delegate?.cardTableCell(self, didTapPartOfSpeech: card)
     }
-
-    fileprivate func hideAllRecommendList() {
-
-    }
 }
 
 extension TermTableCell: UITextViewDelegate {
@@ -299,24 +303,24 @@ extension TermTableCell: UITextViewDelegate {
         } else if textView == exampleTextView {
             card.selectedExample = textView.text
         }
-        delegate?.cardTableCell(self)
-
-//        delegate?.updateHeightOfRow(self, textView)
-//        delegate?.cardEditingChanged(self, uwrCard)
-//
-//
-//        guard let uwrCard = card,
-//              uwrCard.listOfDefinition.isEmpty
-//                || (uwrCard.listOfExamples?.isEmpty ?? true) else { return }
-//        delegate?.cardEditingChanged(self, uwrCard)
-//        delegate?.cardTableCell(self, didUpdate: uwrCard, needLoadData: false)
+        delegate?.cardTableCell(
+            self,
+            didUpdateTerm: card,
+            forceUpdateUI: false,
+            loadRecommendation: true)
     }
 
     func textViewDidBeginEditing(_ textView: UITextView) {
         textViewInProcess = textView
         if let card = card, !card.termDisplay.isEmpty && !card.hasRecommendedData {
             startLoading()
-            delegate?.cardTableCell(self, didUpdate: card, forceUpdateUI: false)
+            delegate?.cardTableCell(self)
+            delegate?.cardTableCell(
+                self,
+                didUpdateTerm: card,
+                forceUpdateUI: false,
+                loadRecommendation: false
+            )
         }
     }
 
@@ -327,9 +331,6 @@ extension TermTableCell: UITextViewDelegate {
     
     func updateDataOfCard() {
         card?.selectedDefinition = definitionTextView.text
-        //        card?.selectedExample = exampleTextView.text
-        //        delegate?.updateHeightOfRow(self, definitionTextView)
-        //        delegate?.updateHeightOfRow(self, exampleTextView)
         finishLoading()
     }
 }
