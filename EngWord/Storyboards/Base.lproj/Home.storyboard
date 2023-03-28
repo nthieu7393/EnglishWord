@@ -1622,29 +1622,9 @@
                     <view key="view" contentMode="scaleToFill" id="kXm-YB-DV9">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Round" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yq8-Bg-Psg">
-                                <rect key="frame" x="20" y="59" width="350" height="24"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="24" id="J06-o5-lSB"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="MDi-2x-A7s"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="MDi-2x-A7s" firstAttribute="trailing" secondItem="Yq8-Bg-Psg" secondAttribute="trailing" constant="20" id="Rvb-mx-ZaK"/>
-                            <constraint firstItem="Yq8-Bg-Psg" firstAttribute="centerX" secondItem="kXm-YB-DV9" secondAttribute="centerX" id="f1E-ru-LuA"/>
-                            <constraint firstItem="Yq8-Bg-Psg" firstAttribute="leading" secondItem="MDi-2x-A7s" secondAttribute="leading" constant="20" id="ild-py-RSb"/>
-                            <constraint firstItem="Yq8-Bg-Psg" firstAttribute="top" secondItem="MDi-2x-A7s" secondAttribute="top" constant="12" id="pm1-3c-fs2"/>
-                        </constraints>
                     </view>
-                    <connections>
-                        <outlet property="roundNumberLabel" destination="Yq8-Bg-Psg" id="hXP-I1-o6M"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wCq-no-eYW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

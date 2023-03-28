@@ -9,8 +9,7 @@ import UIKit
 import Lottie
 
 final class PracticeTopicViewController: BaseViewController {
-    
-    @IBOutlet weak var roundNumberLabel: UILabel!
+    var animationView: AnimationView?
 
     var pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
 
@@ -22,7 +21,7 @@ final class PracticeTopicViewController: BaseViewController {
         return presenter as? PracticeTopicPresenter
     }
     var controllers: [PracticeFormController]!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         myPresenter?.viewDidLoad()
@@ -31,9 +30,10 @@ final class PracticeTopicViewController: BaseViewController {
             PracticeFormController(form: myPresenter!.getPracticeForm(at: 1), delegatedController: self)
         ]
 
-        roundNumberLabel.text = "Round 1"
-        roundNumberLabel.font = Fonts.boldText
-        roundNumberLabel.textColor = Colors.mainText
+//        roundNumberLabel.text = "Round 1"
+//        roundNumberLabel.font = Fonts.boldText
+//        roundNumberLabel.textColor = Colors.mainText
+        title = "Round 1"
 
         view.addSubview(pageViewController.view)
         pageViewController.dataSource = self
@@ -86,25 +86,26 @@ extension PracticeTopicViewController: PracticeTopicViewProtocol, Storyboarded {
 
     func moveToNextRound(index: Int) {
         view.endEditing(true)
-        roundNumberLabel.text = "Round \(index + 1)"
+        title = "Round \(index + 1)"
         pageViewController.setViewControllers([controllers[index]], direction: .forward, animated: true)
     }
 
+    
     func showPracticePass() {
         let jsonName = "lf20_tiviyc3p"
         let animation = Animation.named(jsonName)
 
         // Load animation to AnimationView
-        let animationView = AnimationView(animation: animation)
-        animationView.frame = view.bounds
+        animationView = AnimationView(animation: animation)
+        animationView?.frame = view.bounds
 
         // Add animationView as subview
-        view.addSubview(animationView)
+        view.addSubview(animationView!)
 
         // Play the animation
-        animationView.play(completion: { isComplete in
+        animationView?.play(completion: { isComplete in
             guard isComplete else { return }
-            animationView.removeFromSuperview()
+            self.animationView?.removeFromSuperview()
             self.dismissScreen()
         })
 
@@ -125,6 +126,9 @@ extension PracticeTopicViewController: PracticalResultPopupDelegate {
 
     func practicalResultPopup(_ popup: PracticalResultViewController, onTap doneButton: TextButton) {
         self.dismiss(animated: true)
+        animationView?.stop()
+        animationView?.removeFromSuperview()
+        coordinator?.back(animated: true)
     }
 }
 

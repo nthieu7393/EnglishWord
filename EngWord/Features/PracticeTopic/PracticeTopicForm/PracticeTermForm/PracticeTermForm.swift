@@ -18,9 +18,6 @@ protocol PracticeFormDelegate: AnyObject {
 
 class PracticeTermForm: UIView, PracticeFormView {
 
-    typealias T = PracticeTermPresenter
-    typealias U = PracticeTermForm
-
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var descriptionLabel: UITextView!
     @IBOutlet weak var answerTextfield: UnderlineTextField!
@@ -48,7 +45,8 @@ class PracticeTermForm: UIView, PracticeFormView {
     override func awakeFromNib() {
         super.awakeFromNib()
         progressBar.progress = 0.0
-        
+        answerTextfield.addTarget(self, action: #selector(answerEditingChanged(_:)), for: .editingChanged)
+        nextButton.isEnabled = false
         answerLabel.font = Fonts.subtitle
         answerLabel.textColor = Colors.mainText
         answerLabel.text = "Your answer"
@@ -65,6 +63,10 @@ class PracticeTermForm: UIView, PracticeFormView {
             selector: #selector(keyboardWillHide(_:)),
             name: UIResponder.keyboardWillHideNotification,
             object: nil)
+    }
+    
+    @objc func answerEditingChanged(_ sender: UnderlineTextField) {
+        presenter?.answerEditingChanged(sender.text ?? "")
     }
 
     deinit {
@@ -102,6 +104,7 @@ class PracticeTermForm: UIView, PracticeFormView {
             completion: { isFinish in
                 guard isFinish else { return }
                 self.answerTextfield.becomeFirstResponder()
+                self.nextButton.isEnabled = false
             })
     }
 
@@ -127,5 +130,13 @@ class PracticeTermForm: UIView, PracticeFormView {
         UIView.animate(withDuration: 0.3, delay: 0.7) {
             self.descriptionLabel.center = originFrame
         }
+    }
+    
+    func disableNextButton() {
+        nextButton.isEnabled = false
+    }
+    
+    func enableNextButton() {
+        nextButton.isEnabled = true
     }
 }

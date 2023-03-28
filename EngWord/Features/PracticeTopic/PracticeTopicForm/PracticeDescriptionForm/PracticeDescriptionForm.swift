@@ -8,7 +8,7 @@
 import UIKit
 
 class PracticeDescriptionForm: UIView, PracticeFormView {
-
+    
     func showTurnResult(msg: NSAttributedString?, result: TurnResult) {
         delegate?.practiceForm(self, msg: msg, result: result)
     }
@@ -66,6 +66,8 @@ class PracticeDescriptionForm: UIView, PracticeFormView {
     func showRoundResultFail() {
 
     }
+    
+    
 }
 
 extension PracticeDescriptionForm: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -210,7 +212,7 @@ extension PracticeDescriptionForm: UITableViewDataSource, UITableViewDelegate {
         cell.transform = CGAffineTransform(translationX: tableView.bounds.width, y: 0)
         UIView.animate(
             withDuration: 0.5,
-            delay: 0.3 * Double(indexPath.row),
+            delay: indexPath.row == 0 ? 0.3 : 0.5 * Double(indexPath.row),
             options: [.curveEaseInOut]) {
                 cell.transform = CGAffineTransform(translationX: 0, y: 0)
             }

@@ -31,11 +31,12 @@ class TermTableCell: UITableViewCell {
     @IBOutlet private weak var loadingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var recommendedDefinitionView: UIStackView!
     @IBOutlet weak var recommendedDefinitionHeightConstraintConstant: NSLayoutConstraint!
-    @IBOutlet weak var recommendedExampleHeightConstraintConstant: NSLayoutConstraint!
     @IBOutlet weak var recommendedExampleView: UIStackView!
+    @IBOutlet weak var recommendedExampleHeightConstraintConstant: NSLayoutConstraint!
 
     private var tempHeightOfDefinition: CGFloat = 0
     private var tempHeightOfExample: CGFloat = 0
+    private let numberOfItems = 5
     private var textViewInProcess: UITextView? {
 
         didSet {
@@ -49,7 +50,8 @@ class TermTableCell: UITableViewCell {
                 visibleRecommendedDefinitions = false // !recommendedDefinitionView.arrangedSubviews.isEmpty
                 visibleRecommendedExamples = !recommendedExampleView.arrangedSubviews.isEmpty
             }
-            delegate?.cardTableCell(self, didUpdate: card!, forceUpdateUI: false)
+            delegate?.cardTableCell(self)
+//            delegate?.cardTableCell(self, didUpdate: card!, forceUpdateUI: false)
         }
     }
     private var card: (any Card)?
@@ -58,12 +60,14 @@ class TermTableCell: UITableViewCell {
 
     var visibleRecommendedDefinitions: Bool = false {
         didSet {
-//            if visibleRecommendedDefinitions {
-//                visibleRecommendedExamples = false
-//            }
+            if visibleRecommendedDefinitions {
+                visibleRecommendedExamples = false
+            }
+            self.heightOfRecommendedDefinitions = self.visibleRecommendedDefinitions ? self.tempHeightOfDefinition : 0.0
+            self.recommendedDefinitionHeightConstraintConstant.constant = self.heightOfRecommendedDefinitions
+            
             UIView.animate(withDuration: 0.297, delay: 0.0) {
-                self.heightOfRecommendedDefinitions = self.visibleRecommendedDefinitions ? self.tempHeightOfDefinition : 0.0
-                self.recommendedDefinitionHeightConstraintConstant.constant = self.heightOfRecommendedDefinitions
+                self.recommendedDefinitionView.alpha = self.visibleRecommendedDefinitions ? 1.0 : 0.0
                 self.recommendedDefinitionView.layoutIfNeeded()
                 self.layoutIfNeeded()
             }
@@ -78,12 +82,14 @@ class TermTableCell: UITableViewCell {
 
     var visibleRecommendedExamples: Bool = false {
         didSet {
-//            if visibleRecommendedExamples {
-//                visibleRecommendedDefinitions = false
-//            }
+            if visibleRecommendedExamples {
+                visibleRecommendedDefinitions = false
+            }
+            self.heightOfRecommendedExamples = self.visibleRecommendedExamples ? self.tempHeightOfExample : 0.0
+            self.recommendedExampleHeightConstraintConstant.constant = self.heightOfRecommendedExamples
+            
             UIView.animate(withDuration: 0.297, delay: 0.0) {
-                self.heightOfRecommendedExamples = self.visibleRecommendedExamples ? self.tempHeightOfExample : 0.0
-                self.recommendedExampleHeightConstraintConstant.constant = self.heightOfRecommendedExamples
+                self.recommendedExampleView.alpha = self.visibleRecommendedExamples ? 1.0 : 0.0
                 self.recommendedExampleView.layoutIfNeeded()
                 self.layoutIfNeeded()
             }
@@ -109,7 +115,8 @@ class TermTableCell: UITableViewCell {
             self,
             action: #selector(termTfEditingDidBegin(_:)),
             for: .editingDidBegin)
-
+        recommendedExampleView.alpha = 0.0
+        recommendedDefinitionView.alpha = 0.0
         setupLabels()
         containerView.backgroundColor = Colors.cellBackground
         containerView.addCornerRadius()
@@ -179,7 +186,7 @@ class TermTableCell: UITableViewCell {
 
     private func addRecommendedDefinitionRowToStack(recommendedDefinitions: [String]) {
         removeRecommendedDefinitionRowFromStack()
-        recommendedDefinitions.prefix(3).forEach({ text in
+        recommendedDefinitions.prefix(numberOfItems).forEach({ text in
             let view = newRecommendedRow(text: text, function: #selector(recommendedDefinitionOnTap(_:)))
             tempHeightOfDefinition += 30
             recommendedDefinitionView.addArrangedSubview(view)
@@ -196,7 +203,7 @@ class TermTableCell: UITableViewCell {
 
     private func addRecommendedExamplesRowToStack(recommendedExamples: [String]) {
         removeRecommendedExamplesRowFromStack()
-        recommendedExamples.prefix(3).forEach({ text in
+        recommendedExamples.prefix(numberOfItems).forEach({ text in
             let view = newRecommendedRow(text: text, function: #selector(recommendedExampleOnTap(_:)))
             tempHeightOfExample += 30
             recommendedExampleView.addArrangedSubview(view)
@@ -286,12 +293,13 @@ extension TermTableCell: UITextViewDelegate {
 
     func textViewDidChange(_ textView: UITextView) {
         guard var card = card else { return }
-        delegate?.cardTableCell(self)
+        
         if textView == definitionTextView {
             card.selectedDefinition = textView.text
         } else if textView == exampleTextView {
             card.selectedExample = textView.text
         }
+        delegate?.cardTableCell(self)
 
 //        delegate?.updateHeightOfRow(self, textView)
 //        delegate?.cardEditingChanged(self, uwrCard)

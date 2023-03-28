@@ -19,7 +19,7 @@ protocol PracticeFormView {
     associatedtype U: UIView
 
     var contentView: U { get }
-    var presenter: T? { get }
+    var presenter: T? { get set }
     var delegate: PracticeFormDelegate? { get set }
     var description: String { get }
 
@@ -30,6 +30,11 @@ protocol PracticeFormView {
     func showTurnResult(msg: NSAttributedString?, result: TurnResult)
 }
 
+extension PracticeFormView {
+    func disableNextButton() {}
+    func enableNextButton() {}
+}
+
 protocol PracticeFormPresenter {
 
     var endTestHandler: ((String) -> Void)? { get set }
@@ -37,55 +42,6 @@ protocol PracticeFormPresenter {
     func getProcessingCard() -> (any Card)?
     func getPracticeCards() -> [any Card]
 }
-
-// ---
-//class PracticeTermView: UIView, PracticeFormView {
-//    typealias T = PracticeTermPresenter
-//
-//    var vvvv: PracticeTermForm!
-//
-//    var presenter: PracticeTermPresenter? {
-//        didSet {
-//
-//        }
-//    }
-//
-//    var contentView: PracticeTermForm {
-//        if vvvv == nil {
-//            vvvv = Bundle.main.loadNibNamed("PracticeTermForm", owner: nil)?.first as? PracticeTermForm
-//        }
-//        return vvvv
-//    }
-//
-//    override var description: String {
-//        return "PracticeTermView"
-//    }
-//}
-
-//class PracticeDescriptionView: UIView, PracticeFormView {
-//    typealias T = PracticeDescriptionPresenter
-//
-//    var presenter: PracticeDescriptionPresenter?
-//    var contentView: PracticeDescriptionForm {
-//        return Bundle.main.loadNibNamed("PracticeDescriptionForm", owner: nil)?.first as! PracticeDescriptionForm
-//    }
-//
-//    override var description: String {
-//        return "PracticeDescriptionForm"
-//    }
-//}
-
-// ---
-
-//struct AnsweredCard {
-//
-//    var card: (any Card)
-//    var isCorrect: Bool
-//
-//    func checkIfAnswer(_ card: Card) -> Bool {
-//        return card.isEqual(card: card)
-//    }
-//}
 
 protocol PracticeFormControllerDelegate: AnyObject {
 

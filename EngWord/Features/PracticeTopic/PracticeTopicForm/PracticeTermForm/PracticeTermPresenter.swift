@@ -9,7 +9,7 @@ import Foundation
 
 class PracticeTermPresenter: PracticeFormPresenter {
 
-    var view: (any PracticeFormView)!
+    var view: PracticeTermForm
     private var processingCardIndex: Int?
     private var cards: [any Card]!
 
@@ -17,7 +17,7 @@ class PracticeTermPresenter: PracticeFormPresenter {
 
     init(view: (any PracticeFormView), cards: [any Card]) {
         self.cards = cards.shuffled()
-        self.view = view
+        self.view = view as! PracticeTermForm
         if !cards.isEmpty {
             processingCardIndex = 0
         }
@@ -41,7 +41,7 @@ class PracticeTermPresenter: PracticeFormPresenter {
             return
         }
         updateProgressOfRound()
-        view?.displayCard(card: card)
+        view.displayCard(card: card)
 
     }
 
@@ -67,5 +67,11 @@ class PracticeTermPresenter: PracticeFormPresenter {
 //        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1700), execute: showCorrectMessage)
     }
 
-    
+    func answerEditingChanged(_ answer: String) {
+        if answer.isEmpty {
+            view.disableNextButton()
+        } else {
+            view.enableNextButton()
+        }
+    }
 }

@@ -75,7 +75,6 @@ final class PracticeTopicPresenter: BasePresenter {
                 mutatingTopic.numberOfPractice = 1
                 return mutatingTopic
             }
-            break
         case .monthly:
             if topic.numberOfPractice != nil {
                 return updatePracticeIntervalDaily(topic: topic, withinDay: intervalInHours < 24)

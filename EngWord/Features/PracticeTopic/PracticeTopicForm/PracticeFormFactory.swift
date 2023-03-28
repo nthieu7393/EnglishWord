@@ -16,11 +16,13 @@ class PracticalFormController {
     ) -> any PracticeFormView {
         switch form {
         case .practiceTerm:
-            let view = Bundle.main.loadNibNamed("PracticeTermForm", owner: nil)?.first as? PracticeTermForm
-            var presenter = practiceFormPresenter(for: form, view: view!, cards: cards)
+            var view = Bundle.main.loadNibNamed(
+                "PracticeTermForm",
+                owner: nil)?.first as! PracticeTermForm
+            var presenter = practiceFormPresenter(for: form, view: view, cards: cards)
             presenter.endTestHandler = handler
-            view!.presenter = presenter as? PracticeTermPresenter
-            return view!
+            view.presenter = presenter as? PracticeTermPresenter
+            return view
         case .practiceDescription:
             let view = Bundle.main.loadNibNamed("PracticeDescriptionForm", owner: nil)?.first as? PracticeDescriptionForm
             var presenter = practiceFormPresenter(for: form, view: view!, cards: cards)

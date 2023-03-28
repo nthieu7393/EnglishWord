@@ -15,17 +15,25 @@ class TextButton: UIControl {
             titleLabel?.textAlignment = titleAlign
         }
     }
+    
+    override var isEnabled: Bool {
+        didSet {
+            super.isEnabled = isEnabled
+            textColor = isEnabled ? Colors.active : Colors.unFocused
+            layoutSubviews()
+        }
+    }
 
     var textColor: UIColor? {
         didSet {
-            layoutIfNeeded()
+            titleLabel?.textColor = textColor
         }
     }
 
     private lazy var titleLabel: UILabel? = {
         let label = UILabel()
         label.font = Fonts.button
-        label.textColor = Colors.mainText
+        label.textColor = textColor
         label.textAlignment = titleAlign
         label.backgroundColor = UIColor.clear
         return label
