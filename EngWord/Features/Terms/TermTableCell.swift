@@ -15,10 +15,10 @@ protocol TermTableCellDelegate: AnyObject {
     func cardTableCell(_ cell: TermTableCell, didTapPartOfSpeech card: (any Card)?)
     func cardTableCell(
         _ cell: TermTableCell,
-        didUpdateTerm card: any Card,
-        forceUpdateUI: Bool, loadRecommendation: Bool)
-//    func cardTableCell(_ cell: TermTableCell, didUpdate card: any Card)
-    func cardTableCell(_ cell: TermTableCell)
+        didUpdate card: any Card,
+        forceUpdateUI: Bool,
+        loadRecommendation: Bool)
+//    func cardTableCell(_ cell: TermTableCell)
 }
 
 class TermTableCell: UITableViewCell {
@@ -54,7 +54,7 @@ class TermTableCell: UITableViewCell {
                 visibleRecommendedDefinitions = false
                 visibleRecommendedExamples = !recommendedExampleView.arrangedSubviews.isEmpty
             }
-            delegate?.cardTableCell(self, didUpdateTerm: card!, forceUpdateUI: false, loadRecommendation: false)
+            delegate?.cardTableCell(self, didUpdate: card!, forceUpdateUI: false, loadRecommendation: false)
         }
     }
     private var card: (any Card)?
@@ -182,7 +182,7 @@ class TermTableCell: UITableViewCell {
         startLoading()
         delegate?.cardTableCell(
             self,
-            didUpdateTerm: uwrCard,
+            didUpdate: uwrCard,
             forceUpdateUI: true,
             loadRecommendation: true
         )
@@ -305,7 +305,7 @@ extension TermTableCell: UITextViewDelegate {
         }
         delegate?.cardTableCell(
             self,
-            didUpdateTerm: card,
+            didUpdate: card,
             forceUpdateUI: false,
             loadRecommendation: true)
     }
@@ -314,10 +314,10 @@ extension TermTableCell: UITextViewDelegate {
         textViewInProcess = textView
         if let card = card, !card.termDisplay.isEmpty && !card.hasRecommendedData {
             startLoading()
-            delegate?.cardTableCell(self)
+//            delegate?.cardTableCell(self)
             delegate?.cardTableCell(
                 self,
-                didUpdateTerm: card,
+                didUpdate: card,
                 forceUpdateUI: false,
                 loadRecommendation: false
             )
@@ -326,7 +326,7 @@ extension TermTableCell: UITextViewDelegate {
 
     func textViewDidEndEditing(_ textView: UITextView) {
         textViewInProcess = nil
-        delegate?.cardTableCell(self)
+//        delegate?.cardTableCell(self)
     }
     
     func updateDataOfCard() {

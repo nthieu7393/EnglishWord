@@ -111,4 +111,26 @@ class SetsPresenter: BasePresenter {
             self?.view.showResultAlert(error: error, message: nil)
         }
     }
+    
+    func updateTopic(topic: TopicModel?) {
+        guard let topic = topic else { return }
+        guard var folder = sets?.first(where: {
+            $0.topics.map { topic in topic.topicId }.contains { id in
+                id == topic.topicId
+            }
+        }) else { return }
+        
+        guard let indexOfTopic = folder.topics.firstIndex(where: {
+            $0.topicId == topic.topicId
+        }) else { return }
+        
+        folder.topics[indexOfTopic] = topic
+        
+        guard let indexOfFolder = sets?.firstIndex(where: {
+            $0.id == folder.id
+        }) else { return }
+        
+        sets?[Int(indexOfFolder)] = folder
+        view.displayDataOfSets(sets: sets ?? [])
+    }
 }

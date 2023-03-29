@@ -253,7 +253,7 @@ extension TermsViewController: TermTableCellDelegate {
 
     func cardTableCell(
         _ cell: TermTableCell,
-        didUpdateTerm card: any Card,
+        didUpdate card: any Card,
         forceUpdateUI: Bool,
         loadRecommendation: Bool
     ) {

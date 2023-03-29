@@ -26,6 +26,11 @@ class FolderViewController: BaseViewController {
         super.viewDidLoad()
         layoutInputNewSetToolbar()
         setsPresenter?.loadAllSets()
+        NotificationCenter.default.addObserver(self, selector: #selector(practiceNotificationReceived(_:)), name: .practiceFinishNotification, object: nil)
+    }
+    
+    @objc func practiceNotificationReceived(_ notification: Notification) {
+        setsPresenter?.updateTopic(topic: notification.object as? TopicModel)
     }
 
     private func layoutInputNewSetToolbar() {
@@ -97,6 +102,10 @@ class FolderViewController: BaseViewController {
         alert.addAction(deleteFolderAction)
         alert.addAction(cancelAction)
         present(alert, animated: true)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .practiceFinishNotification, object: nil)
     }
     
     @objc func sortButtonOnTap(_ sender: Any) {

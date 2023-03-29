@@ -16,7 +16,7 @@ class SetTableViewCell: UITableViewCell {
     @IBOutlet weak var dateIntervalLabel: UILabel!
     
     override func awakeFromNib() {
-        super.awakeFromNib()
+        super.awakeFromNib() 
         setTextFont()
         containerView.addCornerRadius()
         containerView.backgroundColor = Colors.cellBackground
