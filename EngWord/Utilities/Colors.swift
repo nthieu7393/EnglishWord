@@ -18,4 +18,7 @@ struct Colors {
     static let correct = R.color.correct()!
     static let incorrect = R.color.incorrect()!
     static let separatorLine = R.color.separatorLine()!
+    static let daily = R.color.daily()!
+    static let weekly = R.color.weekly()!
+    static let monthly = R.color.monthly()!
 }

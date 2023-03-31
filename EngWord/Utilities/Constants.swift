@@ -56,9 +56,9 @@ enum IntervalBetweenPractice: Int, Codable {
 
     var color: UIColor {
         switch self {
-            case .daily: return UIColor.green
-            case .weekly: return UIColor.cyan
-            case .monthly: return UIColor.orange
+            case .daily: return Colors.daily
+            case .weekly: return Colors.weekly
+            case .monthly: return Colors.monthly
         }
     }
     

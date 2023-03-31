@@ -278,7 +278,7 @@ struct _R {
     }
   }
 
-  /// This `_R.color` struct is generated, and contains static references to 10 colors.
+  /// This `_R.color` struct is generated, and contains static references to 13 colors.
   struct color {
     let bundle: Foundation.Bundle
 
@@ -294,6 +294,9 @@ struct _R {
     /// Color `correct`.
     var correct: RswiftResources.ColorResource { .init(name: "correct", path: [], bundle: bundle) }
 
+    /// Color `daily`.
+    var daily: RswiftResources.ColorResource { .init(name: "daily", path: [], bundle: bundle) }
+
     /// Color `incorrect`.
     var incorrect: RswiftResources.ColorResource { .init(name: "incorrect", path: [], bundle: bundle) }
 
@@ -303,6 +306,9 @@ struct _R {
     /// Color `mainText`.
     var mainText: RswiftResources.ColorResource { .init(name: "mainText", path: [], bundle: bundle) }
 
+    /// Color `monthly`.
+    var monthly: RswiftResources.ColorResource { .init(name: "monthly", path: [], bundle: bundle) }
+
     /// Color `placeholder`.
     var placeholder: RswiftResources.ColorResource { .init(name: "placeholder", path: [], bundle: bundle) }
 
@@ -311,9 +317,12 @@ struct _R {
 
     /// Color `unFocused`.
     var unFocused: RswiftResources.ColorResource { .init(name: "unFocused", path: [], bundle: bundle) }
+
+    /// Color `weekly`.
+    var weekly: RswiftResources.ColorResource { .init(name: "weekly", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 29 images.
+  /// This `_R.image` struct is generated, and contains static references to 30 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -346,6 +355,9 @@ struct _R {
 
     /// Image `closeRoundIcon`.
     var closeRoundIcon: RswiftResources.ImageResource { .init(name: "closeRoundIcon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `createDateIcon`.
+    var createDateIcon: RswiftResources.ImageResource { .init(name: "createDateIcon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `doneIcon`.
     var doneIcon: RswiftResources.ImageResource { .init(name: "doneIcon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
@@ -640,6 +652,7 @@ struct _R {
       var viewController: RswiftResources.StoryboardViewControllerIdentifier<ViewController> { .init(identifier: "ViewController", storyboard: name, bundle: bundle) }
 
       func validate() throws {
+        if UIKit.UIImage(named: "createDateIcon", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Image named 'createDateIcon' is used in storyboard 'Home', but couldn't be loaded.") }
         if #available(iOS 13.0, *) { if UIKit.UIImage(systemName: "eye.fill") == nil { throw RswiftResources.ValidationError("[R.swift] System image named 'eye.fill' is used in storyboard 'Home', but couldn't be loaded.") } }
         if UIKit.UIImage(named: "fullIcon", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Image named 'fullIcon' is used in storyboard 'Home', but couldn't be loaded.") }
         if UIKit.UIImage(named: "paperIcon", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Image named 'paperIcon' is used in storyboard 'Home', but couldn't be loaded.") }

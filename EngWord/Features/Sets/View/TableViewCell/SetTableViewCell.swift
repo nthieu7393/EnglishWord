@@ -15,6 +15,8 @@ class SetTableViewCell: UITableViewCell {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var dateIntervalLabel: UILabel!
     @IBOutlet weak var frequencyContainer: UIView!
+    @IBOutlet weak var progressLabel: UILabel!
+    @IBOutlet weak var progressBar: UIProgressView!
 
     override func awakeFromNib() {
         super.awakeFromNib() 
@@ -31,15 +33,19 @@ class SetTableViewCell: UITableViewCell {
         numberOfTermsLbl.textColor = Colors.mainText
         createdOnLbl.font = Fonts.regularText
         createdOnLbl.textColor = Colors.mainText
-        dateIntervalLabel.font = Fonts.regularText
+        dateIntervalLabel.font = Fonts.subtitle
         dateIntervalLabel.textColor = Colors.mainText
+        progressLabel.font = Fonts.subtitle
+        progressLabel.textColor = Colors.mainText
     }
 
     func setData(topic: TopicModel?) {
-        topicNameLbl.text = topic?.name
-        numberOfTermsLbl.text = "\(topic?.numberOfTerms ?? 0) \(Localizations.words.lowercased())"
-        createdOnLbl.text = topic?.createdTime
-        dateIntervalLabel.text = (topic?.intervalPractice ?? .daily).text
-        frequencyContainer.backgroundColor = (topic?.intervalPractice?.color ?? IntervalBetweenPractice.daily.color).darker(componentDelta: 0.5)
+        guard let topic = topic else { return }
+        topicNameLbl.text = topic.name
+        numberOfTermsLbl.text = "\(topic.numberOfTerms) \(Localizations.words.lowercased())"
+        createdOnLbl.text = topic.createdTime
+        dateIntervalLabel.text = (topic.intervalPractice ?? .daily).text
+        frequencyContainer.backgroundColor = (topic.intervalPractice?.color ?? IntervalBetweenPractice.daily.color)
+        progressLabel.text = "\(topic.numberOfPractice ?? 0)/\(topic.intervalPractice?.maxPracticeNumber ?? IntervalBetweenPractice.daily.maxPracticeNumber)"
     }
 }
