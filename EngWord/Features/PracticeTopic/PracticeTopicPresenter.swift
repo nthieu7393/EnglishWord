@@ -44,24 +44,52 @@ final class PracticeTopicPresenter: BasePresenter {
                 NotificationCenter.default.post(name: .practiceFinishNotification, object: updatedPracticeIntervalTopic)
                 self.storageService.updatePracticeIntervalOfTopic(
                     topic: updatedPracticeIntervalTopic,
-                    folder: self.folder) { err in
-                        if let err = err {
-                            self.view?.showErrorAlert(msg: err.localizedDescription)
-                        }
+                    folder: self.folder
+                ) { err in
+                    if let err = err {
+                        self.view?.showErrorAlert(msg: err.localizedDescription)
                     }
+                }
             })
         ]
     }
     
     private func updatePracticeValue(of topic: TopicModel) -> TopicModel {
         var mutatingTopic: TopicModel
+        
+        if topic.lastDatePractice == nil || topic.lastDatePractice == 0 {
+            mutatingTopic = topic
+            mutatingTopic.intervalPractice = .daily
+            mutatingTopic.lastDatePractice = Date().timeIntervalSince1970
+            mutatingTopic.numberOfPractice = 1
+            return mutatingTopic
+        }
+        
+        let calendar = Calendar.current
+        let fromDateComponents = calendar.dateComponents(
+            [.day, .weekOfYear, .month],
+            from: Date(timeIntervalSince1970: topic.lastDatePractice!)
+        )
+        let toDateComponents = calendar.dateComponents(
+            [.day, .weekOfYear, .month],
+            from: Date()
+        )
         switch topic.intervalPractice {
         case .daily:
-           mutatingTopic = updatePracticeIntervalDaily(topic: topic)
+            mutatingTopic = updatePracticeIntervalDaily(
+                topic: topic,
+                fromDateComponents: fromDateComponents,
+                toDateComponents: toDateComponents)
         case .weekly:
-            mutatingTopic = updatePracticeIntervalWeekly(topic: topic)
+            mutatingTopic = updatePracticeIntervalWeekly(
+                topic: topic,
+                fromDateComponents: fromDateComponents,
+                toDateComponents: toDateComponents)
         case .monthly:
-            mutatingTopic = updatePracticeIntervalMonthly(topic: topic)
+            mutatingTopic = updatePracticeIntervalMonthly(
+                topic: topic,
+                fromDateComponents: fromDateComponents,
+                toDateComponents: toDateComponents)
         case .none:
             mutatingTopic = topic
             mutatingTopic.intervalPractice = .daily
@@ -71,69 +99,71 @@ final class PracticeTopicPresenter: BasePresenter {
         return mutatingTopic
     }
     
-    private func updatePracticeIntervalDaily(topic: TopicModel) -> TopicModel {
-        let now = Date()
-        let lastPracticeDate = topic.lastDatePractice != nil
-            ? Date(timeIntervalSince1970: topic.lastDatePractice!)
-            : now
-        let intervalInHours = abs(now.timeIntervalSince(lastPracticeDate)) / 3600
-        
-        var mutatingTopic = topic
-        if intervalInHours < 24 {
-            if topic.numberOfPractice == IntervalBetweenPractice.daily.maxPracticeNumber {
-                mutatingTopic.intervalPractice = .weekly
-                mutatingTopic.numberOfPractice = 0
+    private func updatePracticeIntervalDaily(
+        topic: TopicModel,
+        fromDateComponents: DateComponents,
+        toDateComponents: DateComponents) -> TopicModel {
+            var mutatingTopic = topic
+            if fromDateComponents.year == toDateComponents.year
+                && fromDateComponents.month == toDateComponents.month
+                && fromDateComponents.day == (toDateComponents.day ?? 0) + 1 {
+                if topic.numberOfPractice == IntervalBetweenPractice.daily.maxPracticeNumber {
+                    mutatingTopic.intervalPractice = .weekly
+                    mutatingTopic.numberOfPractice = 0
+                } else {
+                    mutatingTopic.numberOfPractice = (mutatingTopic.numberOfPractice ?? 0) + 1
+                }
             } else {
-                mutatingTopic.numberOfPractice = (mutatingTopic.numberOfPractice ?? 0) + 1
+                let differenceInDays = calculateDifferenceBetween(components: [.day], topic: topic).day ?? 0
+                mutatingTopic.numberOfPractice = max((mutatingTopic.numberOfPractice ?? 0) - differenceInDays, 0)
             }
-        } else {
-            mutatingTopic.numberOfPractice = (mutatingTopic.numberOfPractice ?? 0) - 1
+            return mutatingTopic
         }
-        return mutatingTopic
-    }
     
-    private func updatePracticeIntervalWeekly(topic: TopicModel) -> TopicModel {
-        guard let lastPracticeDate = topic.lastDatePractice else {
-            fatalError("‼️ there's no lastPracticeDate")
+    private func calculateDifferenceBetween(
+        components: Set<Calendar.Component>,
+        topic: TopicModel) -> DateComponents {
+            let calendar = Calendar.current
+            let fromDate = Date(timeIntervalSince1970: topic.lastDatePractice!)
+            let toDate = Date()
+            let dateComponents = calendar.dateComponents(components, from: fromDate, to: toDate)
+            return dateComponents
         }
-        var mutatingTopic = topic
-        let calendar = Calendar.current
-        let fromDateComponents = calendar.dateComponents(
-            [.weekOfYear],
-            from: Date(timeIntervalSince1970: lastPracticeDate)
-        )
-        let toDateComponents = calendar.dateComponents(
-            [.weekOfYear],
-            from: Date()
-        )
-        if toDateComponents.weekOfYear == (fromDateComponents.weekOfYear ?? 0) + 1 {
-            if topic.numberOfPractice == IntervalBetweenPractice.weekly.maxPracticeNumber {
-                mutatingTopic.intervalPractice = .monthly
-                mutatingTopic.numberOfPractice = 0
+    
+    private func updatePracticeIntervalWeekly(
+        topic: TopicModel,
+        fromDateComponents: DateComponents,
+        toDateComponents: DateComponents) -> TopicModel {
+            var mutatingTopic = topic
+            if toDateComponents.weekOfYear == (fromDateComponents.weekOfYear ?? 0) + 1
+                && toDateComponents.year == fromDateComponents.year {
+                if topic.numberOfPractice == IntervalBetweenPractice.weekly.maxPracticeNumber {
+                    mutatingTopic.intervalPractice = .monthly
+                    mutatingTopic.numberOfPractice = 0
+                } else {
+                    mutatingTopic.numberOfPractice = (mutatingTopic.numberOfPractice ?? 0) + 1
+                }
             } else {
-                mutatingTopic.numberOfPractice = (mutatingTopic.numberOfPractice ?? 0) + 1
+                let differenceInWeeks = calculateDifferenceBetween(
+                    components: [.weekOfYear],
+                    topic: topic).weekOfYear ?? 0
+                mutatingTopic.numberOfPractice = max((mutatingTopic.numberOfPractice ?? 0) - differenceInWeeks, 0)
             }
-        } else {
-            mutatingTopic.numberOfPractice = (mutatingTopic.numberOfPractice ?? 0) - 1
+            return mutatingTopic
         }
-        return mutatingTopic
-    }
     
-    private func updatePracticeIntervalMonthly(topic: TopicModel) -> TopicModel {
-        guard let lastPracticeDate = topic.lastDatePractice else {
-            fatalError("‼️ there's no lastPracticeDate")
-        }
+    private func updatePracticeIntervalMonthly(
+        topic: TopicModel,
+        fromDateComponents: DateComponents,
+        toDateComponents: DateComponents) -> TopicModel {
         var mutatingTopic = topic
-        let calendar = Calendar.current
-        let fromDateComponents = calendar.dateComponents(
-            [.month],
-            from: Date(timeIntervalSince1970: lastPracticeDate)
-        )
-        let toDateComponents = calendar.dateComponents(
-            [.month],
-            from: Date()
-        )
-        mutatingTopic.numberOfPractice = (mutatingTopic.numberOfPractice ?? 0) + ((toDateComponents.month == (fromDateComponents.month ?? 0) + 1) ? 1 : -1)
+        let isWithinMonth = toDateComponents.month == (fromDateComponents.month ?? 0) + 1
+            && toDateComponents.year == fromDateComponents.year
+        if isWithinMonth {
+            mutatingTopic.numberOfPractice = (mutatingTopic.numberOfPractice ?? 0) + 1
+        } else {
+            mutatingTopic.numberOfPractice = max((mutatingTopic.numberOfPractice ?? 0) - (calculateDifferenceBetween(components: [.month], topic: topic).month ?? 0), 0)
+        }
         return mutatingTopic
     }
     

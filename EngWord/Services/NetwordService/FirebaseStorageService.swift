@@ -175,7 +175,6 @@ class FirebaseStorageService<T: Card>: StorageProtocol {
             
             if let folder = folderCollectionRef?.document(folder.id ?? ""),
                 let data = try? mutatingFolder.toDictionary() {
-                print("😊: \(data)")
                 batch.updateData(data, forDocument: folder)
             }
         }
