@@ -44,13 +44,14 @@ enum PartOfSpeech: String, Codable {
 // MARK: ----
 enum IntervalBetweenPractice: Int, Codable {
 
-    case daily = 0, weekly, monthly
+    case daily = 0, weekly, monthly, master
 
     var text: String {
         switch self {
             case .daily: return "Daily"
             case .weekly: return "Weekly"
             case .monthly: return "Monthly"
+            case .master: return "Master"
         }
     }
 
@@ -59,6 +60,7 @@ enum IntervalBetweenPractice: Int, Codable {
             case .daily: return Colors.daily
             case .weekly: return Colors.weekly
             case .monthly: return Colors.monthly
+            case .master: return UIColor.blue
         }
     }
     
@@ -66,7 +68,8 @@ enum IntervalBetweenPractice: Int, Codable {
         switch self {
             case .daily: return 7
             case .weekly: return 4
-            case .monthly: return 6
+            case .monthly: return 12
+            case .master: return 0
         }
     }
 }

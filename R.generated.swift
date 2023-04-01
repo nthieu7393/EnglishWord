@@ -322,7 +322,7 @@ struct _R {
     var weekly: RswiftResources.ColorResource { .init(name: "weekly", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 30 images.
+  /// This `_R.image` struct is generated, and contains static references to 31 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -415,6 +415,9 @@ struct _R {
 
     /// Image `trophyIcon`.
     var trophyIcon: RswiftResources.ImageResource { .init(name: "trophyIcon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `victoryIcon`.
+    var victoryIcon: RswiftResources.ImageResource { .init(name: "victoryIcon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
   }
 
   /// This `_R.info` struct is generated, and contains static references to 1 properties.
@@ -657,6 +660,7 @@ struct _R {
         if UIKit.UIImage(named: "fullIcon", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Image named 'fullIcon' is used in storyboard 'Home', but couldn't be loaded.") }
         if UIKit.UIImage(named: "paperIcon", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Image named 'paperIcon' is used in storyboard 'Home', but couldn't be loaded.") }
         if UIKit.UIImage(named: "trashLineIcon", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Image named 'trashLineIcon' is used in storyboard 'Home', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "victoryIcon", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Image named 'victoryIcon' is used in storyboard 'Home', but couldn't be loaded.") }
         if UIKit.UIColor(named: "active", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Color named 'active' is used in storyboard 'Home', but couldn't be loaded.") }
         if UIKit.UIColor(named: "cellBackground", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Color named 'cellBackground' is used in storyboard 'Home', but couldn't be loaded.") }
         if UIKit.UIColor(named: "mainBackground", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Color named 'mainBackground' is used in storyboard 'Home', but couldn't be loaded.") }

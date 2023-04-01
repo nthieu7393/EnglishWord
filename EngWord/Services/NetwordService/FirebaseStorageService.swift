@@ -115,7 +115,9 @@ class FirebaseStorageService<T: Card>: StorageProtocol {
             mutatingFolder.topics.append(newTopic)
             var dicData: [String: Any] = ["set_name": folder.name ?? ""]
             dicData["topics"] = mutatingFolder.topics.compactMap({
-                try? $0.toDictionary()
+                var dicData = try? $0.toDictionary()
+                dicData?.removeValue(forKey: "terms")
+                return dicData
             })
             try await documentRefOfFolder?.setData(dicData, merge: false)
             return newTopic

@@ -55,7 +55,7 @@ final class PracticeTopicPresenter: BasePresenter {
     }
     
     private func updatePracticeValue(of topic: TopicModel) -> TopicModel {
-        var mutatingTopic: TopicModel
+        var mutatingTopic: TopicModel!
         
         if topic.lastDatePractice == nil || topic.lastDatePractice == 0 {
             mutatingTopic = topic
@@ -90,10 +90,8 @@ final class PracticeTopicPresenter: BasePresenter {
                 topic: topic,
                 fromDateComponents: fromDateComponents,
                 toDateComponents: toDateComponents)
-        case .none:
-            mutatingTopic = topic
-            mutatingTopic.intervalPractice = .daily
-            mutatingTopic.numberOfPractice = 1
+        case .none, .master:
+            break
         }
         mutatingTopic.lastDatePractice = Date().timeIntervalSince1970
         return mutatingTopic
