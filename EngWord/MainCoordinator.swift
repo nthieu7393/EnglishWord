@@ -24,19 +24,36 @@ class MainCoordinator {
     }
 
     func start() {
-        guard let viewController = ViewController.instantiate() else { return }
+//        guard let viewController = ViewController.instantiate() else { return }
+        guard let viewController = LaunchViewController.instantiate() else { return }
+        let presenter = LaunchPresenter(view: viewController, storageService: ServiceInjector.storageService)
+        viewController.presenter = presenter
         viewController.coordinator = self
         navigationController.pushViewController(viewController, animated: false)
     }
+    
     func back(animated: Bool) {
         navigationController.popViewController(animated: animated)
     }
+
+    func gotoHomeScreen(folders: [SetTopicModel]) {
+        guard let viewController = ViewController.instantiate() else { return }
+        let presenter = HomePresenter(
+            view: viewController,
+            authentication: ServiceInjector.authenticationService,
+            folders: folders
+        )
+        viewController.presenter = presenter
+        viewController.coordinator = self
+        navigationController.pushViewController(viewController, animated: false)
+    }
     
-    func goToSetsScreen() {
+    func goToSetsScreen(folders: [SetTopicModel]) {
         guard let viewController = FolderViewController.instantiate() else { return }
         let presenter = SetsPresenter(
             view: viewController,
-            storageService: storage!
+            storageService: storage!,
+            folders: folders
         )
         viewController.presenter = presenter
         viewController.coordinator = self

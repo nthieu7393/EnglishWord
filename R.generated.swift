@@ -647,6 +647,7 @@ struct _R {
 
       var allTopicsViewController: RswiftResources.StoryboardViewControllerIdentifier<AllTopicsViewController> { .init(identifier: "AllTopicsViewController", storyboard: name, bundle: bundle) }
       var folderViewController: RswiftResources.StoryboardViewControllerIdentifier<FolderViewController> { .init(identifier: "FolderViewController", storyboard: name, bundle: bundle) }
+      var launchViewController: RswiftResources.StoryboardViewControllerIdentifier<LaunchViewController> { .init(identifier: "LaunchViewController", storyboard: name, bundle: bundle) }
       var learnTopicViewController: RswiftResources.StoryboardViewControllerIdentifier<LearnTopicViewController> { .init(identifier: "LearnTopicViewController", storyboard: name, bundle: bundle) }
       var newFolderInputViewController: RswiftResources.StoryboardViewControllerIdentifier<NewFolderInputViewController> { .init(identifier: "NewFolderInputViewController", storyboard: name, bundle: bundle) }
       var partOfSpeechMenuViewController: RswiftResources.StoryboardViewControllerIdentifier<PartOfSpeechMenuViewController> { .init(identifier: "PartOfSpeechMenuViewController", storyboard: name, bundle: bundle) }
@@ -672,6 +673,7 @@ struct _R {
         if UIKit.UIColor(named: "mainText", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Color named 'mainText' is used in storyboard 'Home', but couldn't be loaded.") }
         if allTopicsViewController() == nil { throw RswiftResources.ValidationError("[R.swift] ViewController with identifier 'allTopicsViewController' could not be loaded from storyboard 'Home' as 'AllTopicsViewController'.") }
         if folderViewController() == nil { throw RswiftResources.ValidationError("[R.swift] ViewController with identifier 'folderViewController' could not be loaded from storyboard 'Home' as 'FolderViewController'.") }
+        if launchViewController() == nil { throw RswiftResources.ValidationError("[R.swift] ViewController with identifier 'launchViewController' could not be loaded from storyboard 'Home' as 'LaunchViewController'.") }
         if learnTopicViewController() == nil { throw RswiftResources.ValidationError("[R.swift] ViewController with identifier 'learnTopicViewController' could not be loaded from storyboard 'Home' as 'LearnTopicViewController'.") }
         if newFolderInputViewController() == nil { throw RswiftResources.ValidationError("[R.swift] ViewController with identifier 'newFolderInputViewController' could not be loaded from storyboard 'Home' as 'NewFolderInputViewController'.") }
         if partOfSpeechMenuViewController() == nil { throw RswiftResources.ValidationError("[R.swift] ViewController with identifier 'partOfSpeechMenuViewController' could not be loaded from storyboard 'Home' as 'PartOfSpeechMenuViewController'.") }

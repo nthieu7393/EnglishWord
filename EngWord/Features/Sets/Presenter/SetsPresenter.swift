@@ -13,9 +13,14 @@ class SetsPresenter: BasePresenter {
     private let view: SetsView
     private var sets: [SetTopicModel]?
 
-    init(view: SetsView, storageService: StorageProtocol) {
+    init(
+        view: SetsView,
+        storageService: StorageProtocol,
+        folders: [SetTopicModel]
+    ) {
         self.view = view
         self.storageService = storageService
+        self.sets = folders
     }
 
     func loadAllSets() {

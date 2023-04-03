@@ -9,10 +9,11 @@ import Foundation
 
 protocol HomeView: BaseViewProtocol {
     
-    func navigateToSetsScreen()
+    func navigateToSetsScreen(folders: [SetTopicModel])
     func navigateToStudyingScreen()
     func navigateToFavoriteScreen()
     func navigateToReviewScreen()
     func navigateToTrashScreen()
     func navigateToSignInScreen()
+    func display()
 }

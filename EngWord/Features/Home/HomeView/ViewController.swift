@@ -20,9 +20,10 @@ class ViewController: BaseViewController, Storyboarded {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter = HomePresenter(view: self, authentication: ServiceInjector.authenticationService)
+//        presenter = HomePresenter(view: self, authentication: ServiceInjector.authenticationService)
 //        signinButton.title = Localizations.signin
 //        signinNoteLabel.text = Localizations.signinNote
+        homePresenter?.viewDidLoad()
     }
 
     override func setupFontText() {
@@ -39,8 +40,8 @@ class ViewController: BaseViewController, Storyboarded {
 
 extension ViewController: HomeView {
     
-    func navigateToSetsScreen() {
-        coordinator?.goToSetsScreen()
+    func navigateToSetsScreen(folders: [SetTopicModel]) {
+        coordinator?.goToSetsScreen(folders: folders)
     }
     
     func navigateToStudyingScreen() {
@@ -60,6 +61,10 @@ extension ViewController: HomeView {
     }
 
     func navigateToSignInScreen() {
+    }
+
+    func display() {
+        tableView.reloadData()
     }
 }
 

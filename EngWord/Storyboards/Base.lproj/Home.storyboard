@@ -1696,6 +1696,21 @@
             </objects>
             <point key="canvasLocation" x="4485" y="1509"/>
         </scene>
+        <!--Launch View Controller-->
+        <scene sceneID="O1o-qT-5gx">
+            <objects>
+                <viewController storyboardIdentifier="LaunchViewController" id="ma6-9B-CxE" customClass="LaunchViewController" customModule="EngWord" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="sXu-QY-Lok">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Zj7-oB-efK"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zrJ-WX-ubn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="238" y="-753"/>
+        </scene>
     </scenes>
     <resources>
         <image name="createDateIcon" width="24" height="24"/>

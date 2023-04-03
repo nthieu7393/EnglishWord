@@ -55,6 +55,9 @@
 		A0CCF1E829ABB554008C34C4 /* TwitterHeartButton.json in Resources */ = {isa = PBXBuildFile; fileRef = A0CCF1E729ABB554008C34C4 /* TwitterHeartButton.json */; };
 		A0D34B4B29A5C9EE005A2171 /* IconTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0D34B4A29A5C9EE005A2171 /* IconTextView.xib */; };
 		A0D34B4D29A5D0D7005A2171 /* IconTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D34B4C29A5D0D7005A2171 /* IconTextView.swift */; };
+		A0D8646D29DB731B00942538 /* LaunchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D8646A29DB731B00942538 /* LaunchPresenter.swift */; };
+		A0D8646E29DB731B00942538 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D8646B29DB731B00942538 /* LaunchViewController.swift */; };
+		A0D8646F29DB731B00942538 /* LaunchViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D8646C29DB731B00942538 /* LaunchViewProtocol.swift */; };
 		A0E7F6D9299E9D3B00F63140 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E7F6D8299E9D3B00F63140 /* AppDelegate.swift */; };
 		A0E7F6DB299E9D3B00F63140 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E7F6DA299E9D3B00F63140 /* SceneDelegate.swift */; };
 		A0E7F6E3299E9D3B00F63140 /* EngWord.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A0E7F6E1299E9D3B00F63140 /* EngWord.xcdatamodeld */; };
@@ -236,6 +239,9 @@
 		A0CCF1E729ABB554008C34C4 /* TwitterHeartButton.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TwitterHeartButton.json; sourceTree = "<group>"; };
 		A0D34B4A29A5C9EE005A2171 /* IconTextView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IconTextView.xib; sourceTree = "<group>"; };
 		A0D34B4C29A5D0D7005A2171 /* IconTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconTextView.swift; sourceTree = "<group>"; };
+		A0D8646A29DB731B00942538 /* LaunchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchPresenter.swift; sourceTree = "<group>"; };
+		A0D8646B29DB731B00942538 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
+		A0D8646C29DB731B00942538 /* LaunchViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewProtocol.swift; sourceTree = "<group>"; };
 		A0E7F6D5299E9D3B00F63140 /* EngWord.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EngWord.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0E7F6D8299E9D3B00F63140 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A0E7F6DA299E9D3B00F63140 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -512,11 +518,14 @@
 			path = Storyboards;
 			sourceTree = "<group>";
 		};
-		A0D8646829DAA2B400942538 /* New Group */ = {
+		A0D8646929DB72AE00942538 /* Launch */ = {
 			isa = PBXGroup;
 			children = (
+				A0D8646A29DB731B00942538 /* LaunchPresenter.swift */,
+				A0D8646B29DB731B00942538 /* LaunchViewController.swift */,
+				A0D8646C29DB731B00942538 /* LaunchViewProtocol.swift */,
 			);
-			path = "New Group";
+			path = Launch;
 			sourceTree = "<group>";
 		};
 		A0E7F6CC299E9D3B00F63140 = {
@@ -631,7 +640,6 @@
 		A0E7F71F299E9EBA00F63140 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
-				A0D8646829DAA2B400942538 /* New Group */,
 				A0E7F723299E9EBA00F63140 /* UnderlineTextView.swift */,
 				A0E7F724299E9EBA00F63140 /* UnderlineTextField */,
 				A0E7F726299E9EBA00F63140 /* ResponsiveButton.swift */,
@@ -732,6 +740,7 @@
 		A0E7F746299E9EBD00F63140 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				A0D8646929DB72AE00942538 /* Launch */,
 				A0A7B63629BE4BCE0080A6DC /* PartOfSpeechMenu */,
 				A06F41B329A8CC2E00DBBDCB /* PracticeTopic */,
 				A070A66529A7BF04004956D8 /* ReviewCard */,
@@ -1237,6 +1246,7 @@
 				A0E7F79A299E9EBD00F63140 /* NetworkVocabularyService.swift in Sources */,
 				A011077129AD1D7100B84E6F /* TextTableCell.swift in Sources */,
 				A0E7F790299E9EBD00F63140 /* BaseView.swift in Sources */,
+				A0D8646F29DB731B00942538 /* LaunchViewProtocol.swift in Sources */,
 				A0E7F7A1299E9EBD00F63140 /* Storyboards.swift in Sources */,
 				A0E7F796299E9EBD00F63140 /* ServicesError.swift in Sources */,
 				A0E7F783299E9EBD00F63140 /* DateTimeFormatter.swift in Sources */,
@@ -1281,6 +1291,7 @@
 				A06F41B829A9090E00DBBDCB /* PracticeTopicViewController.swift in Sources */,
 				A0A7B63A29BE4BF30080A6DC /* PartOfSpeechMenuPresenter.swift in Sources */,
 				A0E7F81B299F344000F63140 /* R.generated.swift in Sources */,
+				A0D8646D29DB731B00942538 /* LaunchPresenter.swift in Sources */,
 				A0E7F817299EBA7F00F63140 /* NewSetInputViewProtocol.swift in Sources */,
 				A0E7F81D299F394100F63140 /* EncodableExtension.swift in Sources */,
 				A0E7F7BA299E9EBD00F63140 /* SetsView.swift in Sources */,
@@ -1293,6 +1304,7 @@
 				A070A66229A66C8C004956D8 /* TermActivityModel.swift in Sources */,
 				A0E7F7B1299E9EBD00F63140 /* TermsViewController.swift in Sources */,
 				A0A7B63B29BE4BF30080A6DC /* PartOfSpeechMenuViewController.swift in Sources */,
+				A0D8646E29DB731B00942538 /* LaunchViewController.swift in Sources */,
 				A0E7F78A299E9EBD00F63140 /* UnderlineTextView.swift in Sources */,
 				A00B365229A5222A0077250D /* LearnTopicViewController.swift in Sources */,
 				A0EB7BFC29AE5EC70044FC38 /* TextCollectionCell.swift in Sources */,
