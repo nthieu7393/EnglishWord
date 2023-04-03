@@ -34,6 +34,11 @@ class SetHeaderTableView: BaseView {
         action = buttonOnTap
     }
 
+    func setData(set: SetTopicModel) {
+        setNameLbl.text = set.name
+        numberOfTopicsLbl.text = "(\(set.topics.count))"
+    }
+
     @IBAction func moreActionOnTap(_ sender: UIButton) {
         action?()
     }

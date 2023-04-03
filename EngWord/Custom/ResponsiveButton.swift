@@ -25,6 +25,12 @@ class ResponsiveButton: UIControl {
         }
     }
 
+    override var isEnabled: Bool {
+        didSet {
+            super.isEnabled = isEnabled
+        }
+    }
+
     private var titleLabel: UILabel? = {
         let label = UILabel()
         label.font = Fonts.button

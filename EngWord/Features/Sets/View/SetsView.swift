@@ -15,4 +15,7 @@ protocol SetsView: BaseViewProtocol {
         endEditing: @escaping (String?) -> Void
     )
     func dismissNewSetInputScreen()
+    func removeTopic(at section: Int, row: Int)
+    func removeFolder(at section: Int)
+    func updateFolderTitle(at index: Int)
 }

@@ -6,20 +6,28 @@
 //
 
 import UIKit
-import DropDown
 
-protocol TermsViewControllerDelegate: AnyObject {
+protocol TermsViewDelegate: AnyObject {
 
+    func termsView(
+        _ view: TermsViewController,
+        updated topic: TopicModel,
+        in folder: SetTopicModel)
+    func termsView(
+        _ view: TermsViewController,
+        add topic: TopicModel,
+        to folder: SetTopicModel)
 }
 
 class TermsViewController: BaseViewController {
 
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var doneButton: TextButton!
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var doneButton: ResponsiveButton!
     @IBOutlet weak var topicNameTextField: UnderlineTextField!
     @IBOutlet weak var practiceButton: IconTextButton!
     @IBOutlet weak var topicNameLabel: UILabel!
+
+    weak var delegate: TermsViewDelegate?
 
     private var heightOfRowCache: [IndexPath: CGFloat] = [:]
 
@@ -46,31 +54,27 @@ class TermsViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        title = Localizations.term
         suggestionTableView?.dataSource = self
         suggestionTableView?.delegate = self
         doneButton.title = Localizations.done
         tableView.registerRow(TermActivitiesTableCell.self)
         termsPresenter.loadData()
         practiceButton.set(icon: R.image.bookOpenIcon()!, title: "Practice")
+        practiceButton.isEnabled = false
+        doneButton.title = Localizations.done
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
     }
 
     override func layoutIfKeyboardShow(keyboardSize: CGRect) {
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height + 50, right: 0)
     }
 
     override func layoutIfKeyboardHide(keyboardSize: CGRect) {
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
     }
 
     override func setupFontText() {
-        titleLabel.attributedText = NSAttributedString(
-            string: Localizations.allTopics,
-            attributes: [
-                NSAttributedString.Key.foregroundColor: Colors.mainText,
-                NSAttributedString.Key.font: Fonts.title
-            ]
-        )
         topicNameLabel.attributedText = NSAttributedString(string: "Topic Name", attributes: [
             NSAttributedString.Key.foregroundColor: Colors.mainText,
             NSAttributedString.Key.font: Fonts.subtitle
@@ -81,7 +85,7 @@ class TermsViewController: BaseViewController {
         ])
     }
 
-    @IBAction func doneButtonOnTap(_ sender: TextButton) {
+    @IBAction func doneButtonOnTap(_ sender: ResponsiveButton) {
         termsPresenter?.saveTopic()
         view.endEditing(true)
     }
@@ -151,6 +155,21 @@ extension TermsViewController: TermsViewProtocol {
         tableView.beginUpdates()
         tableView.endUpdates()
     }
+
+    func enablePracticeButton() {
+        practiceButton.isEnabled = true
+    }
+
+    func disablePracticeButton() {
+        practiceButton.isEnabled = false
+    }
+
+    func saveUpdatedTopicSuccess(topic: TopicModel, folder: SetTopicModel) {
+        delegate?.termsView(self, updated: topic, in: folder)
+    }
+    func createNewTopicSuccess(topic: TopicModel, folder: SetTopicModel) {
+        delegate?.termsView(self, add: topic, to: folder)
+    }
 }
 
 extension TermsViewController: UITableViewDataSource {
@@ -191,9 +210,9 @@ extension TermsViewController: UITableViewDataSource {
         sectionHeaderView.addSubview(newTermButton)
         newTermButton.translatesAutoresizingMaskIntoConstraints = false
         let constraints = [
-            newTermButton.topAnchor.constraint(equalTo: sectionHeaderView.topAnchor),
+            newTermButton.topAnchor.constraint(equalTo: sectionHeaderView.topAnchor, constant: 10),
             newTermButton.leftAnchor.constraint(equalTo: sectionHeaderView.leftAnchor),
-            sectionHeaderView.bottomAnchor.constraint(equalTo: newTermButton.bottomAnchor, constant: 12),
+            sectionHeaderView.bottomAnchor.constraint(equalTo: newTermButton.bottomAnchor, constant: 8),
             newTermButton.rightAnchor.constraint(equalTo: sectionHeaderView.rightAnchor)
         ]
         NSLayoutConstraint.activate(constraints)

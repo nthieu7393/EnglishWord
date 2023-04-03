@@ -17,7 +17,7 @@ class SetTableViewCell: UITableViewCell {
     @IBOutlet weak var frequencyContainer: UIView!
     @IBOutlet weak var progressLabel: UILabel!
     @IBOutlet weak var progressBar: UIProgressView!
-    @IBOutlet weak var masterView: UIView!
+    @IBOutlet weak var practiceContainer: UIView!
     @IBOutlet weak var progressContainer: UIStackView!
     
     override func awakeFromNib() {
@@ -44,13 +44,13 @@ class SetTableViewCell: UITableViewCell {
     func setData(topic: TopicModel?) {
         guard let topic = topic else { return }
         progressContainer.isHidden = topic.intervalPractice == .master
-        masterView.isHidden = topic.intervalPractice != .master
-        
+        practiceContainer.isHidden = topic.intervalPractice != .master
         topicNameLbl.text = topic.name
         numberOfTermsLbl.text = "\(topic.numberOfTerms) \(Localizations.words.lowercased())"
         createdOnLbl.text = topic.createdTime
         dateIntervalLabel.text = (topic.intervalPractice ?? .daily).text
         frequencyContainer.backgroundColor = (topic.intervalPractice?.color ?? IntervalBetweenPractice.daily.color)
         progressLabel.text = "\(topic.numberOfPractice ?? 0)/\(topic.intervalPractice?.maxPracticeNumber ?? IntervalBetweenPractice.daily.maxPracticeNumber)"
+        progressBar.progress = Float(topic.numberOfPractice ?? 0) / Float(topic.intervalPractice?.maxPracticeNumber ?? 1)
     }
 }

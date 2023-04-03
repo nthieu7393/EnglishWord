@@ -17,4 +17,8 @@ protocol TermsViewProtocol: BaseViewProtocol {
     func hideSaveButton()
     func reviewCard(card: any Card)
     func updateCell(card: any Card, at index: Int, needUpdateCardView: Bool)
+    func enablePracticeButton()
+    func disablePracticeButton()
+    func saveUpdatedTopicSuccess(topic: TopicModel, folder: SetTopicModel)
+    func createNewTopicSuccess(topic: TopicModel, folder: SetTopicModel)
 }

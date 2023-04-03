@@ -109,18 +109,16 @@ class FirebaseStorageService<T: Card>: StorageProtocol {
                 .collection("topics")
                 .addDocument(data: topic.toDictionary())
 
-            let topicId = documentRef?.documentID
             var mutatingFolder = folder
-            let newTopic = TopicModel(id: topicId, name: topic.name)
-            mutatingFolder.topics.append(newTopic)
+            var mutatingTopic = topic
+            mutatingTopic.ID = documentRef?.documentID
+            mutatingFolder.topics.append(mutatingTopic)
             var dicData: [String: Any] = ["set_name": folder.name ?? ""]
             dicData["topics"] = mutatingFolder.topics.compactMap({
-                var dicData = try? $0.toDictionary()
-                dicData?.removeValue(forKey: "terms")
-                return dicData
+                try? $0.toDictionary()
             })
             try await documentRefOfFolder?.setData(dicData, merge: false)
-            return newTopic
+            return mutatingTopic
         } catch {
             return nil
         }
@@ -128,12 +126,14 @@ class FirebaseStorageService<T: Card>: StorageProtocol {
 
     func updateTopic(_ topic: TopicModel, folder: SetTopicModel) async throws -> TopicModel? {
         do {
-            let documentRefOfSet = folderCollectionRef?.document(folder.id ?? "")
-            try await documentRefOfSet?
+            let folderRef = folderCollectionRef?.document(folder.id ?? "")
+            try await folderRef?
                 .collection("topics")
                 .document(topic.topicId ?? "")
-                .updateData(topic.toJson)
-            try await documentRefOfSet?.updateData(folder.toDictionary())
+                .updateData(topic.toDictionary())
+            var mutatingFolder = folder
+            mutatingFolder.updateTopic(by: topic)
+            try await folderRef?.updateData(mutatingFolder.toDictionary())
         } catch {
             throw error
         }
@@ -153,7 +153,10 @@ class FirebaseStorageService<T: Card>: StorageProtocol {
         completion: @escaping ((Error?) -> Void)) {
         moveTopicToDeletedCollection(topic: topic) { [weak self] error in
             guard error == nil,
-                  let uwrSelf = self else { return }
+                  let uwrSelf = self else {
+                completion(error)
+                return
+            }
             uwrSelf.deleteTopicFromFolder(topic, in: folder, completion: completion)
         }
     }
@@ -189,7 +192,12 @@ class FirebaseStorageService<T: Card>: StorageProtocol {
     private func moveTopicToDeletedCollection(
         topic: TopicModel,
         completion: @escaping ((Error?) -> Void)) {
-        deletedTopicCollection?.addDocument(data: topic.toJson, completion: completion)
+        do {
+            let data = try topic.toDictionary()
+            deletedTopicCollection?.addDocument(data: data, completion: completion)
+        } catch {
+            completion(error)
+        }
     }
 
     private func deleteTopicFromFolder(
@@ -212,7 +220,7 @@ class FirebaseStorageService<T: Card>: StorageProtocol {
         // field topics
         mutatingTopics.remove(at: uwrIndex)
         batch.updateData(["topics": mutatingTopics.map({
-            $0.toJson
+            try? $0.toDictionary()
         })], forDocument: folderRef)
 
         // collection topics

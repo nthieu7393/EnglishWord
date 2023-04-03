@@ -322,7 +322,7 @@ struct _R {
     var weekly: RswiftResources.ColorResource { .init(name: "weekly", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 31 images.
+  /// This `_R.image` struct is generated, and contains static references to 32 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -361,6 +361,9 @@ struct _R {
 
     /// Image `doneIcon`.
     var doneIcon: RswiftResources.ImageResource { .init(name: "doneIcon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `folderIcon`.
+    var folderIcon: RswiftResources.ImageResource { .init(name: "folderIcon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `fullIcon`.
     var fullIcon: RswiftResources.ImageResource { .init(name: "fullIcon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
@@ -572,7 +575,9 @@ struct _R {
       if UIKit.UIColor(named: "mainBackground", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Color named 'mainBackground' is used in nib 'PracticeDescriptionForm', but couldn't be loaded.") }
       if UIKit.UIColor(named: "active", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Color named 'active' is used in nib 'PracticeTermForm', but couldn't be loaded.") }
       if UIKit.UIColor(named: "mainBackground", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Color named 'mainBackground' is used in nib 'PracticeTermForm', but couldn't be loaded.") }
+      if UIKit.UIImage(named: "folderIcon", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Image named 'folderIcon' is used in nib 'SetHeaderTableView', but couldn't be loaded.") }
       if UIKit.UIImage(named: "moreActionIcon", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Image named 'moreActionIcon' is used in nib 'SetHeaderTableView', but couldn't be loaded.") }
+      if UIKit.UIColor(named: "mainText", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Color named 'mainText' is used in nib 'SetHeaderTableView', but couldn't be loaded.") }
       if #available(iOS 13.0, *) { if UIKit.UIImage(systemName: "multiply.circle.fill") == nil { throw RswiftResources.ValidationError("[R.swift] System image named 'multiply.circle.fill' is used in nib 'SignInNoteView', but couldn't be loaded.") } }
       if UIKit.UIColor(named: "cellBackground", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Color named 'cellBackground' is used in nib 'TermActivityCollectionCell', but couldn't be loaded.") }
       if UIKit.UIColor(named: "active", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Color named 'active' is used in nib 'TextTableCell', but couldn't be loaded.") }

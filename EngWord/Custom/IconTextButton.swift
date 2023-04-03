@@ -21,6 +21,20 @@ class IconTextButton: UIControl {
         return view.transform
     }()
 
+    var border: CAShapeLayer? {
+        didSet {
+            border?.strokeColor = isEnabled ? Colors.active.cgColor : Colors.unFocused.cgColor
+        }
+    }
+
+    override var isEnabled: Bool {
+        didSet {
+            super.isEnabled = isEnabled
+            button?.isEnabled = isEnabled
+            border?.strokeColor = isEnabled ? Colors.active.cgColor : Colors.unFocused.cgColor
+        }
+    }
+
     func loadViewFromNib() -> UIView {
         let bundle = Bundle(for: IconTextButton.self)
         let nib = UINib(nibName: String(describing: IconTextButton.self), bundle: bundle)
@@ -85,12 +99,13 @@ class IconTextButton: UIControl {
     override func layoutSublayers(of layer: CALayer) {
         super.layoutSublayers(of: layer)
         if visibleBorder {
-            view.addLineBorder(cornerRadius: Constants.borderRadius)
+            border = view.addLineBorder(cornerRadius: Constants.borderRadius)
         }
         backgroundLayer.frame = layer.bounds
     }
 
     @objc func buttonOnTap(_ gesture: Any) {
+        guard isEnabled else { return }
         let transAnimation = CABasicAnimation(keyPath: "transform.scale")
         transAnimation.fromValue = 1
         transAnimation.toValue = 0.95
@@ -112,10 +127,12 @@ class IconTextButton: UIControl {
     }
 
     private func buttonOnTouchDown() {
+        guard isEnabled else { return }
         view.transform = CGAffineTransformScale(viewsOriginalTransform, 0.95, 0.95)
     }
 
     private func buttonOnTouchUp() {
+        guard isEnabled else { return }
         view.transform = CGAffineTransformScale(viewsOriginalTransform, 1, 1)
     }
 }

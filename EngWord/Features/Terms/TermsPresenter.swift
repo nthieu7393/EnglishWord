@@ -81,9 +81,11 @@ class TermsPresenter: BasePresenter {
                     topic: topic
                 )
                 self.cards = topicDetails?.terms ?? []
+                self.topic.terms = topicDetails?.terms
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
                     self.view.displayTerms(terms: self.cards ?? [])
+                    self.checkIfPracticeEnabled()
                     self.view.dismissLoadingIndicator()
                 }
             } catch {
@@ -188,32 +190,53 @@ class TermsPresenter: BasePresenter {
 
     func saveTopic() {
         if !topic.topicId.isNotEmpty() {
-            createTopic()
+            Task {
+                await createTopic()
+            }
         } else {
             updateTopic()
         }
 
     }
 
-    func createTopic() {
-        Task {
-            do {
-                topic.terms = cards?.map({
-                    TermModel(
-                        id: $0.idOfCard,
-                        term: $0.termDisplay,
-                        definition: $0.selectedDefinition,
-                        partOfSpeech: $0.partOfSpeechDisplay,
-                        pronunciation: $0.phoneticDisplay,
-                        phrases: $0.selectedExample
-                    )
-                })
-                if let newTopic = try await storageService.createNewTopic(topic, folder: folder) {
-                    topic = newTopic
+    func createTopic() async {
+        view.showLoadingIndicator()
+        topic.terms = cards?.map({
+            TermModel(
+                id: $0.idOfCard,
+                term: $0.termDisplay,
+                definition: $0.selectedDefinition,
+                partOfSpeech: $0.partOfSpeechDisplay,
+                pronunciation: $0.phoneticDisplay,
+                phrases: $0.selectedExample
+            )
+        })
+        do {
+            if let newTopic = try await storageService.createNewTopic(topic, folder: folder) {
+                topic = newTopic
+                DispatchQueue.main.async {
+                    self.checkIfPracticeEnabled()
                 }
-            } catch {
-                view.showErrorAlert(msg: error.localizedDescription)
             }
+            DispatchQueue.main.async {
+                self.view.dismissLoadingIndicator()
+                self.view.hideSaveButton()
+                self.view.createNewTopicSuccess(
+                    topic: self.topic,
+                    folder: self.folder
+                )
+            }
+        } catch {
+            view.dismissLoadingIndicator()
+            view.showErrorAlert(msg: error.localizedDescription)
+        }
+    }
+
+    private func checkIfPracticeEnabled() {
+        if (topic.terms ?? []).isEmpty {
+            view.disablePracticeButton()
+        } else {
+            view.enablePracticeButton()
         }
     }
 
@@ -231,13 +254,13 @@ class TermsPresenter: BasePresenter {
                         phrases: $0.selectedExample
                     )
                 })
-                topic.numberOfTerms = topic.terms?.count ?? 0
-                let index = folder.topics.firstIndex {
-                    $0.topicId == topic.topicId
-                }
-                if let index = index {
-                    folder.topics[index] = topic
-                    try await storageService.updateTopic(topic, folder: folder)
+                _ = try await storageService.updateTopic(topic, folder: folder)
+                DispatchQueue.main.async {
+                    self.view.hideSaveButton()
+                    self.view.saveUpdatedTopicSuccess(
+                        topic: self.topic,
+                        folder: self.folder
+                    )
                 }
                 view.dismissLoadingIndicator()
             } catch {

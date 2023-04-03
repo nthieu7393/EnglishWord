@@ -52,23 +52,6 @@ class MainCoordinator {
         navigationController.pushViewController(viewController, animated: true)
     }
 
-    func goToTermsScreen(set: SetTopicModel, topic: TopicModel?) {
-        guard let topic = topic,
-              let viewController = TermsViewController.instantiate() else { return }
-        let presenter = TermsPresenter(
-            view: viewController,
-            set: set,
-            topic: topic,
-            storageService: FirebaseStorageService<TermModel>(
-                authService: FirebaseAuthentication()
-            ),
-            networkVocabularyService: vocabularyService!
-        )
-        viewController.presenter = presenter
-        viewController.coordinator = self
-        navigationController.pushViewController(viewController, animated: true)
-    }
-
     func presentTextMenuScreen(
             menuItems: [String],
             initialSelectedItemIndex: Int?,
@@ -107,7 +90,10 @@ class MainCoordinator {
         navigationController.topViewController?.present(viewController, animated: true)
     }
 
-    func presentTermsScreen(folder: SetTopicModel, topic: TopicModel) {
+    func presentTermsScreen(
+        folder: SetTopicModel,
+        topic: TopicModel,
+        delegateView: TermsViewDelegate) {
         guard let viewController = TermsViewController.instantiate() else { return }
         let presenter = TermsPresenter(
             view: viewController,
@@ -120,7 +106,7 @@ class MainCoordinator {
         )
         viewController.presenter = presenter
         viewController.coordinator = self
-        viewController.modalPresentationStyle = .fullScreen
+        viewController.delegate = delegateView
         navigationController.show(viewController, sender: nil)
     }
 

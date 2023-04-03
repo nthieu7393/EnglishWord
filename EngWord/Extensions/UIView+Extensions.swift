@@ -42,11 +42,11 @@ extension UIView {
     func addLineBorder(
         _ color: UIColor? = nil,
         cornerRadius: CGFloat = 0
-    ) {
+    ) -> CAShapeLayer? {
         let nameOfBorder = "SolidLineBorder"
         if let lineLayers = layer.sublayers?.filter({ $0.name == nameOfBorder }),
            !lineLayers.isEmpty {
-            return
+            return lineLayers.first as? CAShapeLayer
         }
         let viewBorder = CAShapeLayer()
         viewBorder.name = nameOfBorder
@@ -61,6 +61,7 @@ extension UIView {
         viewBorder.masksToBounds = true
         viewBorder.cornerRadius = cornerRadius
         layer.addSublayer(viewBorder)
+        return viewBorder
     }
 }
 

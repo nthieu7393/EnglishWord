@@ -34,20 +34,20 @@ class SetsPresenter: BasePresenter {
         }
     }
 
-    func saveSet(set: SetTopicModel) {
-        if set.id.isNotEmpty() {
-            editNameOfSet(set)
+    func saveFolder(folder: SetTopicModel) {
+        if folder.id.isNotEmpty() {
+            updateFolder(folder)
         } else {
-            createNewSet(set: set)
+            createNewFolder(folder: folder)
         }
     }
 
-    private func createNewSet(set: SetTopicModel) {
+    private func createNewFolder(folder: SetTopicModel) {
         view.showLoadingIndicator()
         Task {
             do {
                 view.dismissLoadingIndicator()
-                let set = try await self.storageService.createNewFolder(folder: set)
+                let set = try await self.storageService.createNewFolder(folder: folder)
                 if let set = set {
                     DispatchQueue.main.async {
                         self.sets?.insert(set, at: 0)
@@ -63,8 +63,9 @@ class SetsPresenter: BasePresenter {
         }
     }
 
-    func editNameOfSet(_ set: SetTopicModel) {
-        guard let indexOfMutatingSet = sets?.firstIndex(where: { $0.id == set.id }) else { return }
+    func updateFolder(_ set: SetTopicModel) {
+        guard let indexOfMutatingSet = sets?.firstIndex(
+            where: { $0.id == set.id }) else { return }
         view.showLoadingIndicator()
         Task {
             do {
@@ -106,8 +107,16 @@ class SetsPresenter: BasePresenter {
         }
     }
 
-    func deleteTopic(_ topic: TopicModel, from folder: SetTopicModel) {
+    func deleteTopic(_ topic: TopicModel?, from folder: SetTopicModel?) {
+        guard let topic = topic, let folder = folder else { return }
         storageService.deleteTopic(topic, in: folder) { [weak self] error in
+            if error == nil {
+                guard let section = self?.sets?.firstIndex(where: { $0.id == folder.id }) else { return }
+                guard let index = folder.topics.firstIndex(where: { $0.topicId == topic.topicId }) else { return }
+                self?.sets?[section].topics.remove(at: index)
+                self?.view.removeTopic(at: section, row: index)
+                self?.view.updateFolderTitle(at: section)
+            }
             self?.view.showResultAlert(error: error, message: nil)
         }
     }
@@ -131,6 +140,44 @@ class SetsPresenter: BasePresenter {
         }) else { return }
         
         sets?[Int(indexOfFolder)] = folder
+        view.displayDataOfSets(sets: sets ?? [])
+    }
+
+    func addTopic(topic: TopicModel, to folder: SetTopicModel) {
+        guard let indexOfFolder = sets?.firstIndex(where: {
+            $0.id == folder.id
+        }) else { return }
+        sets?[Int(indexOfFolder)].topics.append(topic)
+        view.displayDataOfSets(sets: sets ?? [])
+        view.updateFolderTitle(at: indexOfFolder)
+    }
+
+    func getAllFolders() -> [SetTopicModel] {
+        return sets ?? []
+    }
+
+    func getFolder(at index: Int) -> SetTopicModel? {
+        return sets?[index]
+    }
+
+    func getTopicsOfFolder(at index: Int) -> [TopicModel] {
+        return sets?[index].topics ?? []
+    }
+
+    func getTopic(of folder: SetTopicModel?, at index: Int) -> TopicModel? {
+        guard let folder = folder else { return nil }
+        guard let indexOfFolder = sets?.firstIndex(where: {
+            $0.id == folder.id
+        }) else { return nil }
+        return sets?[Int(indexOfFolder)].topics[index]
+    }
+
+    func updateTopic(topic: TopicModel, of folder: SetTopicModel) {
+        guard let indexOfFolder = sets?.firstIndex(where: {
+            $0.id == folder.id
+        }) else { return }
+        sets?[indexOfFolder].updateTopic(by: topic)
+        sets?[indexOfFolder].name = folder.name
         view.displayDataOfSets(sets: sets ?? [])
     }
 }

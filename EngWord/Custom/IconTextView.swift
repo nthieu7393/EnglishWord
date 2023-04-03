@@ -12,6 +12,14 @@ class IconTextView: UIView {
     @IBOutlet weak var iconView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
 
+    var isEnabled: Bool = true {
+
+        didSet {
+            iconView.tintColor = isEnabled ? Colors.active : Colors.unFocused
+            titleLabel.textColor = iconView.tintColor
+        }
+    }
+
     func setData(icon: UIImage, title: String) {
         iconView.image = icon.withRenderingMode(.alwaysTemplate)
         iconView.tintColor = Colors.active

@@ -13,7 +13,7 @@ class FolderViewController: BaseViewController {
     @IBOutlet weak var newSetButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
 
-    private var sets: [SetTopicModel] = []
+    private var headerViewsList: [Int: SetHeaderTableView] = [:]
 
     private lazy var newSetTextField: UITextField = {
         return UITextField()
@@ -82,7 +82,11 @@ class FolderViewController: BaseViewController {
             title: "Add topic",
             style: .default) { [weak self] _ in
                 guard let self = self else { return }
-                self.coordinator?.presentAllTopicsScreen(delegateView: self, allFolders: self.sets, selectedFolder: set)
+                self.coordinator?.presentAllTopicsScreen(
+                    delegateView: self,
+                    allFolders: self.setsPresenter?.getAllFolders() ?? [],
+                    selectedFolder: set
+                )
             }
 
         let deleteFolderAction = UIAlertAction(
@@ -125,14 +129,36 @@ extension FolderViewController: AllTopicsViewDelegate {
         didTap createTopicButton: ResponsiveButton,
         folder: SetTopicModel) {
         coordinator?.dismissScreen(self)
-        coordinator?.presentTermsScreen(folder: folder, topic: TopicModel(name: ""))
+        coordinator?.presentTermsScreen(
+            folder: folder,
+            topic: TopicModel(name: ""),
+            delegateView: self
+        )
+    }
+}
+
+extension FolderViewController: TermsViewDelegate {
+
+    func termsView(
+        _ view: TermsViewController,
+        add topic: TopicModel,
+        to folder: SetTopicModel) {
+        setsPresenter?.addTopic(topic: topic, to: folder)
+    }
+
+    func termsView(
+        _ view: TermsViewController,
+        updated topic: TopicModel,
+        in folder: SetTopicModel) {
+        setsPresenter?.updateTopic(topic: topic, of: folder)
     }
 }
 
 extension FolderViewController: NewFolderInputViewDelegate {
 
     func newSetInputView(_ view: NewSetInputViewProtocol, endEditing set: SetTopicModel) {
-        setsPresenter?.saveSet(set: set)
+        print("🥰:\(set.id)--\(set.name)")
+        setsPresenter?.saveFolder(folder: set)
         dismiss(animated: false)
     }
 }
@@ -144,7 +170,7 @@ extension FolderViewController: SetsView {
     }
 
     func displayDataOfSets(sets: [SetTopicModel]) {
-        self.sets = sets
+        headerViewsList.removeAll()
         tableView.reloadData()
     }
 
@@ -162,6 +188,20 @@ extension FolderViewController: SetsView {
 //            }
 //        )
     }
+
+    func removeTopic(at section: Int, row: Int) {
+        tableView.deleteRows(at: [IndexPath(row: row, section: section)], with: .fade)
+    }
+
+    func removeFolder(at section: Int) {
+        tableView.deleteSections(IndexSet(integer: section), with: .fade)
+    }
+
+    func updateFolderTitle(at index: Int) {
+        guard let view = headerViewsList[index],
+        let folder = setsPresenter?.getFolder(at: index) else { return }
+        view.setData(set: folder)
+    }
 }
 
 extension FolderViewController: Storyboarded {}
@@ -169,11 +209,11 @@ extension FolderViewController: Storyboarded {}
 extension FolderViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sets.count
+        return setsPresenter?.getAllFolders().count ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sets[section].topics.count
+        return setsPresenter?.getTopicsOfFolder(at: section).count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -181,7 +221,7 @@ extension FolderViewController: UITableViewDataSource {
             withIdentifier: String(describing: SetTableViewCell.self),
             for: indexPath
         ) as? SetTableViewCell
-        cell?.setData(topic: sets[indexPath.section].topics[indexPath.row])
+        cell?.setData(topic: setsPresenter?.getTopic(of: setsPresenter!.getFolder(at: indexPath.section)!, at: indexPath.row))
         return cell ?? UITableViewCell()
     }
 }
@@ -193,8 +233,12 @@ extension FolderViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let set = sets[indexPath.section]
-        coordinator?.presentTermsScreen(folder: set, topic: set.topics[indexPath.row])
+        guard let folder = setsPresenter?.getFolder(at: indexPath.section),
+              let topic = setsPresenter?.getTopic(of: folder, at: indexPath.row) else { return }
+        coordinator?.presentTermsScreen(
+            folder: folder,
+            topic: topic,
+            delegateView: self)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -202,19 +246,25 @@ extension FolderViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let headerView: SetHeaderTableView = SetHeaderTableView.fromNib() else { return UIView() }
-        headerView.setData(set: sets[section]) { [weak self] in
-            guard let self = self else { return }
-            self.showMoreActionsBottomSheet(of: self.sets[section])
+        if let headerView = headerViewsList[section] {
+            return headerView
         }
+        guard let headerView: SetHeaderTableView = SetHeaderTableView.fromNib(),
+              let folder = setsPresenter?.getFolder(at: section) else { return UIView() }
+        headerView.setData(set: folder) { [weak self] in
+            guard let self = self else { return }
+            self.showMoreActionsBottomSheet(of: folder)
+        }
+        headerViewsList[section] = headerView
         return headerView
     }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            setsPresenter?.deleteTopic(sets[indexPath.section].topics[indexPath.row], from: sets[indexPath.section])
-            sets[indexPath.section].topics.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            let folder = setsPresenter?.getFolder(at: indexPath.section)
+            setsPresenter?.deleteTopic(
+                setsPresenter?.getTopic(of: folder, at: indexPath.row),
+                from: folder)
         }
     }
 }
