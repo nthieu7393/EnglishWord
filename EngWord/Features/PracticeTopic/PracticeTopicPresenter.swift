@@ -34,14 +34,21 @@ final class PracticeTopicPresenter: BasePresenter {
     
     func viewDidLoad() {
         practicalFormControllers = [
-            PracticalFormController.practiceFormView(for: .practiceTerm, cards: cards, endTest: { _ in
+            PracticalFormController.practiceFormView(
+                for: .practiceTerm,
+                cards: cards,
+                endTest: { _ in
                 self.endPracticeRound()
             }),
-            PracticalFormController.practiceFormView(for: .practiceDescription, cards: cards, endTest: { _ in
+            PracticalFormController.practiceFormView(
+                for: .practiceDescription,
+                cards: cards,
+                endTest: { _ in
                 self.endPracticeRound()
                 
                 let updatedPracticeIntervalTopic = self.updatePracticeValue(of: self.topic)
-                NotificationCenter.default.post(name: .practiceFinishNotification, object: updatedPracticeIntervalTopic)
+                    let topicFolder = TopicFolderWrapper(folder: self.folder, topic: updatedPracticeIntervalTopic)
+                NotificationCenter.default.post(name: .practiceFinishNotification, object: topicFolder)
                 self.storageService.updatePracticeIntervalOfTopic(
                     topic: updatedPracticeIntervalTopic,
                     folder: self.folder

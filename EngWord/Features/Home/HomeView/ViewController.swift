@@ -26,6 +26,10 @@ class ViewController: BaseViewController, Storyboarded {
         homePresenter?.viewDidLoad()
     }
 
+    override var showBackBtnIfNeed: Bool {
+        return false
+    }
+
     override func setupFontText() {
 //        usernameLbl.text = "Hasam"
 //        usernameLbl.font = Fonts.mainTitle
@@ -44,23 +48,8 @@ extension ViewController: HomeView {
         coordinator?.goToSetsScreen(folders: folders)
     }
     
-    func navigateToStudyingScreen() {
-        
-    }
-    
-    func navigateToFavoriteScreen() {
-        
-    }
-    
-    func navigateToReviewScreen() {
-        
-    }
-    
-    func navigateToTrashScreen() {
-        
-    }
-
-    func navigateToSignInScreen() {
+    func gotoTopicsListScreen(allTopics: [TopicFolderWrapper]) {
+        coordinator?.gotoTopicsListScreen(allTopics: allTopics)
     }
 
     func display() {
@@ -70,7 +59,10 @@ extension ViewController: HomeView {
 
 extension ViewController: UITableViewDataSource {
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
         return homePresenter?.getHomeMenuList.count ?? 0
     }
 

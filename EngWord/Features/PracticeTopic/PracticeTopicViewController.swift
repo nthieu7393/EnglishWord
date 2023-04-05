@@ -53,24 +53,10 @@ extension PracticeTopicViewController: UIPageViewControllerDataSource {
 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         return nil
-//        guard let currentIndex = controllers.firstIndex(
-//            of: viewController as! PageContentViewController) else { return nil }
-//        if currentIndex == 0 {
-//            return controllers.last
-//        } else {
-//            return controllers![currentIndex - 1]
-//        }
     }
 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         return nil
-//        guard let currentIndex = controllers.firstIndex(
-//            of: viewController as! PageContentViewController) else { return nil }
-//        if currentIndex < controllers.count - 1 {
-//            return controllers![currentIndex + 1]
-//        } else {
-//            return controllers.first
-//        }
     }
 }
 
@@ -90,7 +76,6 @@ extension PracticeTopicViewController: PracticeTopicViewProtocol, Storyboarded {
         pageViewController.setViewControllers([controllers[index]], direction: .forward, animated: true)
     }
 
-    
     func showPracticePass() {
         let jsonName = "lf20_tiviyc3p"
         let animation = Animation.named(jsonName)

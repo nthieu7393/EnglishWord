@@ -33,6 +33,12 @@
 		A04976CD29A92CC400CFB595 /* PracticeTopicForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04976CC29A92CC400CFB595 /* PracticeTopicForm.swift */; };
 		A0543B3C29B8FC01003B47E3 /* DimmingPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0543B3B29B8FC01003B47E3 /* DimmingPresentationController.swift */; };
 		A0543B3E29B8FE89003B47E3 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0543B3D29B8FE89003B47E3 /* GradientView.swift */; };
+		A057414329DBF17C002C1C0E /* TopicsListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A057414029DBF17C002C1C0E /* TopicsListPresenter.swift */; };
+		A057414429DBF17C002C1C0E /* TopicsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A057414129DBF17C002C1C0E /* TopicsListViewController.swift */; };
+		A057414529DBF17C002C1C0E /* TopicsListViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A057414229DBF17C002C1C0E /* TopicsListViewProtocol.swift */; };
+		A057414729DC812F002C1C0E /* TopicsInRoutineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A057414629DC812F002C1C0E /* TopicsInRoutineViewController.swift */; };
+		A057414B29DCA7ED002C1C0E /* TopicInRoutineTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A057414929DCA7ED002C1C0E /* TopicInRoutineTableCell.swift */; };
+		A057414C29DCA7ED002C1C0E /* TopicInRoutineTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A057414A29DCA7ED002C1C0E /* TopicInRoutineTableCell.xib */; };
 		A06F41B729A9090E00DBBDCB /* PracticeTopicPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06F41B429A9090E00DBBDCB /* PracticeTopicPresenter.swift */; };
 		A06F41B829A9090E00DBBDCB /* PracticeTopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06F41B529A9090E00DBBDCB /* PracticeTopicViewController.swift */; };
 		A06F41B929A9090E00DBBDCB /* PracticeTopicViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06F41B629A9090E00DBBDCB /* PracticeTopicViewProtocol.swift */; };
@@ -217,6 +223,12 @@
 		A04976CC29A92CC400CFB595 /* PracticeTopicForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeTopicForm.swift; sourceTree = "<group>"; };
 		A0543B3B29B8FC01003B47E3 /* DimmingPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimmingPresentationController.swift; sourceTree = "<group>"; };
 		A0543B3D29B8FE89003B47E3 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		A057414029DBF17C002C1C0E /* TopicsListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsListPresenter.swift; sourceTree = "<group>"; };
+		A057414129DBF17C002C1C0E /* TopicsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsListViewController.swift; sourceTree = "<group>"; };
+		A057414229DBF17C002C1C0E /* TopicsListViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsListViewProtocol.swift; sourceTree = "<group>"; };
+		A057414629DC812F002C1C0E /* TopicsInRoutineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsInRoutineViewController.swift; sourceTree = "<group>"; };
+		A057414929DCA7ED002C1C0E /* TopicInRoutineTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicInRoutineTableCell.swift; sourceTree = "<group>"; };
+		A057414A29DCA7ED002C1C0E /* TopicInRoutineTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopicInRoutineTableCell.xib; sourceTree = "<group>"; };
 		A06F41B429A9090E00DBBDCB /* PracticeTopicPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeTopicPresenter.swift; sourceTree = "<group>"; };
 		A06F41B529A9090E00DBBDCB /* PracticeTopicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeTopicViewController.swift; sourceTree = "<group>"; };
 		A06F41B629A9090E00DBBDCB /* PracticeTopicViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeTopicViewProtocol.swift; sourceTree = "<group>"; };
@@ -453,6 +465,27 @@
 				A0EB7BFB29AE5EC70044FC38 /* TextCollectionCell.xib */,
 			);
 			path = PracticeDescriptionForm;
+			sourceTree = "<group>";
+		};
+		A057413F29DBF14E002C1C0E /* TopicsList */ = {
+			isa = PBXGroup;
+			children = (
+				A057414829DCA7BF002C1C0E /* TopicInRoutineTableCell */,
+				A057414029DBF17C002C1C0E /* TopicsListPresenter.swift */,
+				A057414129DBF17C002C1C0E /* TopicsListViewController.swift */,
+				A057414229DBF17C002C1C0E /* TopicsListViewProtocol.swift */,
+				A057414629DC812F002C1C0E /* TopicsInRoutineViewController.swift */,
+			);
+			path = TopicsList;
+			sourceTree = "<group>";
+		};
+		A057414829DCA7BF002C1C0E /* TopicInRoutineTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				A057414929DCA7ED002C1C0E /* TopicInRoutineTableCell.swift */,
+				A057414A29DCA7ED002C1C0E /* TopicInRoutineTableCell.xib */,
+			);
+			path = TopicInRoutineTableCell;
 			sourceTree = "<group>";
 		};
 		A06F41B329A8CC2E00DBBDCB /* PracticeTopic */ = {
@@ -740,6 +773,7 @@
 		A0E7F746299E9EBD00F63140 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				A057413F29DBF14E002C1C0E /* TopicsList */,
 				A0D8646929DB72AE00942538 /* Launch */,
 				A0A7B63629BE4BCE0080A6DC /* PartOfSpeechMenu */,
 				A06F41B329A8CC2E00DBBDCB /* PracticeTopic */,
@@ -1056,6 +1090,7 @@
 			files = (
 				A0E7F7D3299E9EC500F63140 /* oxford-5000.json in Resources */,
 				A0E7F7D2299E9EC500F63140 /* HindSiliguri-Medium.ttf in Resources */,
+				A057414C29DCA7ED002C1C0E /* TopicInRoutineTableCell.xib in Resources */,
 				A00B364529A4D79B0077250D /* TermActivitiesTableCell.xib in Resources */,
 				A0E7F7D6299E9EC500F63140 /* phrasal-verbs.json in Resources */,
 				A04976C429A914C300CFB595 /* PracticeTermForm.xib in Resources */,
@@ -1244,6 +1279,7 @@
 			files = (
 				A0A7B63C29BE4BF30080A6DC /* PartOfSpeechMenuViewProtocol.swift in Sources */,
 				A0E7F79A299E9EBD00F63140 /* NetworkVocabularyService.swift in Sources */,
+				A057414529DBF17C002C1C0E /* TopicsListViewProtocol.swift in Sources */,
 				A011077129AD1D7100B84E6F /* TextTableCell.swift in Sources */,
 				A0E7F790299E9EBD00F63140 /* BaseView.swift in Sources */,
 				A0D8646F29DB731B00942538 /* LaunchViewProtocol.swift in Sources */,
@@ -1270,6 +1306,7 @@
 				A0E7F826299F8D6200F63140 /* AllTopicsViewController.swift in Sources */,
 				A0E7F7BD299E9EBD00F63140 /* SetTableViewCell.swift in Sources */,
 				A0368AFB29A291AD000A671B /* IconButton.swift in Sources */,
+				A057414729DC812F002C1C0E /* TopicsInRoutineViewController.swift in Sources */,
 				A0E7F79E299E9EBD00F63140 /* Error.swift in Sources */,
 				A0E7F79F299E9EBD00F63140 /* Localizations.swift in Sources */,
 				A0E7F79C299E9EBD00F63140 /* NetworkRequest.swift in Sources */,
@@ -1300,9 +1337,11 @@
 				A0B5D38929BADAA500B81F79 /* PracticalResult.swift in Sources */,
 				A0437B7929B8F41A0094E373 /* TurnResultPopup.swift in Sources */,
 				A0E7F825299F8D6200F63140 /* AllTopicsPresenter.swift in Sources */,
+				A057414329DBF17C002C1C0E /* TopicsListPresenter.swift in Sources */,
 				A0E7F78C299E9EBD00F63140 /* ResponsiveButton.swift in Sources */,
 				A070A66229A66C8C004956D8 /* TermActivityModel.swift in Sources */,
 				A0E7F7B1299E9EBD00F63140 /* TermsViewController.swift in Sources */,
+				A057414B29DCA7ED002C1C0E /* TopicInRoutineTableCell.swift in Sources */,
 				A0A7B63B29BE4BF30080A6DC /* PartOfSpeechMenuViewController.swift in Sources */,
 				A0D8646E29DB731B00942538 /* LaunchViewController.swift in Sources */,
 				A0E7F78A299E9EBD00F63140 /* UnderlineTextView.swift in Sources */,
@@ -1340,6 +1379,7 @@
 				A0E7F6D9299E9D3B00F63140 /* AppDelegate.swift in Sources */,
 				A070A66A29A7BF15004956D8 /* ReviewCardViewController.swift in Sources */,
 				A0E7F780299E9EBD00F63140 /* UIColor+Extension.swift in Sources */,
+				A057414429DBF17C002C1C0E /* TopicsListViewController.swift in Sources */,
 				A0E7F6E3299E9D3B00F63140 /* EngWord.xcdatamodeld in Sources */,
 				A0E7F7B5299E9EBD00F63140 /* SignInPresenter.swift in Sources */,
 				A0E7F7C2299E9EBD00F63140 /* UserInfoPresenter.swift in Sources */,

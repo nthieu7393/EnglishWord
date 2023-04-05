@@ -49,6 +49,10 @@ class BaseViewController: UIViewController {
         return false
     }
 
+    var showBackBtnIfNeed: Bool {
+        return true
+    }
+
     @objc func screenOnTouch(_ gesture: UITapGestureRecognizer) {
         if !ignoreDismissKeyboardWhenTap {
             dismissKeyboard()
@@ -113,7 +117,7 @@ class BaseViewController: UIViewController {
     }
     
     private func displayBackBarItemIfNeed() {
-        guard isPush else { return }
+        guard isPush, showBackBtnIfNeed else { return }
         let backButton: UIButton = UIButton()
         backButton.setImage(Icons.backIcon, for: UIControl.State())
         backButton.addTarget(

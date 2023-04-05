@@ -45,7 +45,8 @@ class MainCoordinator {
         )
         viewController.presenter = presenter
         viewController.coordinator = self
-        navigationController.pushViewController(viewController, animated: false)
+        navigationController.setViewControllers([viewController], animated: true)
+//        navigationController.show(viewController, animated: false)
     }
     
     func goToSetsScreen(folders: [SetTopicModel]) {
@@ -221,5 +222,15 @@ class MainCoordinator {
         viewController.coordinator = self
         viewController.delegate = delegateScreen
         screen.present(viewController, animated: true)
+    }
+
+    func gotoTopicsListScreen(allTopics: [TopicFolderWrapper]) {
+        guard let viewController = TopicsListViewController.instantiate() else {
+            return
+        }
+        let presenter = TopicsListPresenter(view: viewController, topics: allTopics)
+        viewController.presenter = presenter
+        viewController.coordinator = self
+        navigationController.show(viewController, sender: nil)
     }
 }

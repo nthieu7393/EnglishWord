@@ -19,7 +19,7 @@ final class LaunchViewController: BaseViewController {
     }
 }
 
-extension  LaunchViewController: LaunchViewProtocol, Storyboarded {
+extension LaunchViewController: LaunchViewProtocol, Storyboarded {
 
     func enterHomeScreen(folders: [SetTopicModel]) {
         coordinator?.gotoHomeScreen(folders: folders)

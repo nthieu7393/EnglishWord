@@ -35,32 +35,22 @@ class HomePresenter: BasePresenter {
     }
 
     private func calculateMenus(folders: [SetTopicModel]) {
-        let allTopics = folders.flatMap { $0.topics }
-        let dailyTopics = allTopics.filter {
-            $0.intervalPractice == .daily
-        }
-        let weeklyTopics = allTopics.filter {
-            $0.intervalPractice == .weekly
-        }
-        let monthlyTopics = allTopics.filter {
-            $0.intervalPractice == .monthly
+        var allTopics: [TopicFolderWrapper] = []
+        for folder in folders {
+            let topics = folder.topics.map {
+                TopicFolderWrapper(folder: folder, topic: $0)
+            }
+            allTopics.append(contentsOf: topics)
         }
 
         self.homeMenuList = [
-            HomeMenuSet(totalItems: folders.count, actionOnTap: {
+            HomeMenuAllFolders(totalItems: folders.count, actionOnTap: {
                 self.view.navigateToSetsScreen(folders: folders)
             }),
-            HomeMenuStudying(totalItems: dailyTopics.count, actionOnTap: {
-                print("HomeMenuStudying")
-            }),
-            HomeMenuFavorite(totalItems: weeklyTopics.count, actionOnTap: {
-                print("HomeMenuFavorite")
-            }),
-            HomeMenuPlan(totalItems: monthlyTopics.count, actionOnTap: {
-                print("HomeMenuPlan")
-            }),
+            HomeMenuDailyTopics(totalItems: allTopics.count, actionOnTap: {
+                self.view.gotoTopicsListScreen(allTopics: allTopics)
+            })
         ]
-
         view.display()
     }
 }

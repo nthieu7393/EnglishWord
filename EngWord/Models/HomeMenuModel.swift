@@ -15,7 +15,7 @@ protocol HomeMenuModel {
     func runOnTap()
 }
 
-class HomeMenuSet: HomeMenuModel {
+class HomeMenuAllFolders: HomeMenuModel {
     private var totalItems: Int
     
     var title: String {
@@ -46,12 +46,12 @@ class HomeMenuSet: HomeMenuModel {
     }
 }
 
-class HomeMenuStudying: HomeMenuModel {
+class HomeMenuDailyTopics: HomeMenuModel {
     private var totalItems: Int
     var onTap: () -> Void
     
     var title: String {
-        return Localizations.studying
+        return "Daily Topics"
     }
     
     var numberOfItems: Int {
@@ -76,12 +76,12 @@ class HomeMenuStudying: HomeMenuModel {
     }
 }
 
-class HomeMenuFavorite: HomeMenuModel {
+class HomeMenuWeeklyTopics: HomeMenuModel {
     private var totalItems: Int
     var onTap: () -> Void
     
     var title: String {
-        return Localizations.favorite
+        return "Weekly Topics"
     }
     
     var numberOfItems: Int {
@@ -93,7 +93,7 @@ class HomeMenuFavorite: HomeMenuModel {
     }
     
     var icon: UIImage {
-        return R.image.starIcon()!
+        return R.image.folderIcon()!
     }
     
     init(totalItems: Int, actionOnTap: @escaping () -> Void) {
@@ -106,12 +106,12 @@ class HomeMenuFavorite: HomeMenuModel {
     }
 }
 
-class HomeMenuPlan: HomeMenuModel {
+class HomeMenuMonthlyTopics: HomeMenuModel {
     private var totalItems: Int
     var onTap: () -> Void
 
     var title: String {
-        return Localizations.review
+        return "Monthly Topics"
     }
     
     var numberOfItems: Int {
@@ -123,37 +123,7 @@ class HomeMenuPlan: HomeMenuModel {
     }
     
     var icon: UIImage {
-        return R.image.calendarIcon()!
-    }
-    
-    init(totalItems: Int, actionOnTap: @escaping () -> Void) {
-        self.totalItems = totalItems
-        self.onTap = actionOnTap
-    }
-    
-    func updateNumberOfItems(number: Int) {
-        self.totalItems = number
-    }
-}
-
-class HomeMenuTrash: HomeMenuModel {
-    private var totalItems: Int
-    var onTap: () -> Void
-
-    var title: String {
-        return Localizations.trash
-    }
-    
-    var numberOfItems: Int {
-        return totalItems
-    }
-    
-    func runOnTap() {
-        onTap()
-    }
-    
-    var icon: UIImage {
-        return R.image.trashFillIcon()!
+        return R.image.folderIcon()!
     }
     
     init(totalItems: Int, actionOnTap: @escaping () -> Void) {

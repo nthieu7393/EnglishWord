@@ -26,11 +26,16 @@ class FolderViewController: BaseViewController {
         super.viewDidLoad()
         layoutInputNewSetToolbar()
         setsPresenter?.loadAllSets()
-        NotificationCenter.default.addObserver(self, selector: #selector(practiceNotificationReceived(_:)), name: .practiceFinishNotification, object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(practiceNotificationReceived(_:)),
+            name: .practiceFinishNotification,
+            object: nil
+        )
     }
     
     @objc func practiceNotificationReceived(_ notification: Notification) {
-        setsPresenter?.updateTopic(topic: notification.object as? TopicModel)
+        setsPresenter?.updateTopic(topic: (notification.object as? TopicFolderWrapper)?.topic)
     }
 
     private func layoutInputNewSetToolbar() {
