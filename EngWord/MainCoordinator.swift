@@ -111,7 +111,8 @@ class MainCoordinator {
     func presentTermsScreen(
         folder: SetTopicModel,
         topic: TopicModel,
-        delegateView: TermsViewDelegate) {
+        delegateView: TermsViewDelegate
+    ) {
         guard let viewController = TermsViewController.instantiate() else { return }
         let presenter = TermsPresenter(
             view: viewController,

@@ -12,7 +12,7 @@ class HomePresenter: BasePresenter {
     private var homeMenuList: [HomeMenuModel] = []
     private let view: HomeView
     private let authService: Authentication
-    private let folders: [SetTopicModel]
+    private var folders: [SetTopicModel]
     
     var getHomeMenuList: [HomeMenuModel] { return homeMenuList }
     var userInfo: UserInfo? {
@@ -52,5 +52,16 @@ class HomePresenter: BasePresenter {
             })
         ]
         view.display()
+    }
+    
+    func updateFolders(topic: TopicFolderWrapper) {
+        guard let indexOfFolder = folders.firstIndex(where: {
+            $0.id == topic.folder.id
+        }) else { return }
+        guard let indexOfTopic = folders[indexOfFolder].topics.firstIndex(where: {
+            $0.topicId == topic.topic.topicId
+        }) else { return }
+        folders[indexOfFolder].name = topic.folder.name
+        folders[indexOfFolder].topics[indexOfTopic] = topic.topic
     }
 }

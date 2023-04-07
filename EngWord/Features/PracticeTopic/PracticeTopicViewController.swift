@@ -103,6 +103,7 @@ extension PracticeTopicViewController: PracticeTopicViewProtocol, Storyboarded {
     func showPracticeFail() {
         let storyboard = PracticalResultViewController.instantiatePopup()
         storyboard?.practicalResult = .fail
+        storyboard?.delegate = self
         self.present(storyboard!, animated: true)
     }
 }

@@ -104,6 +104,8 @@ final class PracticeTopicPresenter: BasePresenter {
         return mutatingTopic
     }
     
+    private let dayDelta = 0
+    
     private func updatePracticeIntervalDaily(
         topic: TopicModel,
         fromDateComponents: DateComponents,
@@ -111,7 +113,7 @@ final class PracticeTopicPresenter: BasePresenter {
             var mutatingTopic = topic
             if fromDateComponents.year == toDateComponents.year
                 && fromDateComponents.month == toDateComponents.month
-                && fromDateComponents.day == (toDateComponents.day ?? 0) + 1 {
+                && fromDateComponents.day == (toDateComponents.day ?? 0) + dayDelta {
                 if topic.numberOfPractice == IntervalBetweenPractice.daily.maxPracticeNumber {
                     mutatingTopic.intervalPractice = .weekly
                     mutatingTopic.numberOfPractice = 0
@@ -140,7 +142,7 @@ final class PracticeTopicPresenter: BasePresenter {
         fromDateComponents: DateComponents,
         toDateComponents: DateComponents) -> TopicModel {
             var mutatingTopic = topic
-            if toDateComponents.weekOfYear == (fromDateComponents.weekOfYear ?? 0) + 1
+            if toDateComponents.weekOfYear == (fromDateComponents.weekOfYear ?? 0) + dayDelta
                 && toDateComponents.year == fromDateComponents.year {
                 if topic.numberOfPractice == IntervalBetweenPractice.weekly.maxPracticeNumber {
                     mutatingTopic.intervalPractice = .monthly
@@ -162,10 +164,13 @@ final class PracticeTopicPresenter: BasePresenter {
         fromDateComponents: DateComponents,
         toDateComponents: DateComponents) -> TopicModel {
         var mutatingTopic = topic
-        let isWithinMonth = toDateComponents.month == (fromDateComponents.month ?? 0) + 1
+        let isWithinMonth = ((toDateComponents.month ?? 0) + dayDelta) == (fromDateComponents.month ?? 0)
             && toDateComponents.year == fromDateComponents.year
         if isWithinMonth {
             mutatingTopic.numberOfPractice = (mutatingTopic.numberOfPractice ?? 0) + 1
+            if (mutatingTopic.numberOfPractice ?? 0) >= (mutatingTopic.intervalPractice?.maxPracticeNumber ?? 0) {
+                mutatingTopic.intervalPractice = .master
+            }
         } else {
             mutatingTopic.numberOfPractice = max((mutatingTopic.numberOfPractice ?? 0) - (calculateDifferenceBetween(components: [.month], topic: topic).month ?? 0), 0)
         }

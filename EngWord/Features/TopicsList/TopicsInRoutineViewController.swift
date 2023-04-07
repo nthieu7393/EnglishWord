@@ -17,6 +17,7 @@ protocol TopicsInRoutineViewDelegate: AnyObject {
 
 class TopicsInRoutineViewController: UIViewController {
 
+    var titleString: String?
     weak var delegate: TopicsInRoutineViewDelegate?
     lazy var tableView: UITableView = {
         let tbv = UITableView()

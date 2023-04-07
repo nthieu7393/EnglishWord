@@ -10,7 +10,6 @@ import UIKit
 class TopicTableViewCell: UITableViewCell {
 
     @IBOutlet weak var containerView: UIView!
-
     @IBOutlet weak var createDateLabel: UILabel!
     @IBOutlet weak var calendarIcon: UIImageView!
     @IBOutlet weak var numberOfTermsLabel: UILabel!

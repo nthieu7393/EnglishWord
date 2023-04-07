@@ -17,7 +17,7 @@ class SetTableViewCell: UITableViewCell {
     @IBOutlet weak var frequencyContainer: UIView!
     @IBOutlet weak var progressLabel: UILabel!
     @IBOutlet weak var progressBar: UIProgressView!
-    @IBOutlet weak var practiceContainer: UIView!
+    @IBOutlet weak var masterLevelView: UIView!
     @IBOutlet weak var progressContainer: UIStackView!
     
     override func awakeFromNib() {
@@ -44,7 +44,7 @@ class SetTableViewCell: UITableViewCell {
     func setData(topic: TopicModel?) {
         guard let topic = topic else { return }
         progressContainer.isHidden = topic.intervalPractice == .master
-        practiceContainer.isHidden = topic.intervalPractice != .master
+        masterLevelView.isHidden = topic.intervalPractice != .master
         topicNameLbl.text = topic.name
         numberOfTermsLbl.text = "\(topic.numberOfTerms) \(Localizations.words.lowercased())"
         createdOnLbl.text = topic.createdTime

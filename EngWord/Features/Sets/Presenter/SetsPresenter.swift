@@ -27,7 +27,7 @@ class SetsPresenter: BasePresenter {
         view.showLoadingIndicator()
         Task {
             do {
-                sets = try await storageService.getAllSets()
+//                sets = try await storageService.getAllSets()
                 DispatchQueue.main.async {
                     self.view.displayDataOfSets(sets: self.sets ?? [])
                     self.view.dismissLoadingIndicator()
@@ -126,27 +126,27 @@ class SetsPresenter: BasePresenter {
         }
     }
     
-    func updateTopic(topic: TopicModel?) {
-        guard let topic = topic else { return }
-        guard var folder = sets?.first(where: {
-            $0.topics.map { topic in topic.topicId }.contains { id in
-                id == topic.topicId
-            }
-        }) else { return }
-        
-        guard let indexOfTopic = folder.topics.firstIndex(where: {
-            $0.topicId == topic.topicId
-        }) else { return }
-        
-        folder.topics[indexOfTopic] = topic
-        
-        guard let indexOfFolder = sets?.firstIndex(where: {
-            $0.id == folder.id
-        }) else { return }
-        
-        sets?[Int(indexOfFolder)] = folder
-        view.displayDataOfSets(sets: sets ?? [])
-    }
+//    func updateTopic(topic: TopicModel?) {
+//        guard let topic = topic else { return }
+//        guard var folder = sets?.first(where: {
+//            $0.topics.map { topic in topic.topicId }.contains { id in
+//                id == topic.topicId
+//            }
+//        }) else { return }
+//        
+//        guard let indexOfTopic = folder.topics.firstIndex(where: {
+//            $0.topicId == topic.topicId
+//        }) else { return }
+//        
+//        folder.topics[indexOfTopic] = topic
+//        
+//        guard let indexOfFolder = sets?.firstIndex(where: {
+//            $0.id == folder.id
+//        }) else { return }
+//        
+//        sets?[Int(indexOfFolder)] = folder
+//        view.displayDataOfSets(sets: sets ?? [])
+//    }
 
     func addTopic(topic: TopicModel, to folder: SetTopicModel) {
         guard let indexOfFolder = sets?.firstIndex(where: {

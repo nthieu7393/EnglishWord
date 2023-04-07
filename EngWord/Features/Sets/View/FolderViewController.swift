@@ -25,7 +25,7 @@ class FolderViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         layoutInputNewSetToolbar()
-        setsPresenter?.loadAllSets()
+//        setsPresenter?.loadAllSets()
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(practiceNotificationReceived(_:)),
@@ -35,7 +35,8 @@ class FolderViewController: BaseViewController {
     }
     
     @objc func practiceNotificationReceived(_ notification: Notification) {
-        setsPresenter?.updateTopic(topic: (notification.object as? TopicFolderWrapper)?.topic)
+        guard let topicFolder = notification.object as? TopicFolderWrapper else { return }
+        setsPresenter?.updateTopic(topic: topicFolder.topic, of: topicFolder.folder)
     }
 
     private func layoutInputNewSetToolbar() {

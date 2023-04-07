@@ -24,6 +24,16 @@ class ViewController: BaseViewController, Storyboarded {
 //        signinButton.title = Localizations.signin
 //        signinNoteLabel.text = Localizations.signinNote
         homePresenter?.viewDidLoad()
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(practiceNotificationReceived(_:)),
+            name: .practiceFinishNotification,
+            object: nil
+        )
+    }
+    
+    @objc func practiceNotificationReceived(_ notification: Notification) {
+        homePresenter?.updateFolders(topic: (notification.object as! TopicFolderWrapper))
     }
 
     override var showBackBtnIfNeed: Bool {

@@ -32,6 +32,14 @@ struct TopicModel: Codable {
         dateFormatter.timeStyle = .none
         return dateFormatter.string(from: Date(timeIntervalSince1970: createdDateTimeInterval))
     }
+    
+    var lastPracticeDate: String? {
+        guard let lastDatePractice = lastDatePractice else { return nil }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        return dateFormatter.string(from: Date(timeIntervalSince1970: lastDatePractice))
+    }
 
     enum CodingKeys: String, CodingKey {
         case ID = "id"

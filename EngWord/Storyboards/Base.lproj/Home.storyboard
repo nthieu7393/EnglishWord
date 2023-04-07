@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -188,7 +188,7 @@
                                                     <rect key="frame" x="20" y="0.0" width="350" height="456"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" horizontalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="i3D-Hr-5dc" customClass="TextButton" customModule="EngWord" customModuleProvider="target">
-                                                            <rect key="frame" x="20" y="16" width="50" height="28"/>
+                                                            <rect key="frame" x="20" y="16" width="0.0" height="28"/>
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="28" id="XN8-Tp-Yye"/>
@@ -712,8 +712,8 @@
                                             <outlet property="createdOnLbl" destination="HSU-2Q-PHC" id="Yie-1n-nkf"/>
                                             <outlet property="dateIntervalLabel" destination="sdj-k9-2q6" id="0g3-h0-bgb"/>
                                             <outlet property="frequencyContainer" destination="F1B-XS-Uxi" id="SvZ-V7-NoN"/>
+                                            <outlet property="masterLevelView" destination="2cz-J7-97d" id="axD-Nx-G25"/>
                                             <outlet property="numberOfTermsLbl" destination="DV9-Sg-4lv" id="Ytn-Np-hGH"/>
-                                            <outlet property="practiceContainer" destination="2cz-J7-97d" id="axD-Nx-G25"/>
                                             <outlet property="progressBar" destination="8CK-ss-03Z" id="Bk9-La-XJf"/>
                                             <outlet property="progressContainer" destination="yQ5-NC-g7x" id="b9N-Ck-QOm"/>
                                             <outlet property="progressLabel" destination="tEa-Sr-b8n" id="wgO-va-Hdl"/>
@@ -1680,9 +1680,28 @@
                     <view key="view" contentMode="scaleToFill" id="mQp-LN-gGh">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HtY-54-CaP">
+                                <rect key="frame" x="0.0" y="47" width="390" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="rpY-Hc-bDi"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" name="mainText"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="yhm-XU-rwy"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="HtY-54-CaP" firstAttribute="top" secondItem="yhm-XU-rwy" secondAttribute="top" id="GIw-ra-N1Z"/>
+                            <constraint firstItem="yhm-XU-rwy" firstAttribute="trailing" secondItem="HtY-54-CaP" secondAttribute="trailing" id="JhN-11-ZBd"/>
+                            <constraint firstItem="HtY-54-CaP" firstAttribute="leading" secondItem="yhm-XU-rwy" secondAttribute="leading" id="eg3-wT-m25"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="titleLabel" destination="HtY-54-CaP" id="9uU-Cz-kZi"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IUt-f4-Ju6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1727,6 +1746,14 @@
             <point key="canvasLocation" x="238" y="-753"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="QW8-Ee-l92">
+            <size key="intrinsicContentSize" width="0.0" height="44"/>
+        </designable>
+        <designable name="i3D-Hr-5dc">
+            <size key="intrinsicContentSize" width="0.0" height="28"/>
+        </designable>
+    </designables>
     <resources>
         <image name="createDateIcon" width="24" height="24"/>
         <image name="eye.fill" catalog="system" width="128" height="80"/>
