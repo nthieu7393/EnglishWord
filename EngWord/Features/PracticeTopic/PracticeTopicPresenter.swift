@@ -167,7 +167,7 @@ final class PracticeTopicPresenter: BasePresenter {
         let isWithinMonth = ((toDateComponents.month ?? 0) + dayDelta) == (fromDateComponents.month ?? 0)
             && toDateComponents.year == fromDateComponents.year
         if isWithinMonth {
-            mutatingTopic.numberOfPractice = (mutatingTopic.numberOfPractice ?? 0) + 1
+            mutatingTopic.numberOfPractice = (mutatingTopic.numberOfPractice ?? 0) + dayDelta
             if (mutatingTopic.numberOfPractice ?? 0) >= (mutatingTopic.intervalPractice?.maxPracticeNumber ?? 0) {
                 mutatingTopic.intervalPractice = .master
             }
