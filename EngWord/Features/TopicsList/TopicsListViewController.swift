@@ -30,6 +30,7 @@ final class TopicsListViewController: BaseViewController {
 
         view.addSubview(pageViewController.view)
         setupPageView()
+        titleLabel.text = IntervalBetweenPractice.daily.text
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(practiceNotificationReceived(_:)),

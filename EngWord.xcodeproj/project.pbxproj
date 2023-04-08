@@ -55,6 +55,9 @@
 		A0A7B63B29BE4BF30080A6DC /* PartOfSpeechMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A7B63829BE4BF30080A6DC /* PartOfSpeechMenuViewController.swift */; };
 		A0A7B63C29BE4BF30080A6DC /* PartOfSpeechMenuViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A7B63929BE4BF30080A6DC /* PartOfSpeechMenuViewProtocol.swift */; };
 		A0B5D38929BADAA500B81F79 /* PracticalResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B5D38829BADAA500B81F79 /* PracticalResult.swift */; };
+		A0BE9D7E29E1DE6F00EEFA72 /* NoDataTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BE9D7C29E1DE6F00EEFA72 /* NoDataTableCell.swift */; };
+		A0BE9D7F29E1DE6F00EEFA72 /* NoDataTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0BE9D7D29E1DE6F00EEFA72 /* NoDataTableCell.xib */; };
+		A0BE9D8129E1F12700EEFA72 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BE9D8029E1F12700EEFA72 /* BaseTableViewCell.swift */; };
 		A0BFE16C29B7AFDD0038406A /* PracticeDescriptionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BFE16B29B7AFDD0038406A /* PracticeDescriptionPresenter.swift */; };
 		A0BFE16E29B7B00F0038406A /* PracticeTermPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BFE16D29B7B00F0038406A /* PracticeTermPresenter.swift */; };
 		A0CCB9B329C0CE3300523AF6 /* PartOfSpeechTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CCB9B229C0CE3300523AF6 /* PartOfSpeechTableCell.swift */; };
@@ -245,6 +248,9 @@
 		A0A7B63829BE4BF30080A6DC /* PartOfSpeechMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartOfSpeechMenuViewController.swift; sourceTree = "<group>"; };
 		A0A7B63929BE4BF30080A6DC /* PartOfSpeechMenuViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartOfSpeechMenuViewProtocol.swift; sourceTree = "<group>"; };
 		A0B5D38829BADAA500B81F79 /* PracticalResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticalResult.swift; sourceTree = "<group>"; };
+		A0BE9D7C29E1DE6F00EEFA72 /* NoDataTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDataTableCell.swift; sourceTree = "<group>"; };
+		A0BE9D7D29E1DE6F00EEFA72 /* NoDataTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoDataTableCell.xib; sourceTree = "<group>"; };
+		A0BE9D8029E1F12700EEFA72 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		A0BFE16B29B7AFDD0038406A /* PracticeDescriptionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeDescriptionPresenter.swift; sourceTree = "<group>"; };
 		A0BFE16D29B7B00F0038406A /* PracticeTermPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeTermPresenter.swift; sourceTree = "<group>"; };
 		A0CCB9B229C0CE3300523AF6 /* PartOfSpeechTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartOfSpeechTableCell.swift; sourceTree = "<group>"; };
@@ -551,6 +557,15 @@
 			path = Storyboards;
 			sourceTree = "<group>";
 		};
+		A0BE9D7B29E1DE4600EEFA72 /* NoDataTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				A0BE9D7C29E1DE6F00EEFA72 /* NoDataTableCell.swift */,
+				A0BE9D7D29E1DE6F00EEFA72 /* NoDataTableCell.xib */,
+			);
+			path = NoDataTableCell;
+			sourceTree = "<group>";
+		};
 		A0D8646929DB72AE00942538 /* Launch */ = {
 			isa = PBXGroup;
 			children = (
@@ -673,6 +688,7 @@
 		A0E7F71F299E9EBA00F63140 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
+				A0BE9D7B29E1DE4600EEFA72 /* NoDataTableCell */,
 				A0E7F723299E9EBA00F63140 /* UnderlineTextView.swift */,
 				A0E7F724299E9EBA00F63140 /* UnderlineTextField */,
 				A0E7F726299E9EBA00F63140 /* ResponsiveButton.swift */,
@@ -683,6 +699,7 @@
 				A0D34B4A29A5C9EE005A2171 /* IconTextView.xib */,
 				A0D34B4C29A5D0D7005A2171 /* IconTextView.swift */,
 				A011076E29AD171F00B84E6F /* ResizeTableView.swift */,
+				A0BE9D8029E1F12700EEFA72 /* BaseTableViewCell.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -1096,6 +1113,7 @@
 				A04976C429A914C300CFB595 /* PracticeTermForm.xib in Resources */,
 				A00B364929A4E3A60077250D /* TermActivityCollectionCell.xib in Resources */,
 				A0E7F6E8299E9D3C00F63140 /* LaunchScreen.storyboard in Resources */,
+				A0BE9D7F29E1DE6F00EEFA72 /* NoDataTableCell.xib in Resources */,
 				A04976C929A9155E00CFB595 /* PracticeDescriptionForm.xib in Resources */,
 				A0E7F7A8299E9EBD00F63140 /* SignInNoteView.xib in Resources */,
 				A0EB7BFD29AE5EC70044FC38 /* TextCollectionCell.xib in Resources */,
@@ -1299,6 +1317,7 @@
 				A0E7F7C1299E9EBD00F63140 /* UserInfoViewController.swift in Sources */,
 				A0A2271A29A1D76F00EB41F5 /* UIButtonExtension.swift in Sources */,
 				A00B364429A4D79B0077250D /* TermActivitiesTableCell.swift in Sources */,
+				A0BE9D8129E1F12700EEFA72 /* BaseTableViewCell.swift in Sources */,
 				A0E7F79B299E9EBD00F63140 /* FirebaseStorageService.swift in Sources */,
 				A0E7F78B299E9EBD00F63140 /* UnderlineTextField.swift in Sources */,
 				A0CCB9B329C0CE3300523AF6 /* PartOfSpeechTableCell.swift in Sources */,
@@ -1392,6 +1411,7 @@
 				A0E7F777299E9EBD00F63140 /* UserInfo.swift in Sources */,
 				A0E7F795299E9EBD00F63140 /* FirebaseAuthentication.swift in Sources */,
 				A0E7F78D299E9EBD00F63140 /* MyNavigationController.swift in Sources */,
+				A0BE9D7E29E1DE6F00EEFA72 /* NoDataTableCell.swift in Sources */,
 				A0E7F7A4299E9EBD00F63140 /* PhrasalVerbEntity.swift in Sources */,
 				A0E7F779299E9EBD00F63140 /* HomeMenuModel.swift in Sources */,
 				A0E7F7BB299E9EBD00F63140 /* SetHeaderTableView.swift in Sources */,
