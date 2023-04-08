@@ -51,6 +51,6 @@ class SetTableViewCell: UITableViewCell {
         dateIntervalLabel.text = (topic.intervalPractice ?? .daily).text
         frequencyContainer.backgroundColor = (topic.intervalPractice?.color ?? IntervalBetweenPractice.daily.color)
         progressLabel.text = "\(topic.numberOfPractice ?? 0)/\(topic.intervalPractice?.maxPracticeNumber ?? IntervalBetweenPractice.daily.maxPracticeNumber)"
-        progressBar.progress = Float(topic.numberOfPractice ?? 0) / Float(topic.intervalPractice?.maxPracticeNumber ?? 1)
+        progressBar.progress = topic.percentCompletion
     }
 }

@@ -34,6 +34,7 @@ class TopicsInRoutineViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = Colors.mainBackground
         tableView.backgroundColor = UIColor.clear
+        tableView.separatorStyle = .none
 
         tableView.registerRow(TopicInRoutineTableCell.self)
 
@@ -47,16 +48,22 @@ class TopicsInRoutineViewController: UIViewController {
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
         tableView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 0).isActive = true
         tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: 0).isActive = true
+
+        tableView.registerRow(NoDataTableCell.self)
     }
 }
 
 extension TopicsInRoutineViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return topics.count
+        return max(topics.count, 1)
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if topics.isEmpty {
+            guard let cell = tableView.dequeueCell(NoDataTableCell.self, for: indexPath) else { return UITableViewCell() }
+            return cell
+        }
         guard let cell = tableView.dequeueCell(TopicInRoutineTableCell.self, for: indexPath) else {
             return UITableViewCell()
         }
@@ -65,6 +72,7 @@ extension TopicsInRoutineViewController: UITableViewDataSource, UITableViewDeleg
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard indexPath.row < topics.count else { return }
         delegate?.topicInRoutineView(self, didSelect: topics[indexPath.row], at: indexPath.row)
     }
 }

@@ -536,12 +536,15 @@ struct _R {
     var phrasalVerbsJson: RswiftResources.FileResource { .init(name: "phrasal-verbs", pathExtension: "json", bundle: bundle, locale: LocaleReference.none) }
   }
 
-  /// This `_R.nib` struct is generated, and contains static references to 11 nibs.
+  /// This `_R.nib` struct is generated, and contains static references to 12 nibs.
   struct nib {
     let bundle: Foundation.Bundle
 
     /// Nib `IconTextView`.
     var iconTextView: RswiftResources.NibReference<IconTextView> { .init(name: "IconTextView", bundle: bundle) }
+
+    /// Nib `NoDataTableCell`.
+    var noDataTableCell: RswiftResources.NibReferenceReuseIdentifier<NoDataTableCell, NoDataTableCell> { .init(name: "NoDataTableCell", bundle: bundle, identifier: "NoDataTableCell") }
 
     /// Nib `PracticeDescriptionForm`.
     var practiceDescriptionForm: RswiftResources.NibReference<PracticeDescriptionForm> { .init(name: "PracticeDescriptionForm", bundle: bundle) }
@@ -588,7 +591,7 @@ struct _R {
     }
   }
 
-  /// This `_R.reuseIdentifier` struct is generated, and contains static references to 9 reuse identifiers.
+  /// This `_R.reuseIdentifier` struct is generated, and contains static references to 10 reuse identifiers.
   struct reuseIdentifier {
 
     /// Reuse identifier `HomeMenuTableViewCell`.
@@ -596,6 +599,9 @@ struct _R {
 
     /// Reuse identifier `LogoutTableCell`.
     let logoutTableCell: RswiftResources.ReuseIdentifier<LogoutTableCell> = .init(identifier: "LogoutTableCell")
+
+    /// Reuse identifier `NoDataTableCell`.
+    let noDataTableCell: RswiftResources.ReuseIdentifier<NoDataTableCell> = .init(identifier: "NoDataTableCell")
 
     /// Reuse identifier `PartOfSpeechTableCell`.
     let partOfSpeechTableCell: RswiftResources.ReuseIdentifier<PartOfSpeechTableCell> = .init(identifier: "PartOfSpeechTableCell")

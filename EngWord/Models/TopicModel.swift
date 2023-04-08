@@ -41,6 +41,14 @@ struct TopicModel: Codable {
         return dateFormatter.string(from: Date(timeIntervalSince1970: lastDatePractice))
     }
 
+    var percentCompletion: Float {
+        return Float(numberOfPractice ?? 0) / Float(intervalPractice?.maxPracticeNumber ?? 1)
+    }
+
+    var percentCompletionString: String {
+        return String(format: "%.1f", percentCompletion * 100)
+    }
+
     enum CodingKeys: String, CodingKey {
         case ID = "id"
         case name = "topic_name"

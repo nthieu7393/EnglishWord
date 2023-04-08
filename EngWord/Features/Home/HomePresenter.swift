@@ -63,5 +63,6 @@ class HomePresenter: BasePresenter {
         }) else { return }
         folders[indexOfFolder].name = topic.folder.name
         folders[indexOfFolder].topics[indexOfTopic] = topic.topic
+        calculateMenus(folders: folders)
     }
 }
