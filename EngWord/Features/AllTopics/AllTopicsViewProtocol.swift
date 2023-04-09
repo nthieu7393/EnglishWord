@@ -13,6 +13,11 @@ protocol AllTopicsViewDelegate: AnyObject {
         _ view: AllTopicsViewProtocol,
         didTap createTopicButton: ResponsiveButton,
         folder: SetTopicModel)
+    func showSaveButton()
+    func hideSaveButton()
+    func highlightView()
+    func unhighLight(at index: Int)
+    func unhighlightRow(at index: Int)
 }
 
 protocol AllTopicsViewProtocol: BaseViewProtocol {

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TopicTableViewCell: UITableViewCell {
+class TopicTableViewCell: BaseTableViewCell {
 
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var createDateLabel: UILabel!

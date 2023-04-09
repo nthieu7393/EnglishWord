@@ -35,7 +35,6 @@ final class AllTopicsViewController: BaseViewController {
         newTopicButton.title = "Create New"
         topicIconImageView.image = R.image.paperIcon()?.withRenderingMode(.alwaysTemplate)
         topicIconImageView.tintColor = Colors.mainText
-
     }
 
     @IBAction func createButtonOnTap(_ sender: ResponsiveButton) {
