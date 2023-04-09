@@ -17,7 +17,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="390" height="199"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wAH-Vh-HZe">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wAH-Vh-HZe" customClass="CheckView" customModule="EngWord" customModuleProvider="target">
                         <rect key="frame" x="20" y="0.0" width="350" height="183"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="R3Q-hg-vwi">
@@ -77,7 +77,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="calendarIcon" destination="tnh-0g-65X" id="sja-gJ-Jt4"/>
-                <outlet property="containerView" destination="wAH-Vh-HZe" id="iBH-sv-u18"/>
+                <outlet property="containerView" destination="wAH-Vh-HZe" id="pWa-6S-CFg"/>
                 <outlet property="createDateLabel" destination="pyO-Ek-w1Y" id="e9H-Ah-HIT"/>
                 <outlet property="numberOfTermsLabel" destination="OuT-b0-6Np" id="tIQ-yo-aiU"/>
                 <outlet property="topicNameLabel" destination="DOF-tJ-wwM" id="vqg-ex-MR6"/>

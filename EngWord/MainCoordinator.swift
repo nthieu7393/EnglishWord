@@ -103,6 +103,7 @@ class MainCoordinator {
             allFolders: allFolders,
             selectedFolder: selectedFolder)
         viewController.delegate = delegateView
+        viewController.coordinator = self
         viewController.presenter = presenter
         viewController.modalPresentationStyle = .fullScreen
         navigationController.topViewController?.present(viewController, animated: true)

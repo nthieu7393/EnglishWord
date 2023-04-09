@@ -88,12 +88,21 @@ struct TopicModel: Codable {
 //        return dictionary
 //    }
 
-    init(id: String? = nil, name: String) {
-        self.ID = id
-        self.name = name
-        self.createdDateTimeInterval = Date().timeIntervalSince1970
-        
-        self.terms = nil
+//    init(id: String? = nil, name: String) {
+//        self.ID = id
+//        self.name = name
+//        self.createdDateTimeInterval = Date().timeIntervalSince1970
+//
+//        self.terms = nil
+//    }
+
+    init(topic: TopicModel) {
+        self.name = topic.name
+        self.createdDateTimeInterval = topic.createdDateTimeInterval
+        self.intervalPractice = topic.intervalPractice
+        self.numberOfPractice = topic.numberOfPractice
+        self.lastDatePractice = topic.lastDatePractice
+        self.terms = topic.terms
     }
 
     init(from decoder: Decoder) throws {

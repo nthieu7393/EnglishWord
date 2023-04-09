@@ -131,6 +131,13 @@ class FolderViewController: BaseViewController {
 extension FolderViewController: AllTopicsViewDelegate {
 
     func allTopicsView(
+        _ view: AllTopicsViewController,
+        didUpdate folder: SetTopicModel?) {
+        guard let folder = folder else { return }
+        setsPresenter?.updateFolder(folder)
+    }
+
+    func allTopicsView(
         _ view: AllTopicsViewProtocol,
         didTap createTopicButton: ResponsiveButton,
         folder: SetTopicModel) {
@@ -163,7 +170,6 @@ extension FolderViewController: TermsViewDelegate {
 extension FolderViewController: NewFolderInputViewDelegate {
 
     func newSetInputView(_ view: NewSetInputViewProtocol, endEditing set: SetTopicModel) {
-        print("🥰:\(set.id)--\(set.name)")
         setsPresenter?.saveFolder(folder: set)
         dismiss(animated: false)
     }

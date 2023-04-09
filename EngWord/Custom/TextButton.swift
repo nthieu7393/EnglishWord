@@ -10,7 +10,8 @@ import UIKit
 @IBDesignable
 class TextButton: UIControl {
 
-    @IBInspectable var titleAlign: NSTextAlignment = .center {
+    @IBInspectable
+    var titleAlign: NSTextAlignment = .center {
         didSet {
             titleLabel?.textAlignment = titleAlign
         }

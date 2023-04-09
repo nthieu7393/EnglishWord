@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -1345,10 +1345,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="LuH-7L-Plu">
-                                <rect key="frame" x="0.0" y="132" width="390" height="678"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All Topics" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WN4-rc-ul9">
                                 <rect key="frame" x="48.000000000000007" y="91" width="72.666666666666686" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -1372,6 +1368,20 @@
                                     <action selector="createButtonOnTap:" destination="Uji-Zb-d1p" eventType="valueChanged" id="mPU-i2-WE4"/>
                                 </connections>
                             </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="LuH-7L-Plu">
+                                <rect key="frame" x="0.0" y="140" width="390" height="670"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pHT-mB-bz0" customClass="ResponsiveButton" customModule="EngWord" customModuleProvider="target">
+                                <rect key="frame" x="24" y="774" width="342" height="36"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="pmt-r1-3dq"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="addTopicsOnTap:" destination="Uji-Zb-d1p" eventType="touchUpInside" id="5Ls-2v-VGs"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="BLg-AG-Vkb"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1379,18 +1389,22 @@
                             <constraint firstItem="BLg-AG-Vkb" firstAttribute="trailing" secondItem="1Az-Qm-Nqa" secondAttribute="trailing" constant="20" id="Gea-5Q-u9J"/>
                             <constraint firstItem="LuH-7L-Plu" firstAttribute="leading" secondItem="BLg-AG-Vkb" secondAttribute="leading" id="Kcz-1S-18G"/>
                             <constraint firstItem="WN4-rc-ul9" firstAttribute="height" secondItem="UmS-ZR-A66" secondAttribute="height" multiplier="0.875" id="LFL-8P-yGW"/>
+                            <constraint firstItem="BLg-AG-Vkb" firstAttribute="trailing" secondItem="pHT-mB-bz0" secondAttribute="trailing" constant="24" id="P4S-7a-3hL"/>
                             <constraint firstItem="1Az-Qm-Nqa" firstAttribute="leading" secondItem="WN4-rc-ul9" secondAttribute="trailing" constant="20" id="RJJ-Qx-fvc"/>
                             <constraint firstItem="1Az-Qm-Nqa" firstAttribute="centerY" secondItem="WN4-rc-ul9" secondAttribute="centerY" id="Xgt-qU-j8M"/>
                             <constraint firstItem="UmS-ZR-A66" firstAttribute="centerY" secondItem="WN4-rc-ul9" secondAttribute="centerY" id="ZS5-rV-g1z"/>
                             <constraint firstItem="BLg-AG-Vkb" firstAttribute="bottom" secondItem="LuH-7L-Plu" secondAttribute="bottom" id="aO9-Jk-XaN"/>
                             <constraint firstItem="WN4-rc-ul9" firstAttribute="leading" secondItem="UmS-ZR-A66" secondAttribute="trailing" constant="4" id="c0J-Wz-Iye"/>
+                            <constraint firstItem="BLg-AG-Vkb" firstAttribute="bottom" secondItem="pHT-mB-bz0" secondAttribute="bottom" id="dGe-eO-Kt4"/>
                             <constraint firstItem="UmS-ZR-A66" firstAttribute="leading" secondItem="BLg-AG-Vkb" secondAttribute="leading" constant="20" id="de2-6K-UDJ"/>
                             <constraint firstItem="BLg-AG-Vkb" firstAttribute="trailing" secondItem="LuH-7L-Plu" secondAttribute="trailing" id="fjG-fA-eSk"/>
                             <constraint firstItem="WN4-rc-ul9" firstAttribute="top" secondItem="BLg-AG-Vkb" secondAttribute="top" constant="44" id="pPp-GG-NbQ"/>
-                            <constraint firstItem="LuH-7L-Plu" firstAttribute="top" secondItem="WN4-rc-ul9" secondAttribute="bottom" constant="20" id="yqH-Bs-oVt"/>
+                            <constraint firstItem="pHT-mB-bz0" firstAttribute="leading" secondItem="BLg-AG-Vkb" secondAttribute="leading" constant="24" id="ySh-GG-BNv"/>
+                            <constraint firstItem="LuH-7L-Plu" firstAttribute="top" secondItem="WN4-rc-ul9" secondAttribute="bottom" constant="28" id="yqH-Bs-oVt"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addTopicsButton" destination="pHT-mB-bz0" id="tNo-Xb-7Sg"/>
                         <outlet property="newTopicButton" destination="1Az-Qm-Nqa" id="uRU-Ge-gsC"/>
                         <outlet property="tableView" destination="LuH-7L-Plu" id="kz4-OW-eks"/>
                         <outlet property="titleLabel" destination="WN4-rc-ul9" id="MF6-Na-wLd"/>

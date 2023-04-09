@@ -8,22 +8,33 @@
 import Foundation
 
 final class AllTopicsPresenter: BasePresenter {
-    
+
+    private let storage: StorageProtocol
     private var view: AllTopicsViewProtocol?
     private var allFolders: [SetTopicModel]?
     private var selectedFolder: SetTopicModel?
     private var allTopics: [TopicModel] = []
-    private var selectedTopics: [TopicModel] = []
+    private var selectedTopics: [TopicModel] = [] {
+        didSet {
+            if selectedTopics.isEmpty {
+                view?.hideAddTopicsButton()
+            } else {
+                view?.showAddTopicsButton()
+            }
+        }
+    }
 
     var folder: SetTopicModel? {
         return selectedFolder
     }
 
     init(
+        storage: StorageProtocol,
         view: AllTopicsViewProtocol,
         allFolders: [SetTopicModel],
         selectedFolder: SetTopicModel
     ) {
+        self.storage = storage
         super.init()
         self.view = view
         self.allFolders = allFolders
@@ -42,23 +53,43 @@ final class AllTopicsPresenter: BasePresenter {
         return allTopics.count
     }
 
-    func shouldHighlight(row: Int) -> Bool {
-        let ids = selectedTopics.map { $0.topicId }
-        let highlight = ids.contains {
-            $0 == allTopics[row].topicId
-        }
-        return highlight
-    }
+//    func shouldHighlight(row: Int) -> Bool {
+//        let ids = selectedTopics.map { $0.topicId }
+//        let highlight = ids.contains {
+//            $0 == allTopics[row].topicId
+//        }
+//        return highlight
+//    }
 
     func topic(at index: Int) -> TopicModel {
         return allTopics[index]
     }
 
     func didSelectTopic(index: Int) {
-
+        let selectedTopic = allTopics[index]
+        if let indexOfSelectedTopic = selectedTopics.firstIndex(where: {
+            $0.topicId == selectedTopic.topicId
+        }) {
+            selectedTopics.remove(at: indexOfSelectedTopic)
+        } else {
+            selectedTopics.append(selectedTopic)
+        }
     }
 
-    func didDeselectTopic(index: Int) {
+    func saveSelectedTopicsToFolder() {
+        view?.showLoadingIndicator()
+        Task {
+            do {
 
+            } catch {
+
+            }
+        }
+        var topicsOfFolder = folder?.topics
+        let newAddedTopics = selectedTopics.map {
+            TopicModel(topic: $0)
+        }
+        topicsOfFolder?.append(contentsOf: newAddedTopics)
+        selectedFolder?.topics = topicsOfFolder ?? []
     }
 }

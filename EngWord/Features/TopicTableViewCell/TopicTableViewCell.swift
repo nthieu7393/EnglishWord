@@ -9,16 +9,16 @@ import UIKit
 
 class TopicTableViewCell: BaseTableViewCell {
 
-    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var containerView: CheckView!
     @IBOutlet weak var createDateLabel: UILabel!
     @IBOutlet weak var calendarIcon: UIImageView!
     @IBOutlet weak var numberOfTermsLabel: UILabel!
     @IBOutlet weak var topicNameLabel: UILabel!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         containerView.backgroundColor = Colors.cellBackground
         containerView.addCornerRadius()
-        backgroundColor = Colors.mainBackground
         topicNameLabel.font = Fonts.title
         topicNameLabel.textColor = Colors.mainText
         numberOfTermsLabel.font = Fonts.subtitle
@@ -32,17 +32,11 @@ class TopicTableViewCell: BaseTableViewCell {
 
     func setData(topic: TopicModel) {
         topicNameLabel.text = topic.name
-        numberOfTermsLabel.text = "\(topic.terms?.count ?? 0)"
+        numberOfTermsLabel.text = "\(topic.terms?.count ?? 0) Terms"
+        createDateLabel.text = topic.createdTime
     }
 
     override func layoutSublayers(of layer: CALayer) {
         super.layoutSublayers(of: layer)
-//        containerView.addLineBorder(cornerRadius: Constants.borderRadius)
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 }

@@ -169,6 +169,7 @@
 		A0E7F82B299FD64B00F63140 /* TopicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E7F829299FD64B00F63140 /* TopicTableViewCell.swift */; };
 		A0E7F82C299FD64B00F63140 /* TopicTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0E7F82A299FD64B00F63140 /* TopicTableViewCell.xib */; };
 		A0E7F82E299FE06400F63140 /* UITableViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E7F82D299FE06400F63140 /* UITableViewExtension.swift */; };
+		A0E9DEB829E2CEC4008D4A4F /* CheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E9DEB729E2CEC4008D4A4F /* CheckView.swift */; };
 		A0EB7BFC29AE5EC70044FC38 /* TextCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EB7BFA29AE5EC70044FC38 /* TextCollectionCell.swift */; };
 		A0EB7BFD29AE5EC70044FC38 /* TextCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0EB7BFB29AE5EC70044FC38 /* TextCollectionCell.xib */; };
 		A0EB7BFF29AE69DA0044FC38 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EB7BFE29AE69DA0044FC38 /* ArrayExtension.swift */; };
@@ -367,6 +368,7 @@
 		A0E7F829299FD64B00F63140 /* TopicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicTableViewCell.swift; sourceTree = "<group>"; };
 		A0E7F82A299FD64B00F63140 /* TopicTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopicTableViewCell.xib; sourceTree = "<group>"; };
 		A0E7F82D299FE06400F63140 /* UITableViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewExtension.swift; sourceTree = "<group>"; };
+		A0E9DEB729E2CEC4008D4A4F /* CheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckView.swift; sourceTree = "<group>"; };
 		A0EB7BFA29AE5EC70044FC38 /* TextCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCollectionCell.swift; sourceTree = "<group>"; };
 		A0EB7BFB29AE5EC70044FC38 /* TextCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextCollectionCell.xib; sourceTree = "<group>"; };
 		A0EB7BFE29AE69DA0044FC38 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
@@ -700,6 +702,7 @@
 				A0D34B4C29A5D0D7005A2171 /* IconTextView.swift */,
 				A011076E29AD171F00B84E6F /* ResizeTableView.swift */,
 				A0BE9D8029E1F12700EEFA72 /* BaseTableViewCell.swift */,
+				A0E9DEB729E2CEC4008D4A4F /* CheckView.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -1309,6 +1312,7 @@
 				A0E7F78F299E9EBD00F63140 /* BasePresenter.swift in Sources */,
 				A070A66929A7BF15004956D8 /* ReviewCardPresenter.swift in Sources */,
 				A0E7F827299F8D6200F63140 /* AllTopicsViewProtocol.swift in Sources */,
+				A0E9DEB829E2CEC4008D4A4F /* CheckView.swift in Sources */,
 				A0E7F7B0299E9EBD00F63140 /* TermTableCell.swift in Sources */,
 				A06F41BC29A910E400DBBDCB /* PracticeTermForm.swift in Sources */,
 				A04976CD29A92CC400CFB595 /* PracticeTopicForm.swift in Sources */,
