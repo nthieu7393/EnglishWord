@@ -32,4 +32,8 @@ protocol StorageProtocol {
         folder: SetTopicModel,
         completion: @escaping (Error?) -> Void
     )
+    func addMultipleTopics(
+        _ topics: [TopicModel],
+        to folder: SetTopicModel
+    ) throws -> [TopicModel]
 }

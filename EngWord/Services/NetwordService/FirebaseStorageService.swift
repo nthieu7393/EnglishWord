@@ -22,7 +22,7 @@ class FirebaseStorageService<T: Card>: StorageProtocol {
         return database.document(authUid)
     }
     
-    private var folderCollectionRef: CollectionReference? {
+    private var foldersCollectionRef: CollectionReference? {
         guard let reference = rootDocumentReference else { return nil }
         return reference.collection("folders")
     }
@@ -33,8 +33,13 @@ class FirebaseStorageService<T: Card>: StorageProtocol {
     }
     
     private func topicReference(setId: String, topicId: String) -> DocumentReference? {
-        guard let reference = folderCollectionRef else { return nil }
+        guard let reference = foldersCollectionRef else { return nil }
         return reference.document(setId).collection("topics").document(topicId)
+    }
+    
+    func folderRef(folder: SetTopicModel) -> DocumentReference? {
+        guard let folderId = folder.id else { return nil }
+        return foldersCollectionRef?.document(folderId)
     }
     
     init(authService: Authentication?) {
@@ -46,7 +51,7 @@ class FirebaseStorageService<T: Card>: StorageProtocol {
     
     func getAllSets() async throws -> [SetTopicModel]? {
         do {
-            guard let result = try await folderCollectionRef?.getDocuments() else { return nil }
+            guard let result = try await foldersCollectionRef?.getDocuments() else { return nil }
             return result.documents.compactMap({
                 return try? $0.data(as: SetTopicModel.self)
             })
@@ -57,7 +62,7 @@ class FirebaseStorageService<T: Card>: StorageProtocol {
     
     func createNewFolder(folder: SetTopicModel) async throws -> SetTopicModel? {
         do {
-            let ref = try await folderCollectionRef?.addDocument(data: folder.toDictionary())
+            let ref = try await foldersCollectionRef?.addDocument(data: folder.toDictionary())
             return SetTopicModel(id: ref?.documentID, name: folder.name)
         } catch {
             throw error
@@ -67,7 +72,7 @@ class FirebaseStorageService<T: Card>: StorageProtocol {
     func updateFolder(_ set: SetTopicModel) async throws -> SetTopicModel? {
         guard let id = set.id, set.name != nil else { return nil }
         do {
-            try await folderCollectionRef?.document(id).setData(set.toDictionary())
+            try await foldersCollectionRef?.document(id).setData(set.toDictionary())
             return set
         } catch {
             throw error
@@ -104,7 +109,7 @@ class FirebaseStorageService<T: Card>: StorageProtocol {
     
     func createNewTopic(_ topic: TopicModel, folder: SetTopicModel) async throws -> TopicModel? {
         do {
-            let documentRefOfFolder = folderCollectionRef?.document(folder.id ?? "")
+            let documentRefOfFolder = foldersCollectionRef?.document(folder.id ?? "")
             let documentRef = try await documentRefOfFolder?
                 .collection("topics")
                 .addDocument(data: topic.toDictionary())
@@ -126,7 +131,7 @@ class FirebaseStorageService<T: Card>: StorageProtocol {
 
     func updateTopic(_ topic: TopicModel, folder: SetTopicModel) async throws -> TopicModel? {
         do {
-            let folderRef = folderCollectionRef?.document(folder.id ?? "")
+            let folderRef = foldersCollectionRef?.document(folder.id ?? "")
             try await folderRef?
                 .collection("topics")
                 .document(topic.topicId ?? "")
@@ -142,7 +147,7 @@ class FirebaseStorageService<T: Card>: StorageProtocol {
 
     func deleteFolder(_ folder: SetTopicModel, completion: @escaping ((Error?) -> Void)) {
         guard let folderId = folder.id else { return }
-        folderCollectionRef?.document(folderId).delete(completion: { error in
+        foldersCollectionRef?.document(folderId).delete(completion: { error in
             completion(error)
         })
     }
@@ -178,7 +183,7 @@ class FirebaseStorageService<T: Card>: StorageProtocol {
             var mutatingFolder = folder
             mutatingFolder.topics[Int(index)] = topic
             
-            if let folder = folderCollectionRef?.document(folder.id ?? ""),
+            if let folder = foldersCollectionRef?.document(folder.id ?? ""),
                 let data = try? mutatingFolder.toDictionary() {
                 batch.updateData(data, forDocument: folder)
             }
@@ -211,7 +216,7 @@ class FirebaseStorageService<T: Card>: StorageProtocol {
         }
         guard let folderId = folder.id,
               let uwrIndex = deletedTopicIndex,
-              let folderRef = folderCollectionRef?.document(folderId) else {
+              let folderRef = foldersCollectionRef?.document(folderId) else {
             debugPrint("🥵 folder id not found")
             completion(PathError.notFound)
             return
@@ -230,5 +235,27 @@ class FirebaseStorageService<T: Card>: StorageProtocol {
         batch.commit { error in
             completion(error)
         }
+    }
+    
+    func addMultipleTopics(
+        _ topics: [TopicModel],
+        to folder: SetTopicModel
+    ) throws -> [TopicModel] {
+        var mutatingTopics: [TopicModel] = []
+        guard let folderRef = folderRef(folder: folder) else {
+            throw PathError.notFound
+        }
+        
+        do {
+            try topics.forEach {
+                let id = try folderRef.collection("topics").addDocument(data: $0.toDictionary())
+                var topic = TopicModel(topic: $0)
+                topic.ID = id.documentID
+                mutatingTopics.append(topic)
+            }
+        } catch {
+            throw error
+        }
+        return mutatingTopics
     }
 }

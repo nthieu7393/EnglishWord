@@ -80,16 +80,14 @@ final class AllTopicsPresenter: BasePresenter {
         view?.showLoadingIndicator()
         Task {
             do {
-
+                let topics = try storage.addMultipleTopics(selectedTopics, to: selectedFolder!)
+                selectedFolder?.topics.append(contentsOf: topics)
+                _ = try await storage.updateFolder(selectedFolder!)
+                self.view?.dismissLoadingIndicator()
             } catch {
-
+                self.view?.dismissLoadingIndicator()
+                self.view?.showErrorAlert(msg: error.localizedDescription)
             }
         }
-        var topicsOfFolder = folder?.topics
-        let newAddedTopics = selectedTopics.map {
-            TopicModel(topic: $0)
-        }
-        topicsOfFolder?.append(contentsOf: newAddedTopics)
-        selectedFolder?.topics = topicsOfFolder ?? []
     }
 }

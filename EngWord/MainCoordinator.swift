@@ -99,9 +99,10 @@ class MainCoordinator {
         let viewController = AllTopicsViewController.instantiate()
         guard let viewController = viewController else { return }
         let presenter = AllTopicsPresenter(
-            view: viewController,
+            storage: ServiceInjector.storageService, view: viewController,
             allFolders: allFolders,
-            selectedFolder: selectedFolder)
+            selectedFolder: selectedFolder
+        )
         viewController.delegate = delegateView
         viewController.coordinator = self
         viewController.presenter = presenter

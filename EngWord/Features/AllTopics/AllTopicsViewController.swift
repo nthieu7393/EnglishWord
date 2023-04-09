@@ -24,7 +24,7 @@ final class AllTopicsViewController: BaseViewController {
     }
 
     @IBAction func addTopicsOnTap(_ sender: UIControl) {
-
+        myPresenter?.saveSelectedTopicsToFolder()
     }
     
     override func viewDidLoad() {
