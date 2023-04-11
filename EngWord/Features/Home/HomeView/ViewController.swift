@@ -24,17 +24,24 @@ class ViewController: BaseViewController, Storyboarded {
 //        signinButton.title = Localizations.signin
 //        signinNoteLabel.text = Localizations.signinNote
         homePresenter?.viewDidLoad()
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(practiceNotificationReceived(_:)),
-            name: .practiceFinishNotification,
-            object: nil
-        )
-        
+//        NotificationCenter.default.addObserver(
+//            self,
+//            selector: #selector(practiceNotificationReceived(_:)),
+//            name: .practiceFinishNotification,
+//            object: nil
+//        )
+
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(addTopicsToFolderNotificationReceived(_:)),
-            name: .addTopicsToFolderNotification,
+            name: .updateFolderNotification,
+            object: nil
+        )
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(deleteFolderNotificationReceived(_:)),
+            name: .deleteFolderNotification,
             object: nil
         )
     }
@@ -45,6 +52,10 @@ class ViewController: BaseViewController, Storyboarded {
 
     @objc func addTopicsToFolderNotificationReceived(_ notification: Notification) {
         homePresenter?.updateFolder(folder: (notification.object as! SetTopicModel))
+    }
+
+    @objc func deleteFolderNotificationReceived(_ notification: Notification) {
+        homePresenter?.removeFolder(folder: (notification.object as! SetTopicModel))
     }
     
     override var showBackBtnIfNeed: Bool {

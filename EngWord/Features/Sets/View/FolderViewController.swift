@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol FolderViewDelegate: AnyObject {
+
+//    func
+}
+
 class FolderViewController: BaseViewController {
     
     @IBOutlet weak var newSetContainerView: UIView!
@@ -18,8 +23,8 @@ class FolderViewController: BaseViewController {
     private lazy var newSetTextField: UITextField = {
         return UITextField()
     }()
-    var setsPresenter: SetsPresenter? {
-        return presenter as? SetsPresenter
+    var setsPresenter: FoldersPresenter? {
+        return presenter as? FoldersPresenter
     }
 
     override func viewDidLoad() {
@@ -175,7 +180,13 @@ extension FolderViewController: NewFolderInputViewDelegate {
     }
 }
 
-extension FolderViewController: SetsView {
+extension FolderViewController: FoldersViewProtocol {
+
+    func displayDataOfSet(at index: Int) {
+        tableView.beginUpdates()
+        tableView.reloadSections(IndexSet(integer: index), with: .automatic)
+        tableView.endUpdates()
+    }
 
     func dismissNewSetInputScreen() {
         dismiss(animated: false)

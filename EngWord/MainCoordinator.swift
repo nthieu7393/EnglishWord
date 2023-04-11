@@ -51,7 +51,7 @@ class MainCoordinator {
     
     func goToSetsScreen(folders: [SetTopicModel]) {
         guard let viewController = FolderViewController.instantiate() else { return }
-        let presenter = SetsPresenter(
+        let presenter = FoldersPresenter(
             view: viewController,
             storageService: storage!,
             folders: folders

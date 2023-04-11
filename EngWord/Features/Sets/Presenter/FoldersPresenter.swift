@@ -7,14 +7,14 @@
 
 import Foundation
 
-class SetsPresenter: BasePresenter {
+class FoldersPresenter: BasePresenter {
 
     private let storageService: StorageProtocol
-    private let view: SetsView
+    private let view: FoldersViewProtocol
     private var sets: [SetTopicModel]?
 
     init(
-        view: SetsView,
+        view: FoldersViewProtocol,
         storageService: StorageProtocol,
         folders: [SetTopicModel]
     ) {
@@ -59,6 +59,7 @@ class SetsPresenter: BasePresenter {
                         self.view.displayDataOfSets(sets: self.sets ?? [])
                         self.view.dismissLoadingIndicator()
                         self.view.dismissNewSetInputScreen()
+                        NotificationCenter.default.post(name: .updateFolderNotification, object: set)
                     }
                 }
             } catch {
@@ -80,6 +81,7 @@ class SetsPresenter: BasePresenter {
                     DispatchQueue.main.async {
                         self.sets?[indexOfMutatingSet] = set
                         self.view.displayDataOfSets(sets: self.sets ?? [])
+                        NotificationCenter.default.post(name: .updateFolderNotification, object: set)
                     }
                 }
             } catch {
@@ -89,26 +91,38 @@ class SetsPresenter: BasePresenter {
         }
     }
 
-    func createNewTopicToSet(set: SetTopicModel) {
-        view.startInputNameOfSet(initialString: "") { [weak self] topicName in
-            guard let self = self else { return }
-            self.addNewTopicToSet(topicName ?? "", set: set)
-        }
-    }
-    
-    func addNewTopicToSet(_ topicName: String, set: SetTopicModel) {
-        Task {
-            do {
-                try await self.storageService.createNewTopic(TopicModel(name: topicName), folder: set)
-            } catch {
-                view.showErrorAlert(msg: error.localizedDescription)
-            }
-        }
-    }
+//    func createNewTopicToSet(set: SetTopicModel) {
+//        view.startInputNameOfSet(initialString: "") { [weak self] topicName in
+//            guard let self = self else { return }
+//            self.addNewTopicToSet(topicName ?? "", set: set)
+//        }
+//    }
+//
+//    func addNewTopicToSet(_ topicName: String, set: SetTopicModel) {
+//        Task {
+//            do {
+//                try await self.storageService.createNewTopic(TopicModel(name: topicName), folder: set)
+//            } catch {
+//                view.showErrorAlert(msg: error.localizedDescription)
+//            }
+//        }
+//    }
 
     func deleteFolder(_ folder: SetTopicModel) {
+        view.showLoadingIndicator()
         storageService.deleteFolder(folder) { [weak self] error in
-            self?.view.showResultAlert(error: error, message: nil)
+            guard let self = self,
+            let indexOfFolder = self.sets?.firstIndex(where: {
+                $0.id == folder.id
+            }) else { return }
+            self.sets?.remove(at: indexOfFolder)
+            self.view.removeFolder(at: indexOfFolder)
+            self.view.dismissLoadingIndicator()
+            if error == nil {
+                NotificationCenter.default.post(name: .deleteFolderNotification, object: folder)
+            } else {
+                self.view.showResultAlert(error: error, message: nil)
+            }
         }
     }
 
@@ -121,6 +135,7 @@ class SetsPresenter: BasePresenter {
                 self?.sets?[section].topics.remove(at: index)
                 self?.view.removeTopic(at: section, row: index)
                 self?.view.updateFolderTitle(at: section)
+                NotificationCenter.default.post(name: .updateFolderNotification, object: self?.sets?[section])
             }
             self?.view.showResultAlert(error: error, message: nil)
         }

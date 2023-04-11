@@ -82,11 +82,12 @@ final class AllTopicsPresenter: BasePresenter {
             do {
                 let topics = try storage.addMultipleTopics(selectedTopics, to: selectedFolder!)
                 selectedFolder?.topics.append(contentsOf: topics)
+
                 _ = try await storage.updateFolder(selectedFolder!)
                 view?.updateTopicsInFolder()
                 view?.dismissLoadingIndicator()
                 NotificationCenter.default.post(
-                    name: .addTopicsToFolderNotification,
+                    name: .updateFolderNotification,
                     object: selectedFolder
                 )
             } catch {

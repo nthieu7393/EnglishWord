@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol SetsView: BaseViewProtocol {
+protocol FoldersViewProtocol: BaseViewProtocol {
 
     func displayDataOfSets(sets: [SetTopicModel])
     func startInputNameOfSet(
@@ -18,4 +18,5 @@ protocol SetsView: BaseViewProtocol {
     func removeTopic(at section: Int, row: Int)
     func removeFolder(at section: Int)
     func updateFolderTitle(at index: Int)
+    func displayDataOfSet(at index: Int)
 }

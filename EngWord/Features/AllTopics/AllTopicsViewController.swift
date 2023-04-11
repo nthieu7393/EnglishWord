@@ -42,8 +42,7 @@ final class AllTopicsViewController: BaseViewController {
         topicIconImageView.image = R.image.paperIcon()?.withRenderingMode(.alwaysTemplate)
         topicIconImageView.tintColor = Colors.mainText
         addTopicsButton.title = Localizations.done
-
-        newTopicButton.isHidden = true
+        addTopicsButton.isHidden = true
     }
 
     @IBAction func createButtonOnTap(_ sender: ResponsiveButton) {

@@ -136,9 +136,9 @@
 		A0E7F7B5299E9EBD00F63140 /* SignInPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E7F761299E9EBD00F63140 /* SignInPresenter.swift */; };
 		A0E7F7B6299E9EBD00F63140 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E7F762299E9EBD00F63140 /* SignInView.swift */; };
 		A0E7F7B7299E9EBD00F63140 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E7F763299E9EBD00F63140 /* SignInViewController.swift */; };
-		A0E7F7B8299E9EBD00F63140 /* SetsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E7F766299E9EBD00F63140 /* SetsPresenter.swift */; };
+		A0E7F7B8299E9EBD00F63140 /* FoldersPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E7F766299E9EBD00F63140 /* FoldersPresenter.swift */; };
 		A0E7F7B9299E9EBD00F63140 /* FolderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E7F768299E9EBD00F63140 /* FolderViewController.swift */; };
-		A0E7F7BA299E9EBD00F63140 /* SetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E7F769299E9EBD00F63140 /* SetsView.swift */; };
+		A0E7F7BA299E9EBD00F63140 /* FoldersViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E7F769299E9EBD00F63140 /* FoldersViewProtocol.swift */; };
 		A0E7F7BB299E9EBD00F63140 /* SetHeaderTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E7F76B299E9EBD00F63140 /* SetHeaderTableView.swift */; };
 		A0E7F7BC299E9EBD00F63140 /* SetHeaderTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0E7F76C299E9EBD00F63140 /* SetHeaderTableView.xib */; };
 		A0E7F7BD299E9EBD00F63140 /* SetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E7F76D299E9EBD00F63140 /* SetTableViewCell.swift */; };
@@ -334,9 +334,9 @@
 		A0E7F761299E9EBD00F63140 /* SignInPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInPresenter.swift; sourceTree = "<group>"; };
 		A0E7F762299E9EBD00F63140 /* SignInView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		A0E7F763299E9EBD00F63140 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
-		A0E7F766299E9EBD00F63140 /* SetsPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetsPresenter.swift; sourceTree = "<group>"; };
+		A0E7F766299E9EBD00F63140 /* FoldersPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoldersPresenter.swift; sourceTree = "<group>"; };
 		A0E7F768299E9EBD00F63140 /* FolderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderViewController.swift; sourceTree = "<group>"; };
-		A0E7F769299E9EBD00F63140 /* SetsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetsView.swift; sourceTree = "<group>"; };
+		A0E7F769299E9EBD00F63140 /* FoldersViewProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoldersViewProtocol.swift; sourceTree = "<group>"; };
 		A0E7F76B299E9EBD00F63140 /* SetHeaderTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetHeaderTableView.swift; sourceTree = "<group>"; };
 		A0E7F76C299E9EBD00F63140 /* SetHeaderTableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetHeaderTableView.xib; sourceTree = "<group>"; };
 		A0E7F76D299E9EBD00F63140 /* SetTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetTableViewCell.swift; sourceTree = "<group>"; };
@@ -895,7 +895,7 @@
 		A0E7F765299E9EBD00F63140 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				A0E7F766299E9EBD00F63140 /* SetsPresenter.swift */,
+				A0E7F766299E9EBD00F63140 /* FoldersPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -904,7 +904,7 @@
 			isa = PBXGroup;
 			children = (
 				A0E7F768299E9EBD00F63140 /* FolderViewController.swift */,
-				A0E7F769299E9EBD00F63140 /* SetsView.swift */,
+				A0E7F769299E9EBD00F63140 /* FoldersViewProtocol.swift */,
 				A0E7F76A299E9EBD00F63140 /* TableViewCell */,
 			);
 			path = View;
@@ -1354,7 +1354,7 @@
 				A0D8646D29DB731B00942538 /* LaunchPresenter.swift in Sources */,
 				A0E7F817299EBA7F00F63140 /* NewSetInputViewProtocol.swift in Sources */,
 				A0E7F81D299F394100F63140 /* EncodableExtension.swift in Sources */,
-				A0E7F7BA299E9EBD00F63140 /* SetsView.swift in Sources */,
+				A0E7F7BA299E9EBD00F63140 /* FoldersViewProtocol.swift in Sources */,
 				A0E7F7AB299E9EBD00F63140 /* HomeMenuTableViewCell.swift in Sources */,
 				A04976C729A9154E00CFB595 /* PracticeDescriptionForm.swift in Sources */,
 				A0B5D38929BADAA500B81F79 /* PracticalResult.swift in Sources */,
@@ -1406,7 +1406,7 @@
 				A0E7F6E3299E9D3B00F63140 /* EngWord.xcdatamodeld in Sources */,
 				A0E7F7B5299E9EBD00F63140 /* SignInPresenter.swift in Sources */,
 				A0E7F7C2299E9EBD00F63140 /* UserInfoPresenter.swift in Sources */,
-				A0E7F7B8299E9EBD00F63140 /* SetsPresenter.swift in Sources */,
+				A0E7F7B8299E9EBD00F63140 /* FoldersPresenter.swift in Sources */,
 				A0A2271C29A1DA5200EB41F5 /* TextButton.swift in Sources */,
 				A0E7F799299E9EBD00F63140 /* NetworkProvider.swift in Sources */,
 				A0543B3C29B8FC01003B47E3 /* DimmingPresentationController.swift in Sources */,

@@ -217,6 +217,8 @@ class TermsPresenter: BasePresenter {
                 DispatchQueue.main.async {
                     self.checkIfPracticeEnabled()
                 }
+                folder.topics.append(newTopic)
+                NotificationCenter.default.post(name: .updateFolderNotification, object: folder)
             }
             DispatchQueue.main.async {
                 self.view.dismissLoadingIndicator()

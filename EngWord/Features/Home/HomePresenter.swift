@@ -51,7 +51,9 @@ class HomePresenter: BasePresenter {
                 self.view.gotoTopicsListScreen(allTopics: allTopics)
             })
         ]
-        view.display()
+        DispatchQueue.main.async {
+            self.view.display()
+        }
     }
     
     func updateFolder(topicFolder: TopicFolderWrapper) {
@@ -69,8 +71,20 @@ class HomePresenter: BasePresenter {
     func updateFolder(folder: SetTopicModel) {
         guard let indexOfFolder = folders.firstIndex(where: {
             $0.id == folder.id
-        }) else { return }
+        }) else {
+            folders.append(folder)
+            calculateMenus(folders: folders)
+            return
+        }
         folders[indexOfFolder] = folder
+        calculateMenus(folders: folders)
+    }
+
+    func removeFolder(folder: SetTopicModel) {
+        guard let indexOfFolder = folders.firstIndex(where: {
+            $0.id == folder.id
+        }) else { return }
+        folders.remove(at: indexOfFolder)
         calculateMenus(folders: folders)
     }
 }
