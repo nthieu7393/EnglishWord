@@ -30,12 +30,23 @@ class ViewController: BaseViewController, Storyboarded {
             name: .practiceFinishNotification,
             object: nil
         )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(addTopicsToFolderNotificationReceived(_:)),
+            name: .addTopicsToFolderNotification,
+            object: nil
+        )
     }
     
     @objc func practiceNotificationReceived(_ notification: Notification) {
-        homePresenter?.updateFolders(topic: (notification.object as! TopicFolderWrapper))
+        homePresenter?.updateFolder(topicFolder: (notification.object as! TopicFolderWrapper))
     }
 
+    @objc func addTopicsToFolderNotificationReceived(_ notification: Notification) {
+        homePresenter?.updateFolder(folder: (notification.object as! SetTopicModel))
+    }
+    
     override var showBackBtnIfNeed: Bool {
         return false
     }

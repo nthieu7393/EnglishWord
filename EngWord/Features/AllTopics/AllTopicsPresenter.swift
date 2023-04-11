@@ -83,10 +83,15 @@ final class AllTopicsPresenter: BasePresenter {
                 let topics = try storage.addMultipleTopics(selectedTopics, to: selectedFolder!)
                 selectedFolder?.topics.append(contentsOf: topics)
                 _ = try await storage.updateFolder(selectedFolder!)
-                self.view?.dismissLoadingIndicator()
+                view?.updateTopicsInFolder()
+                view?.dismissLoadingIndicator()
+                NotificationCenter.default.post(
+                    name: .addTopicsToFolderNotification,
+                    object: selectedFolder
+                )
             } catch {
-                self.view?.dismissLoadingIndicator()
-                self.view?.showErrorAlert(msg: error.localizedDescription)
+                view?.dismissLoadingIndicator()
+                view?.showErrorAlert(msg: error.localizedDescription)
             }
         }
     }

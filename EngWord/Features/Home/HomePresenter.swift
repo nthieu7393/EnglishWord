@@ -54,15 +54,23 @@ class HomePresenter: BasePresenter {
         view.display()
     }
     
-    func updateFolders(topic: TopicFolderWrapper) {
+    func updateFolder(topicFolder: TopicFolderWrapper) {
         guard let indexOfFolder = folders.firstIndex(where: {
-            $0.id == topic.folder.id
+            $0.id == topicFolder.folder.id
         }) else { return }
         guard let indexOfTopic = folders[indexOfFolder].topics.firstIndex(where: {
-            $0.topicId == topic.topic.topicId
+            $0.topicId == topicFolder.topic.topicId
         }) else { return }
-        folders[indexOfFolder].name = topic.folder.name
-        folders[indexOfFolder].topics[indexOfTopic] = topic.topic
+        folders[indexOfFolder].name = topicFolder.folder.name
+        folders[indexOfFolder].topics[indexOfTopic] = topicFolder.topic
+        calculateMenus(folders: folders)
+    }
+    
+    func updateFolder(folder: SetTopicModel) {
+        guard let indexOfFolder = folders.firstIndex(where: {
+            $0.id == folder.id
+        }) else { return }
+        folders[indexOfFolder] = folder
         calculateMenus(folders: folders)
     }
 }

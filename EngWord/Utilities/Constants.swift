@@ -77,4 +77,5 @@ enum IntervalBetweenPractice: Int, Codable {
 extension Notification.Name {
 
     static let practiceFinishNotification = Notification.Name("PracticeFinishNotification")
+    static let addTopicsToFolderNotification = Notification.Name("PracticeFinishNotification")
 }

@@ -47,8 +47,14 @@ final class PracticeTopicPresenter: BasePresenter {
                 self.endPracticeRound()
                 
                 let updatedPracticeIntervalTopic = self.updatePracticeValue(of: self.topic)
-                    let topicFolder = TopicFolderWrapper(folder: self.folder, topic: updatedPracticeIntervalTopic)
-                NotificationCenter.default.post(name: .practiceFinishNotification, object: topicFolder)
+                let topicFolder = TopicFolderWrapper(
+                    folder: self.folder,
+                    topic: updatedPracticeIntervalTopic
+                )
+                NotificationCenter.default.post(
+                    name: .practiceFinishNotification,
+                    object: topicFolder
+                )
                 self.storageService.updatePracticeIntervalOfTopic(
                     topic: updatedPracticeIntervalTopic,
                     folder: self.folder
