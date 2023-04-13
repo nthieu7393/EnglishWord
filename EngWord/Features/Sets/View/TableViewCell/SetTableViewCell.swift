@@ -12,13 +12,19 @@ class SetTableViewCell: UITableViewCell {
     @IBOutlet weak var topicNameLbl: UILabel!
     @IBOutlet weak var numberOfTermsLbl: UILabel!
     @IBOutlet weak var createdOnLbl: UILabel!
-    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var containerView: ResponsiveView!
     @IBOutlet weak var dateIntervalLabel: UILabel!
     @IBOutlet weak var frequencyContainer: UIView!
     @IBOutlet weak var progressLabel: UILabel!
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var masterLevelView: UIView!
     @IBOutlet weak var progressContainer: UIStackView!
+
+    var onTap: (() -> Void)? {
+        didSet {
+            containerView.onTap = onTap
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib() 

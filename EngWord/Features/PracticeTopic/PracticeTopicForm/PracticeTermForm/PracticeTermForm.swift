@@ -52,7 +52,7 @@ class PracticeTermForm: UIView, PracticeFormView {
         answerLabel.text = "Your answer"
         descriptionLabel.font = Fonts.mainTitle
         descriptionLabel.textColor = Colors.mainText
-        nextButton.title = "Next"
+        nextButton.title = "Check"
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(keyboardWillShow(_:)),

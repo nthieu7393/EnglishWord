@@ -24,12 +24,13 @@ class ViewController: BaseViewController, Storyboarded {
 //        signinButton.title = Localizations.signin
 //        signinNoteLabel.text = Localizations.signinNote
         homePresenter?.viewDidLoad()
-//        NotificationCenter.default.addObserver(
-//            self,
-//            selector: #selector(practiceNotificationReceived(_:)),
-//            name: .practiceFinishNotification,
-//            object: nil
-//        )
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(practiceNotificationReceived(_:)),
+            name: .practiceFinishNotification,
+            object: nil
+        )
 
         NotificationCenter.default.addObserver(
             self,
@@ -47,11 +48,13 @@ class ViewController: BaseViewController, Storyboarded {
     }
     
     @objc func practiceNotificationReceived(_ notification: Notification) {
-        homePresenter?.updateFolder(topicFolder: (notification.object as! TopicFolderWrapper))
+        guard let topicFolder = notification.object as? TopicFolderWrapper else { return }
+        homePresenter?.updateFolder(topicFolder: topicFolder)
     }
 
     @objc func addTopicsToFolderNotificationReceived(_ notification: Notification) {
-        homePresenter?.updateFolder(folder: (notification.object as! SetTopicModel))
+        guard let folder = notification.object as? SetTopicModel else { return }
+        homePresenter?.updateFolder(folder: folder)
     }
 
     @objc func deleteFolderNotificationReceived(_ notification: Notification) {
@@ -104,6 +107,9 @@ extension ViewController: UITableViewDataSource {
             for: indexPath
         ) as? HomeMenuTableViewCell
         cell?.display(data: homePresenter?.getHomeMenuList[indexPath.row])
+        cell?.onTap = {
+            self.homePresenter?.getHomeMenuList[indexPath.row].runOnTap()
+        }
         return cell ?? UITableViewCell()
     }
 

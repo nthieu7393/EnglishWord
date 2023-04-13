@@ -48,6 +48,7 @@
 		A070A66929A7BF15004956D8 /* ReviewCardPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A070A66629A7BF15004956D8 /* ReviewCardPresenter.swift */; };
 		A070A66A29A7BF15004956D8 /* ReviewCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A070A66729A7BF15004956D8 /* ReviewCardViewController.swift */; };
 		A070A66B29A7BF15004956D8 /* ReviewCardViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A070A66829A7BF15004956D8 /* ReviewCardViewProtocol.swift */; };
+		A08DCC9229E877A700FA31FF /* ResponsiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08DCC9129E877A700FA31FF /* ResponsiveView.swift */; };
 		A0A12A1029B66A640096D9A0 /* lf20_tiviyc3p.json in Resources */ = {isa = PBXBuildFile; fileRef = A0A12A0F29B66A640096D9A0 /* lf20_tiviyc3p.json */; };
 		A0A2271A29A1D76F00EB41F5 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A2271929A1D76F00EB41F5 /* UIButtonExtension.swift */; };
 		A0A2271C29A1DA5200EB41F5 /* TextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A2271B29A1DA5200EB41F5 /* TextButton.swift */; };
@@ -242,6 +243,7 @@
 		A070A66629A7BF15004956D8 /* ReviewCardPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCardPresenter.swift; sourceTree = "<group>"; };
 		A070A66729A7BF15004956D8 /* ReviewCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCardViewController.swift; sourceTree = "<group>"; };
 		A070A66829A7BF15004956D8 /* ReviewCardViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCardViewProtocol.swift; sourceTree = "<group>"; };
+		A08DCC9129E877A700FA31FF /* ResponsiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponsiveView.swift; sourceTree = "<group>"; };
 		A0A12A0F29B66A640096D9A0 /* lf20_tiviyc3p.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lf20_tiviyc3p.json; sourceTree = "<group>"; };
 		A0A2271929A1D76F00EB41F5 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
 		A0A2271B29A1DA5200EB41F5 /* TextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextButton.swift; sourceTree = "<group>"; };
@@ -703,6 +705,7 @@
 				A011076E29AD171F00B84E6F /* ResizeTableView.swift */,
 				A0BE9D8029E1F12700EEFA72 /* BaseTableViewCell.swift */,
 				A0E9DEB729E2CEC4008D4A4F /* CheckView.swift */,
+				A08DCC9129E877A700FA31FF /* ResponsiveView.swift */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -1322,6 +1325,7 @@
 				A0A2271A29A1D76F00EB41F5 /* UIButtonExtension.swift in Sources */,
 				A00B364429A4D79B0077250D /* TermActivitiesTableCell.swift in Sources */,
 				A0BE9D8129E1F12700EEFA72 /* BaseTableViewCell.swift in Sources */,
+				A08DCC9229E877A700FA31FF /* ResponsiveView.swift in Sources */,
 				A0E7F79B299E9EBD00F63140 /* FirebaseStorageService.swift in Sources */,
 				A0E7F78B299E9EBD00F63140 /* UnderlineTextField.swift in Sources */,
 				A0CCB9B329C0CE3300523AF6 /* PartOfSpeechTableCell.swift in Sources */,
@@ -1617,6 +1621,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = TR3J5S5CGX;
@@ -1635,6 +1640,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hieunguyen.EngWord;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1647,6 +1653,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = TR3J5S5CGX;
@@ -1665,6 +1672,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hieunguyen.EngWord;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

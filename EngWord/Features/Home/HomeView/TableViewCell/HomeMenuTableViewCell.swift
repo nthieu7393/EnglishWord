@@ -11,8 +11,15 @@ class HomeMenuTableViewCell: UITableViewCell {
 
     @IBOutlet private weak var titleLbl: UILabel!
     @IBOutlet private weak var iconImg: UIImageView!
-    
+    @IBOutlet weak var containerView: ResponsiveView!
     @IBOutlet weak var numberLbl: UILabel!
+
+    var onTap: (() -> Void)? {
+        didSet {
+            containerView.onTap = onTap
+        }
+    }
+
     override func awakeFromNib() {
         super.awakeFromNib()
         setFont()

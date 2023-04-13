@@ -19,18 +19,12 @@ class FolderViewController: BaseViewController {
     @IBOutlet weak var tableView: UITableView!
 
     private var headerViewsList: [Int: SetHeaderTableView] = [:]
-
-    private lazy var newSetTextField: UITextField = {
-        return UITextField()
-    }()
     var setsPresenter: FoldersPresenter? {
         return presenter as? FoldersPresenter
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        layoutInputNewSetToolbar()
-//        setsPresenter?.loadAllSets()
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(practiceNotificationReceived(_:)),
@@ -42,15 +36,6 @@ class FolderViewController: BaseViewController {
     @objc func practiceNotificationReceived(_ notification: Notification) {
         guard let topicFolder = notification.object as? TopicFolderWrapper else { return }
         setsPresenter?.updateTopic(topic: topicFolder.topic, of: topicFolder.folder)
-    }
-
-    private func layoutInputNewSetToolbar() {
-        view.addSubview(newSetTextField)
-    }
-
-    override func dismissKeyboard() {
-        super.dismissKeyboard()
-        newSetTextField.endEditing(true)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -244,8 +229,23 @@ extension FolderViewController: UITableViewDataSource {
             withIdentifier: String(describing: SetTableViewCell.self),
             for: indexPath
         ) as? SetTableViewCell
-        cell?.setData(topic: setsPresenter?.getTopic(of: setsPresenter!.getFolder(at: indexPath.section)!, at: indexPath.row))
+        cell?.onTap = {
+            self.dosomething(indexPath: indexPath)
+        }
+        cell?.setData(topic: setsPresenter?.getTopic(
+            of: setsPresenter!.getFolder(at: indexPath.section)!,
+            at: indexPath.row)
+        )
         return cell ?? UITableViewCell()
+    }
+
+    func dosomething(indexPath: IndexPath) {
+        guard let folder = setsPresenter?.getFolder(at: indexPath.section),
+              let topic = setsPresenter?.getTopic(of: folder, at: indexPath.row) else { return }
+        coordinator?.presentTermsScreen(
+            folder: folder,
+            topic: topic,
+            delegateView: self)
     }
 }
 
@@ -256,12 +256,7 @@ extension FolderViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let folder = setsPresenter?.getFolder(at: indexPath.section),
-              let topic = setsPresenter?.getTopic(of: folder, at: indexPath.row) else { return }
-        coordinator?.presentTermsScreen(
-            folder: folder,
-            topic: topic,
-            delegateView: self)
+       dosomething(indexPath: indexPath)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

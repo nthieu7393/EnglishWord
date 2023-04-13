@@ -13,11 +13,20 @@ class TopicInRoutineTableCell: BaseTableViewCell {
     @IBOutlet weak var numberOfTermsLabel: UILabel!
     @IBOutlet weak var lastDateOfPracticeLabel: UILabel!
     @IBOutlet weak var progressBar: UIProgressView!
-    
+    @IBOutlet weak var containerView: ResponsiveView!
     @IBOutlet weak var percentLabel: UILabel!
+
+    var onTap: (() -> Void)? {
+        didSet {
+            containerView.onTap = onTap
+        }
+    }
+
     override func awakeFromNib() {
         super.awakeFromNib()
         progressBar.tintColor = Colors.active
+        containerView.addCornerRadius()
+        containerView.backgroundColor = Colors.cellBackground
         setFonts()
     }
 

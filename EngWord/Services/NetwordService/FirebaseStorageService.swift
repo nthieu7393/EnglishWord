@@ -248,8 +248,14 @@ class FirebaseStorageService<T: Card>: StorageProtocol {
         
         do {
             try topics.forEach {
-                let id = try folderRef.collection("topics").addDocument(data: $0.toDictionary())
                 var topic = TopicModel(topic: $0)
+                topic.intervalPractice = .daily
+                topic.numberOfPractice = 0
+                topic.lastDatePractice = Date().timeIntervalSince1970
+                topic.createdDateTimeInterval = Date().timeIntervalSince1970
+
+                let id = try folderRef.collection("topics").addDocument(data: topic.toDictionary())
+
                 topic.ID = id.documentID
                 mutatingTopics.append(topic)
             }

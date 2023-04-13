@@ -257,12 +257,18 @@ class TermsPresenter: BasePresenter {
                     )
                 })
                 _ = try await storageService.updateTopic(topic, folder: folder)
+
                 DispatchQueue.main.async {
                     self.view.hideSaveButton()
                     self.view.saveUpdatedTopicSuccess(
                         topic: self.topic,
                         folder: self.folder
                     )
+                    guard let indexOfTopic = self.folder.topics.firstIndex(where: {
+                        $0.topicId == self.topic.topicId
+                    }) else { return }
+                    self.folder.topics[indexOfTopic] = self.topic
+                    NotificationCenter.default.post(name: .updateFolderNotification, object: self.folder)
                 }
                 view.dismissLoadingIndicator()
             } catch {
