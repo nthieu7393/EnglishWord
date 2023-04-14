@@ -24,6 +24,7 @@ class PracticeTermForm: UIView, PracticeFormView {
     @IBOutlet weak var answerLabel: UILabel!
     @IBOutlet weak var answerBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var nextButton: TextButton!
+    @IBOutlet weak var answerContainerVie: UIStackView!
 
     weak var delegate: PracticeFormDelegate?
     var completionHandler: ((String) -> Void)?
@@ -109,6 +110,10 @@ class PracticeTermForm: UIView, PracticeFormView {
     }
 
     func showTurnResult(msg: NSAttributedString?, result: TurnResult) {
+        UIView.animate(withDuration: 0.4, delay: 0.2) {
+            self.answerBottomConstraint.constant = -60
+            self.layoutIfNeeded()
+        }
         delegate?.practiceForm(self, msg: msg, result: result)
     }
 
@@ -117,19 +122,37 @@ class PracticeTermForm: UIView, PracticeFormView {
     }
 
     func moveToNextCard() {
-        let originFrame = descriptionLabel.center
+        // description
+        let originFrameX = descriptionLabel.center.x
         UIView.animate(withDuration: 0.3, delay: 0.1) {
             self.descriptionLabel.center.x -= self.bounds.width
         } completion: { isFinish in
             guard isFinish else { return }
             self.presenter?.goToNextCard()
         }
-        UIView.animate(withDuration: 0.0, delay: 0.3) {
-            self.descriptionLabel.center.x = originFrame.x + self.bounds.width
+        UIView.animate(withDuration: 0.0, delay: 0.4) {
+            self.descriptionLabel.center.x = originFrameX + self.bounds.width
         }
         UIView.animate(withDuration: 0.3, delay: 0.7) {
-            self.descriptionLabel.center = originFrame
+            self.descriptionLabel.center.x = originFrameX
         }
+
+//        UIView.animate(withDuration: 0.3, delay: 0.8) {
+//            self.answerBottomConstraint.constant = 20
+//        }
+
+
+
+        // answer
+//        UIView.animate(withDuration: 0.3, delay: 0.2) {
+//            self.answerContainerVie.center.x -= self.bounds.width
+//        }
+//        UIView.animate(withDuration: 0.0, delay: 0.5) {
+//            self.answerContainerVie.center.x = originFrameX + self.bounds.width
+//        }
+//        UIView.animate(withDuration: 0.3, delay: 0.7) {
+//            self.answerContainerVie.center.x = originFrameX
+//        }
     }
     
     func disableNextButton() {

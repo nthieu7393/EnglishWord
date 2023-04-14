@@ -78,6 +78,7 @@
             </constraints>
             <connections>
                 <outlet property="answerBottomConstraint" destination="3ge-qZ-5Sn" id="P1u-Ot-ENa"/>
+                <outlet property="answerContainerVie" destination="hVf-9r-FOy" id="B4x-Ib-xJQ"/>
                 <outlet property="answerLabel" destination="iHT-T6-fok" id="Guo-e2-gRJ"/>
                 <outlet property="answerTextfield" destination="wis-9C-3HD" id="LD2-ge-I9I"/>
                 <outlet property="descriptionLabel" destination="H3o-Ai-U5A" id="qnA-y9-7cc"/>

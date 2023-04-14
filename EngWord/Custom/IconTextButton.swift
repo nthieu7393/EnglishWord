@@ -110,8 +110,8 @@ class IconTextButton: UIControl {
         transAnimation.fromValue = 1
         transAnimation.toValue = 0.95
         transAnimation.duration = 0.1
+        transAnimation.delegate = self
         view.layer.add(transAnimation, forKey: nil)
-        sendActions(for: .allTouchEvents)
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -134,5 +134,13 @@ class IconTextButton: UIControl {
     private func buttonOnTouchUp() {
         guard isEnabled else { return }
         view.transform = CGAffineTransformScale(viewsOriginalTransform, 1, 1)
+    }
+}
+
+extension IconTextButton: CAAnimationDelegate {
+
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        guard flag else { return }
+        sendActions(for: .allTouchEvents)
     }
 }

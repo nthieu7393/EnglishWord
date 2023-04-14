@@ -101,8 +101,8 @@ class TextButton: UIControl {
         transAnimation.fromValue = 1.1
         transAnimation.toValue = 0.9
         transAnimation.duration = 0.1
+        transAnimation.delegate = self
         titleLabel?.layer.add(transAnimation, forKey: nil)
-        sendActions(for: .allTouchEvents)
     }
 
     override var intrinsicContentSize: CGSize {
@@ -129,5 +129,13 @@ class TextButton: UIControl {
 
     private func buttonOnTouchUp() {
         titleLabel?.transform = CGAffineTransformScale(viewsOriginalTransform, 1, 1)
+    }
+}
+
+extension TextButton: CAAnimationDelegate {
+
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        guard flag else { return }
+        sendActions(for: .allTouchEvents)
     }
 }
