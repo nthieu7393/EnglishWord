@@ -42,7 +42,6 @@ class TermTableCell: UITableViewCell {
     private var tempHeightOfExample: CGFloat = 0
     private let numberOfItems = 5
     private var textViewInProcess: UITextView? {
-
         didSet {
             if textViewInProcess == nil {
                 visibleRecommendedExamples = false

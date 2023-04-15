@@ -55,7 +55,7 @@
 		A0A7B63A29BE4BF30080A6DC /* PartOfSpeechMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A7B63729BE4BF30080A6DC /* PartOfSpeechMenuPresenter.swift */; };
 		A0A7B63B29BE4BF30080A6DC /* PartOfSpeechMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A7B63829BE4BF30080A6DC /* PartOfSpeechMenuViewController.swift */; };
 		A0A7B63C29BE4BF30080A6DC /* PartOfSpeechMenuViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A7B63929BE4BF30080A6DC /* PartOfSpeechMenuViewProtocol.swift */; };
-		A0B5D38929BADAA500B81F79 /* PracticalResultViewController in Sources */ = {isa = PBXBuildFile; fileRef = A0B5D38829BADAA500B81F79 /* PracticalResultViewController */; };
+		A0B5D38929BADAA500B81F79 /* PracticalResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B5D38829BADAA500B81F79 /* PracticalResultViewController.swift */; };
 		A0BE9D7E29E1DE6F00EEFA72 /* NoDataTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BE9D7C29E1DE6F00EEFA72 /* NoDataTableCell.swift */; };
 		A0BE9D7F29E1DE6F00EEFA72 /* NoDataTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0BE9D7D29E1DE6F00EEFA72 /* NoDataTableCell.xib */; };
 		A0BE9D8129E1F12700EEFA72 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BE9D8029E1F12700EEFA72 /* BaseTableViewCell.swift */; };
@@ -250,7 +250,7 @@
 		A0A7B63729BE4BF30080A6DC /* PartOfSpeechMenuPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartOfSpeechMenuPresenter.swift; sourceTree = "<group>"; };
 		A0A7B63829BE4BF30080A6DC /* PartOfSpeechMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartOfSpeechMenuViewController.swift; sourceTree = "<group>"; };
 		A0A7B63929BE4BF30080A6DC /* PartOfSpeechMenuViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartOfSpeechMenuViewProtocol.swift; sourceTree = "<group>"; };
-		A0B5D38829BADAA500B81F79 /* PracticalResultViewController */ = {isa = PBXFileReference; lastKnownFileType = text; path = PracticalResultViewController; sourceTree = "<group>"; };
+		A0B5D38829BADAA500B81F79 /* PracticalResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticalResultViewController.swift; sourceTree = "<group>"; };
 		A0BE9D7C29E1DE6F00EEFA72 /* NoDataTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDataTableCell.swift; sourceTree = "<group>"; };
 		A0BE9D7D29E1DE6F00EEFA72 /* NoDataTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoDataTableCell.xib; sourceTree = "<group>"; };
 		A0BE9D8029E1F12700EEFA72 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
@@ -458,7 +458,7 @@
 				A0437B7829B8F41A0094E373 /* TurnResultPopup.swift */,
 				A0543B3B29B8FC01003B47E3 /* DimmingPresentationController.swift */,
 				A0543B3D29B8FE89003B47E3 /* GradientView.swift */,
-				A0B5D38829BADAA500B81F79 /* PracticalResultViewController */,
+				A0B5D38829BADAA500B81F79 /* PracticalResultViewController.swift */,
 			);
 			path = Popups;
 			sourceTree = "<group>";
@@ -1361,7 +1361,7 @@
 				A0E7F7BA299E9EBD00F63140 /* FoldersViewProtocol.swift in Sources */,
 				A0E7F7AB299E9EBD00F63140 /* HomeMenuTableViewCell.swift in Sources */,
 				A04976C729A9154E00CFB595 /* PracticeDescriptionForm.swift in Sources */,
-				A0B5D38929BADAA500B81F79 /* PracticalResultViewController in Sources */,
+				A0B5D38929BADAA500B81F79 /* PracticalResultViewController.swift in Sources */,
 				A0437B7929B8F41A0094E373 /* TurnResultPopup.swift in Sources */,
 				A0E7F825299F8D6200F63140 /* AllTopicsPresenter.swift in Sources */,
 				A057414329DBF17C002C1C0E /* TopicsListPresenter.swift in Sources */,

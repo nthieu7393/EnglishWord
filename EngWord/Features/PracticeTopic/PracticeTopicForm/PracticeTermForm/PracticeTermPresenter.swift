@@ -61,8 +61,10 @@ class PracticeTermPresenter: PracticeFormPresenter {
         guard let card = getProcessingCard() else { return }
         let isAnswerCorrect = answer == card.termDisplay
         let textColor = isAnswerCorrect ? Colors.correct : Colors.incorrect
-        let message = "\(answer) is a \(isAnswerCorrect ? "correct" : "incorrect") answer"
-        guard let attributeString = message.hightLight(text: answer, colorHighlight: textColor) else { return }
+//        let message = "\(answer) is a \(isAnswerCorrect ? "correct" : "incorrect") answer"
+        
+        let message = "Weel done"
+        guard let attributeString = message.hightLight(text: message, colorHighlight: textColor) else { return }
         view.showTurnResult(msg: attributeString, result: isAnswerCorrect ? .correct : .incorrect)
 //        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1700), execute: showCorrectMessage)
     }

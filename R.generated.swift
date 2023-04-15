@@ -322,7 +322,7 @@ struct _R {
     var weekly: RswiftResources.ColorResource { .init(name: "weekly", path: [], bundle: bundle) }
   }
 
-  /// This `_R.image` struct is generated, and contains static references to 32 images.
+  /// This `_R.image` struct is generated, and contains static references to 34 images.
   struct image {
     let bundle: Foundation.Bundle
 
@@ -352,6 +352,12 @@ struct _R {
 
     /// Image `calendarLineIcon`.
     var calendarLineIcon: RswiftResources.ImageResource { .init(name: "calendarLineIcon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `checkRoundFillIcon`.
+    var checkRoundFillIcon: RswiftResources.ImageResource { .init(name: "checkRoundFillIcon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
+
+    /// Image `closeRoundFillIcon`.
+    var closeRoundFillIcon: RswiftResources.ImageResource { .init(name: "closeRoundFillIcon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }
 
     /// Image `closeRoundIcon`.
     var closeRoundIcon: RswiftResources.ImageResource { .init(name: "closeRoundIcon", path: [], bundle: bundle, locale: nil, onDemandResourceTags: nil) }

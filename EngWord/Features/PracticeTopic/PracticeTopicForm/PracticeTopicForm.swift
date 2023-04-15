@@ -80,7 +80,10 @@ class PracticeFormController: UIViewController {
 
 extension PracticeFormController: PracticeFormDelegate {
 
-    func practiceForm(_ form: any PracticeFormView, msg: NSAttributedString?, result: TurnResult) {
+    func practiceForm(
+        _ form: any PracticeFormView,
+        msg: NSAttributedString?,
+        result: TurnResult) {
         if let msg = msg {
             presentResultPopup(msg: msg, result: result)
         }

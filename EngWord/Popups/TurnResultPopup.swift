@@ -9,7 +9,7 @@ import UIKit
 
 class TurnResultPopup: UIViewController {
 
-    @IBOutlet weak var dismissButton: TextButton!
+    @IBOutlet weak var dismissButton: ResponsiveButton!
     @IBOutlet weak var popupWrapper: UIView!
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var iconView: UIImageView!
@@ -30,8 +30,13 @@ class TurnResultPopup: UIViewController {
         view.backgroundColor = UIColor.clear
         popupWrapper.addCornerRadius()
         dismissButton.title = "Continue"
-        iconView.image = result == .correct ? R.image.happyFaceIcon() : R.image.sadFaceIcon()
+        
+        let image = result == .correct ? R.image.checkRoundFillIcon() : R.image.closeRoundFillIcon()
+        let color = result == .correct ? Colors.correct : Colors.incorrect
+        iconView.image = image?.withRenderingMode(.alwaysTemplate)
+        iconView.tintColor = color
         messageLabel.attributedText = message
+        dismissButton.color = color
     }
 
     @IBAction func dismissButtonOnTap(_ sender: TextButton) {
