@@ -16,10 +16,10 @@ class TopicInRoutineTableCell: BaseTableViewCell {
     @IBOutlet weak var containerView: ResponsiveView!
     @IBOutlet weak var percentLabel: UILabel!
 
-    var onTap: (() -> Void)? {
-        didSet {
-            containerView.onTap = onTap
-        }
+    var onTap: (() -> Void)?
+
+    @IBAction func containerViewOnTap(_ sender: ResponsiveView) {
+        onTap?()
     }
 
     override func awakeFromNib() {

@@ -18,8 +18,6 @@ class ResponsiveView: UIControl {
         return self.transform
     }()
 
-    var onTap: (() -> Void)?
-
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         initLayout()
@@ -47,8 +45,6 @@ class ResponsiveView: UIControl {
         transAnimation.duration = 0.1
         transAnimation.delegate = self
         layer.add(transAnimation, forKey: nil)
-        sendActions(for: UIControl.Event.allTouchEvents)
-        sendActions(for: UIControl.Event.valueChanged)
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -76,6 +72,6 @@ extension ResponsiveView: CAAnimationDelegate {
 
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         guard flag else { return }
-        onTap?()
+        sendActions(for: UIControl.Event.allTouchEvents)
     }
 }

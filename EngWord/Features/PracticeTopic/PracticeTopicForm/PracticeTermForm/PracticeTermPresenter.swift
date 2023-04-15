@@ -65,6 +65,11 @@ class PracticeTermPresenter: PracticeFormPresenter {
         
         let message = "Weel done"
         guard let attributeString = message.hightLight(text: message, colorHighlight: textColor) else { return }
+
+        let msgAttributeString = NSAttributedString(string: "Well Done", attributes: [
+            NSAttributedString.Key.foregroundColor: isAnswerCorrect ? Colors.correct : Colors.incorrect,
+            NSAttributedString.Key.font: Fonts.title
+        ])
         view.showTurnResult(msg: attributeString, result: isAnswerCorrect ? .correct : .incorrect)
 //        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1700), execute: showCorrectMessage)
     }

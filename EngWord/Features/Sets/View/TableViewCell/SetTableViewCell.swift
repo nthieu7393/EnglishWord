@@ -20,12 +20,13 @@ class SetTableViewCell: UITableViewCell {
     @IBOutlet weak var masterLevelView: UIView!
     @IBOutlet weak var progressContainer: UIStackView!
 
-    var onTap: (() -> Void)? {
-        didSet {
-            containerView.onTap = onTap
-        }
+    var onTap: (() -> Void)?
+
+
+    @IBAction func containerViewOnTap(_ sender: ResponsiveView) {
+        onTap?()
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib() 
         setTextFont()

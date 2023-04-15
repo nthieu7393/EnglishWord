@@ -14,10 +14,10 @@ class HomeMenuTableViewCell: UITableViewCell {
     @IBOutlet weak var containerView: ResponsiveView!
     @IBOutlet weak var numberLbl: UILabel!
 
-    var onTap: (() -> Void)? {
-        didSet {
-            containerView.onTap = onTap
-        }
+    var onTap: (() -> Void)?
+
+    @IBAction func containerViewOnTap(_ sender: ResponsiveView) {
+        onTap?()
     }
 
     override func awakeFromNib() {

@@ -110,7 +110,10 @@ extension PracticeTopicViewController: PracticeTopicViewProtocol, Storyboarded {
 
 extension PracticeTopicViewController: PracticalResultPopupDelegate {
 
-    func practicalResultPopup(_ popup: PracticalResultViewController, onTap doneButton: TextButton) {
+    func practicalResultPopup(
+        _ popup: PracticalResultViewController,
+        onTap doneButton: TextButton
+    ) {
         self.dismiss(animated: true)
         animationView?.stop()
         animationView?.removeFromSuperview()
