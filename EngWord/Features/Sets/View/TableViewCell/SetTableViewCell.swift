@@ -22,7 +22,6 @@ class SetTableViewCell: UITableViewCell {
 
     var onTap: (() -> Void)?
 
-
     @IBAction func containerViewOnTap(_ sender: ResponsiveView) {
         onTap?()
     }

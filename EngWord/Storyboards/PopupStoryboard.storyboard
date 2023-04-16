@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wi0-gt-woN">
-                                <rect key="frame" x="0.0" y="686" width="393" height="132"/>
+                                <rect key="frame" x="0.0" y="684" width="393" height="134"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ShZ-wz-Cn8">
                                         <rect key="frame" x="24" y="24" width="345" height="28"/>
@@ -39,10 +39,10 @@
                                         </subviews>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="73w-84-pJc" customClass="ResponsiveButton" customModule="EngWord" customModuleProvider="target">
-                                        <rect key="frame" x="24" y="76" width="345" height="36"/>
+                                        <rect key="frame" x="24" y="76" width="345" height="38"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="36" id="0gK-gc-LWq"/>
+                                            <constraint firstAttribute="height" constant="38" id="0gK-gc-LWq"/>
                                         </constraints>
                                         <connections>
                                             <action selector="dismissButtonOnTap:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="9Kz-Se-hNl"/>
@@ -166,11 +166,6 @@
             <point key="canvasLocation" x="1075.5725190839694" y="-350"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="uTq-Ez-aY1">
-            <size key="intrinsicContentSize" width="0.0" height="28"/>
-        </designable>
-    </designables>
     <resources>
         <image name="Image" width="160" height="160"/>
         <image name="happyFaceIcon" width="160" height="160"/>

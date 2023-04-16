@@ -42,7 +42,6 @@ class PracticeTermPresenter: PracticeFormPresenter {
         }
         updateProgressOfRound()
         view.displayCard(card: card)
-
     }
 
     private func updateProgressOfRound() {
@@ -63,10 +62,10 @@ class PracticeTermPresenter: PracticeFormPresenter {
         let textColor = isAnswerCorrect ? Colors.correct : Colors.incorrect
 //        let message = "\(answer) is a \(isAnswerCorrect ? "correct" : "incorrect") answer"
         
-        let message = isAnswerCorrect ? "Well done. Hurrayb" : "Oh no. Please try later"
+        let message = isAnswerCorrect ? "Correct. Well done." : "Incorrect. Oh no."
         guard let attributeString = message.hightLight(text: message, colorHighlight: textColor) else { return }
 
-        let msgAttributeString = NSAttributedString(string: "Well Done", attributes: [
+        let msgAttributeString = NSAttributedString(string: message, attributes: [
             NSAttributedString.Key.foregroundColor: isAnswerCorrect ? Colors.correct : Colors.incorrect,
             NSAttributedString.Key.font: Fonts.bigTitle
         ])
@@ -75,7 +74,7 @@ class PracticeTermPresenter: PracticeFormPresenter {
     }
 
     func answerEditingChanged(_ answer: String) {
-        if answer.isEhmpty {
+        if answer.isEmpty {
             view.disableNextButton()
         } else {
             view.enableNextButton()

@@ -23,8 +23,9 @@ final class ReviewCardPresenter: BasePresenter {
         let indexOfCard = cards.firstIndex {
             $0.isEqual(card: currentCard)
         }
-        view?.moveToCard(at: indexOfCard!)
-        view?.displayIndicatorNumber(text: "\(indexOfCard! + 1)/\(cards.count)")
+        guard let indexOfCard = indexOfCard else { return }
+        view?.moveToCard(at: indexOfCard)
+        view?.displayIndicatorNumber(text: "\(indexOfCard + 1)/\(cards.count)")
     }
 
     func getNumberOfCards() -> Int {

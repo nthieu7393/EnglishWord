@@ -9,7 +9,10 @@ import UIKit
 
 protocol PracticalResultPopupDelegate: AnyObject {
 
-    func practicalResultPopup(_ popup: PracticalResultViewController, onTap doneButton: TextButton)
+    func practicalResultPopup(
+        _ popup: PracticalResultViewController,
+        onTap doneButton: TextButton
+    )
 }
 
 class PracticalResultViewController: UIViewController, Storyboarded {

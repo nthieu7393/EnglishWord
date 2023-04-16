@@ -49,19 +49,19 @@ class TermsPresenter: BasePresenter {
         phrasalVerbsFileProvider = BundleFileDataProvider<PhrasalVerbList>(
             fileName: "phrasal-verbs",
             extension: "json")
-        self.realmVocabularyService = RealmVocabularyService(realm: RealmProvider.phrasalVerbs.realm!)
+        realmVocabularyService = RealmVocabularyService(realm: RealmProvider.phrasalVerbs.realm!)
         
-        let verbs: [PhrasalVerbWordItem]? = ((try? phrasalVerbsFileProvider?.loadData()) as? PhrasalVerbList)?.list
-        let verbEntities = verbs?.compactMap({
-            return PhrasalVerbEntity(
-                term: $0.word,
-                derivatives: $0.derivatives ?? [],
-                descriptions: $0.descriptions ?? [],
-                examples: $0.examples ?? []
-            )
-        })
-        self.realmVocabularyService.saveMany(items: verbEntities ?? []) { _, _ in
-        }
+//        let verbs: [PhrasalVerbWordItem]? = ((try? phrasalVerbsFileProvider?.loadData()) as? PhrasalVerbList)?.list
+//        let verbEntities = verbs?.compactMap({
+//            return PhrasalVerbEntity(
+//                term: $0.word,
+//                derivatives: $0.derivatives ?? [],
+//                descriptions: $0.descriptions ?? [],
+//                examples: $0.examples ?? []
+//            )
+//        })
+//        self.realmVocabularyService.saveMany(items: verbEntities ?? []) { _, _ in
+//        }
         cards = []
         view.dismissLoadingIndicator()
     }

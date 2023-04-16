@@ -118,7 +118,7 @@ class PracticeTermForm: UIView, PracticeFormView {
     }
 
     func updateRoundProgress(value: Float) {
-        progressBar.progress = value
+        progressBar.setProgress(value, animated: true)
     }
 
     func moveToNextCard() {
