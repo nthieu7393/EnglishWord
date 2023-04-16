@@ -63,19 +63,19 @@ class PracticeTermPresenter: PracticeFormPresenter {
         let textColor = isAnswerCorrect ? Colors.correct : Colors.incorrect
 //        let message = "\(answer) is a \(isAnswerCorrect ? "correct" : "incorrect") answer"
         
-        let message = "Weel done"
+        let message = isAnswerCorrect ? "Well done. Hurrayb" : "Oh no. Please try later"
         guard let attributeString = message.hightLight(text: message, colorHighlight: textColor) else { return }
 
         let msgAttributeString = NSAttributedString(string: "Well Done", attributes: [
             NSAttributedString.Key.foregroundColor: isAnswerCorrect ? Colors.correct : Colors.incorrect,
-            NSAttributedString.Key.font: Fonts.title
+            NSAttributedString.Key.font: Fonts.bigTitle
         ])
         view.showTurnResult(msg: attributeString, result: isAnswerCorrect ? .correct : .incorrect)
 //        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1700), execute: showCorrectMessage)
     }
 
     func answerEditingChanged(_ answer: String) {
-        if answer.isEmpty {
+        if answer.isEhmpty {
             view.disableNextButton()
         } else {
             view.enableNextButton()
