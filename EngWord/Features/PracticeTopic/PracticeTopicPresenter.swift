@@ -86,7 +86,7 @@ final class PracticeTopicPresenter: BasePresenter {
                 fromDateComponents: fromDateComponents,
                 toDateComponents: toDateComponents)
         case .none, .master:
-            break
+            return topic
         }
         mutatingTopic.lastDatePractice = Date().timeIntervalSince1970
         return mutatingTopic

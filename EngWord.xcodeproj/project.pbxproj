@@ -66,6 +66,7 @@
 		A0CCF1E829ABB554008C34C4 /* TwitterHeartButton.json in Resources */ = {isa = PBXBuildFile; fileRef = A0CCF1E729ABB554008C34C4 /* TwitterHeartButton.json */; };
 		A0D34B4B29A5C9EE005A2171 /* IconTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0D34B4A29A5C9EE005A2171 /* IconTextView.xib */; };
 		A0D34B4D29A5D0D7005A2171 /* IconTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D34B4C29A5D0D7005A2171 /* IconTextView.swift */; };
+		A0D740BA29EDC8FF0094D8F7 /* PracticeResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D740B929EDC8FF0094D8F7 /* PracticeResultTableViewCell.swift */; };
 		A0D8646D29DB731B00942538 /* LaunchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D8646A29DB731B00942538 /* LaunchPresenter.swift */; };
 		A0D8646E29DB731B00942538 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D8646B29DB731B00942538 /* LaunchViewController.swift */; };
 		A0D8646F29DB731B00942538 /* LaunchViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D8646C29DB731B00942538 /* LaunchViewProtocol.swift */; };
@@ -262,6 +263,7 @@
 		A0CCF1E729ABB554008C34C4 /* TwitterHeartButton.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TwitterHeartButton.json; sourceTree = "<group>"; };
 		A0D34B4A29A5C9EE005A2171 /* IconTextView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IconTextView.xib; sourceTree = "<group>"; };
 		A0D34B4C29A5D0D7005A2171 /* IconTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconTextView.swift; sourceTree = "<group>"; };
+		A0D740B929EDC8FF0094D8F7 /* PracticeResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeResultTableViewCell.swift; sourceTree = "<group>"; };
 		A0D8646A29DB731B00942538 /* LaunchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchPresenter.swift; sourceTree = "<group>"; };
 		A0D8646B29DB731B00942538 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		A0D8646C29DB731B00942538 /* LaunchViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewProtocol.swift; sourceTree = "<group>"; };
@@ -461,6 +463,7 @@
 				A0543B3B29B8FC01003B47E3 /* DimmingPresentationController.swift */,
 				A0543B3D29B8FE89003B47E3 /* GradientView.swift */,
 				A0B5D38829BADAA500B81F79 /* PracticalResultViewController.swift */,
+				A0D740B929EDC8FF0094D8F7 /* PracticeResultTableViewCell.swift */,
 			);
 			path = Popups;
 			sourceTree = "<group>";
@@ -1349,6 +1352,7 @@
 				A0A2A20A29EC715B0056A3D3 /* QuizResult.swift in Sources */,
 				A0E7F78E299E9EBD00F63140 /* BaseViewController.swift in Sources */,
 				A00B365729A522420077250D /* TestTopicPresenter.swift in Sources */,
+				A0D740BA29EDC8FF0094D8F7 /* PracticeResultTableViewCell.swift in Sources */,
 				A0E7F77F299E9EBD00F63140 /* SetModel.swift in Sources */,
 				A0E7F7C0299E9EBD00F63140 /* UserInfoLogoutTableCell.swift in Sources */,
 				A0E7F785299E9EBD00F63140 /* ServiceInjector.swift in Sources */,

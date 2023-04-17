@@ -612,8 +612,8 @@ struct _R {
     /// Reuse identifier `PartOfSpeechTableCell`.
     let partOfSpeechTableCell: RswiftResources.ReuseIdentifier<PartOfSpeechTableCell> = .init(identifier: "PartOfSpeechTableCell")
 
-    /// Reuse identifier `PracticeResultTableCell`.
-    let practiceResultTableCell: RswiftResources.ReuseIdentifier<PracticeResultTableCell> = .init(identifier: "PracticeResultTableCell")
+    /// Reuse identifier `PracticeResultTableViewCell`.
+    let practiceResultTableViewCell: RswiftResources.ReuseIdentifier<PracticeResultTableViewCell> = .init(identifier: "PracticeResultTableViewCell")
 
     /// Reuse identifier `ReviewCardCollectionCell`.
     let reviewCardCollectionCell: RswiftResources.ReuseIdentifier<ReviewCardCollectionCell> = .init(identifier: "ReviewCardCollectionCell")
@@ -731,7 +731,9 @@ struct _R {
 
       func validate() throws {
         if UIKit.UIImage(named: "happyFaceIcon", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Image named 'happyFaceIcon' is used in storyboard 'PopupStoryboard', but couldn't be loaded.") }
+        if UIKit.UIColor(named: "active", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Color named 'active' is used in storyboard 'PopupStoryboard', but couldn't be loaded.") }
         if UIKit.UIColor(named: "cellBackground", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Color named 'cellBackground' is used in storyboard 'PopupStoryboard', but couldn't be loaded.") }
+        if UIKit.UIColor(named: "mainBackground", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Color named 'mainBackground' is used in storyboard 'PopupStoryboard', but couldn't be loaded.") }
         if practicalResultViewController() == nil { throw RswiftResources.ValidationError("[R.swift] ViewController with identifier 'practicalResultViewController' could not be loaded from storyboard 'PopupStoryboard' as 'PracticalResultViewController'.") }
         if turnResultPopup() == nil { throw RswiftResources.ValidationError("[R.swift] ViewController with identifier 'turnResultPopup' could not be loaded from storyboard 'PopupStoryboard' as 'TurnResultPopup'.") }
       }
