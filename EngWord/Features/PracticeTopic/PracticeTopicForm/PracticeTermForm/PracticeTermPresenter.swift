@@ -49,28 +49,22 @@ class PracticeTermPresenter: PracticeFormPresenter {
         view.updateRoundProgress(value: Float(index) / Float(cards.count))
     }
 
-//    lazy var showCorrectMessage: DispatchWorkItem = {
-//        return DispatchWorkItem {
-//            self.goToNextCard()
-//            self.view.hideResultMessage()
-//        }
-//    }()
-
     func checkAnswer(answer: String) {
         guard let card = getProcessingCard() else { return }
         let isAnswerCorrect = answer == card.termDisplay
         let textColor = isAnswerCorrect ? Colors.correct : Colors.incorrect
-//        let message = "\(answer) is a \(isAnswerCorrect ? "correct" : "incorrect") answer"
-        
         let message = isAnswerCorrect ? "Correct. Well done." : "Incorrect. Oh no."
         guard let attributeString = message.hightLight(text: message, colorHighlight: textColor) else { return }
-
-        let msgAttributeString = NSAttributedString(string: message, attributes: [
-            NSAttributedString.Key.foregroundColor: isAnswerCorrect ? Colors.correct : Colors.incorrect,
-            NSAttributedString.Key.font: Fonts.bigTitle
-        ])
-        view.showTurnResult(msg: attributeString, result: isAnswerCorrect ? .correct : .incorrect)
-//        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1700), execute: showCorrectMessage)
+        let quizResult = QuizResult(
+            round: 1,
+            question: card.selectedDefinition ?? "",
+            result: card.termDisplay,
+            answer: answer)
+        view.showTurnResult(
+            msg: attributeString,
+            result: isAnswerCorrect ? .correct : .incorrect,
+            quizResult: quizResult
+        )
     }
 
     func answerEditingChanged(_ answer: String) {

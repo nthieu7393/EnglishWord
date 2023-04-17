@@ -58,7 +58,15 @@ class PracticeDescriptionPresenter: PracticeFormPresenter {
     func answer(_ card: Card?, answer: String) {
         guard let card = card else { return }
         answeredCards.append(card.termDisplay == answer ? .correct : .incorrect)
-        view.showTurnResult(msg: nil, result: card.termDisplay == answer ? .correct : .incorrect)
+        let quizResult = QuizResult(
+            round: 2,
+            question: card.selectedDefinition ?? "",
+            result: card.termDisplay,
+            answer: answer)
+        view.showTurnResult(
+            msg: nil,
+            result: card.termDisplay == answer ? .correct : .incorrect,
+            quizResult: quizResult)
         numberOfAnswers += 1
         let numberOfCardsInProgress = min(unseenCards.count, numberOfCardsEachTurn)
         if numberOfAnswers == numberOfCardsInProgress {
@@ -72,7 +80,8 @@ class PracticeDescriptionPresenter: PracticeFormPresenter {
                     NSAttributedString.Key.font: Fonts.boldText,
                     NSAttributedString.Key.foregroundColor: Colors.mainText
                 ])
-                view.showTurnResult(msg: msg, result: checkResultOfTurnIsPass(answeredCards) ? TurnResult.correct : TurnResult.incorrect)
+//                view.showTurnResult(msg: msg, result: checkResultOfTurnIsPass(answeredCards) ? TurnResult.correct : TurnResult.incorrect,
+//                    quizResult: <#T##QuizResult#>)
                 numberOfAnswers = 0
             }
         }

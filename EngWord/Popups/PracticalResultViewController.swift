@@ -16,14 +16,10 @@ protocol PracticalResultPopupDelegate: AnyObject {
 }
 
 class PracticalResultViewController: UIViewController, Storyboarded {
-
-    @IBOutlet weak var iconView: UIImageView!
-    @IBOutlet weak var resultLabel: UILabel!
-    @IBOutlet weak var wrapperView: UIView!
-    @IBOutlet weak var messageLabel: UILabel!
-    @IBOutlet weak var continueButton: TextButton!
-
-    var practicalResult: PracticalResult?
+    
+    @IBOutlet weak var tableView: UITableView!
+    
+    var allResults: [QuizResult]?
     weak var delegate: PracticalResultPopupDelegate?
 
     @IBAction func doneButtonOnTap(_ sender: TextButton) {
@@ -32,19 +28,32 @@ class PracticalResultViewController: UIViewController, Storyboarded {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let isPass = practicalResult == .pass
-
-        wrapperView.addCornerRadius()
-
-        resultLabel.font = Fonts.boldText
-        resultLabel.textColor = isPass ? Colors.correct : Colors.incorrect
-
-        messageLabel.font = Fonts.boldText
-        messageLabel.textColor = Colors.mainText
-
-        iconView.image = isPass ? R.image.trophyIcon() : R.image.sadFaceIcon()
-        resultLabel.text = isPass ? "Congratulation" : "Fail"
-        messageLabel.text = isPass ? "You have completed these cards" : "You have not familiar with these cards"
-        continueButton.title = Localizations.done
+        
     }
+}
+
+extension PracticalResultViewController: UITableViewDelegate {
+    
+}
+
+extension PracticalResultViewController: UITableViewDataSource {
+        
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return allResults?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueCell(PracticeResultTableCell.self, for: indexPath) else {
+            return UITableViewCell()
+        }
+        cell.lasssssbel.text = allResults?[indexPath.row].question
+        return cell
+    }
+}
+
+
+class PracticeResultTableCell: UITableViewCell {
+    
+    
+    @IBOutlet weak var lasssssbel: UILabel!
 }

@@ -73,7 +73,15 @@ extension PracticeTopicViewController: PracticeTopicViewProtocol, Storyboarded {
     func moveToNextRound(index: Int) {
         view.endEditing(true)
         title = "Round \(index + 1)"
-        pageViewController.setViewControllers([controllers[index]], direction: .forward, animated: true)
+        pageViewController.setViewControllers(
+            [controllers[index]],
+            direction: .forward,
+            animated: true)
+    }
+    
+    func showRoundResultPopup() {
+        view.endEditing(true)
+        
     }
 
     func showPracticePass() {
@@ -95,14 +103,13 @@ extension PracticeTopicViewController: PracticeTopicViewProtocol, Storyboarded {
         })
 
         let storyboard = PracticalResultViewController.instantiatePopup()
-        storyboard?.practicalResult = .pass
         storyboard?.delegate = self
+        storyboard?.allResults = myPresenter?.getAllResults()
         self.present(storyboard!, animated: true)
     }
 
     func showPracticeFail() {
         let storyboard = PracticalResultViewController.instantiatePopup()
-        storyboard?.practicalResult = .fail
         storyboard?.delegate = self
         self.present(storyboard!, animated: true)
     }
@@ -123,8 +130,12 @@ extension PracticeTopicViewController: PracticalResultPopupDelegate {
 
 extension PracticeTopicViewController: PracticeFormControllerDelegate {
 
-    func practiceFormController(_ controller: PracticeFormController, result: TurnResult) {
-        myPresenter?.turnPracticeDone(result: result)
+    func practiceFormController(
+        _ controller: PracticeFormController,
+        result: TurnResult,
+        quizResult: QuizResult
+    ) {
+        myPresenter?.turnPracticeDone(result: result, quizResult: quizResult)
     }
 }
 

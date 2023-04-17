@@ -12,7 +12,8 @@ protocol PracticeFormDelegate: AnyObject {
     func practiceForm(
         _ form: any PracticeFormView,
         msg: NSAttributedString?,
-        result: TurnResult
+        result: TurnResult,
+        quizResult: QuizResult
     )
 }
 
@@ -109,12 +110,19 @@ class PracticeTermForm: UIView, PracticeFormView {
             })
     }
 
-    func showTurnResult(msg: NSAttributedString?, result: TurnResult) {
+    func showTurnResult(
+        msg: NSAttributedString?,
+        result: TurnResult,
+        quizResult: QuizResult
+    ) {
         UIView.animate(withDuration: 0.4, delay: 0.2) {
             self.answerBottomConstraint.constant = -60
             self.layoutIfNeeded()
         }
-        delegate?.practiceForm(self, msg: msg, result: result)
+        delegate?.practiceForm(
+            self, msg: msg,
+            result: result,
+            quizResult: quizResult)
     }
 
     func updateRoundProgress(value: Float) {

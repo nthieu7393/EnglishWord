@@ -9,8 +9,12 @@ import UIKit
 
 class PracticeDescriptionForm: UIView, PracticeFormView {
     
-    func showTurnResult(msg: NSAttributedString?, result: TurnResult) {
-        delegate?.practiceForm(self, msg: msg, result: result)
+    func showTurnResult(msg: NSAttributedString?, result: TurnResult, quizResult: QuizResult) {
+        delegate?.practiceForm(
+            self,
+            msg: msg,
+            result: result,
+            quizResult: quizResult)
     }
 
     weak var delegate: PracticeFormDelegate?

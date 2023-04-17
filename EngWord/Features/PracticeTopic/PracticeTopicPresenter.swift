@@ -45,24 +45,6 @@ final class PracticeTopicPresenter: BasePresenter {
                 cards: cards,
                 endTest: { _ in
                 self.endPracticeRound()
-                
-                let updatedPracticeIntervalTopic = self.updatePracticeValue(of: self.topic)
-                let topicFolder = TopicFolderWrapper(
-                    folder: self.folder,
-                    topic: updatedPracticeIntervalTopic
-                )
-                NotificationCenter.default.post(
-                    name: .practiceFinishNotification,
-                    object: topicFolder
-                )
-                self.storageService.updatePracticeIntervalOfTopic(
-                    topic: updatedPracticeIntervalTopic,
-                    folder: self.folder
-                ) { err in
-                    if let err = err {
-                        self.view?.showErrorAlert(msg: err.localizedDescription)
-                    }
-                }
             })
         ]
     }
@@ -184,12 +166,36 @@ final class PracticeTopicPresenter: BasePresenter {
     }
     
     private func endPracticeRound() {
-        self.practiceRound += 1
+        practiceRound += 1
         if practiceRound >= practicalFormControllers.count {
-            checkResultPassOrFail() == .pass ? view?.showPracticePass() : view?.showPracticeFail()
+            let updatedPracticeIntervalTopic = self.updatePracticeValue(of: self.topic)
+            let topicFolder = TopicFolderWrapper(
+                folder: self.folder,
+                topic: updatedPracticeIntervalTopic
+            )
+            NotificationCenter.default.post(
+                name: .practiceFinishNotification,
+                object: topicFolder
+            )
+            self.storageService.updatePracticeIntervalOfTopic(
+                topic: updatedPracticeIntervalTopic,
+                folder: self.folder
+            ) { err in
+                if let err = err {
+                    self.view?.showErrorAlert(msg: err.localizedDescription)
+                } else {
+                    self.checkResultPassOrFail() == .pass
+                    ? self.view?.showPracticePass()
+                    : self.view?.showPracticeFail()
+                }
+            }
         } else {
             view?.moveToNextRound(index: practiceRound)
         }
+    }
+    
+    func getAllResults() -> [QuizResult] {
+        return quizResults
     }
     
     func getPracticeForm() -> any PracticeFormView {
@@ -206,10 +212,11 @@ final class PracticeTopicPresenter: BasePresenter {
     
     var resultsOfAnswerCards: [TurnResult] = []
     
-    func turnPracticeDone(result: TurnResult) {
+    func turnPracticeDone(result: TurnResult, quizResult: QuizResult) {
         resultsOfAnswerCards.append(result)
+        quizResults.append(quizResult)
     }
-    
+    var quizResults: [QuizResult] = []
     func checkResultPassOrFail() -> PracticalResult {
         let correct = resultsOfAnswerCards.filter {
             $0 == .correct

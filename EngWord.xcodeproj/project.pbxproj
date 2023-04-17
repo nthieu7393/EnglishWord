@@ -52,6 +52,7 @@
 		A0A12A1029B66A640096D9A0 /* lf20_tiviyc3p.json in Resources */ = {isa = PBXBuildFile; fileRef = A0A12A0F29B66A640096D9A0 /* lf20_tiviyc3p.json */; };
 		A0A2271A29A1D76F00EB41F5 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A2271929A1D76F00EB41F5 /* UIButtonExtension.swift */; };
 		A0A2271C29A1DA5200EB41F5 /* TextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A2271B29A1DA5200EB41F5 /* TextButton.swift */; };
+		A0A2A20A29EC715B0056A3D3 /* QuizResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A2A20929EC715B0056A3D3 /* QuizResult.swift */; };
 		A0A7B63A29BE4BF30080A6DC /* PartOfSpeechMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A7B63729BE4BF30080A6DC /* PartOfSpeechMenuPresenter.swift */; };
 		A0A7B63B29BE4BF30080A6DC /* PartOfSpeechMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A7B63829BE4BF30080A6DC /* PartOfSpeechMenuViewController.swift */; };
 		A0A7B63C29BE4BF30080A6DC /* PartOfSpeechMenuViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A7B63929BE4BF30080A6DC /* PartOfSpeechMenuViewProtocol.swift */; };
@@ -247,6 +248,7 @@
 		A0A12A0F29B66A640096D9A0 /* lf20_tiviyc3p.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lf20_tiviyc3p.json; sourceTree = "<group>"; };
 		A0A2271929A1D76F00EB41F5 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
 		A0A2271B29A1DA5200EB41F5 /* TextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextButton.swift; sourceTree = "<group>"; };
+		A0A2A20929EC715B0056A3D3 /* QuizResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizResult.swift; sourceTree = "<group>"; };
 		A0A7B63729BE4BF30080A6DC /* PartOfSpeechMenuPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartOfSpeechMenuPresenter.swift; sourceTree = "<group>"; };
 		A0A7B63829BE4BF30080A6DC /* PartOfSpeechMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartOfSpeechMenuViewController.swift; sourceTree = "<group>"; };
 		A0A7B63929BE4BF30080A6DC /* PartOfSpeechMenuViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartOfSpeechMenuViewProtocol.swift; sourceTree = "<group>"; };
@@ -652,6 +654,7 @@
 				A0E7F70E299E9EB900F63140 /* HomeMenuModel.swift */,
 				A0E7F70F299E9EB900F63140 /* WordModel */,
 				A0E7F715299E9EB900F63140 /* SetModel.swift */,
+				A0A2A20929EC715B0056A3D3 /* QuizResult.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1343,6 +1346,7 @@
 				A0E7F797299E9EBD00F63140 /* VocabularyRequest.swift in Sources */,
 				A0E7F79D299E9EBD00F63140 /* Constants.swift in Sources */,
 				A0E7F781299E9EBD00F63140 /* ServiceDIContainer.swift in Sources */,
+				A0A2A20A29EC715B0056A3D3 /* QuizResult.swift in Sources */,
 				A0E7F78E299E9EBD00F63140 /* BaseViewController.swift in Sources */,
 				A00B365729A522420077250D /* TestTopicPresenter.swift in Sources */,
 				A0E7F77F299E9EBD00F63140 /* SetModel.swift in Sources */,

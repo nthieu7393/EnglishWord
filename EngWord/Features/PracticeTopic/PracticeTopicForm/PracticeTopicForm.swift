@@ -27,7 +27,10 @@ protocol PracticeFormView {
     func updateRoundProgress(value: Float)
     func moveToNextCard()
 
-    func showTurnResult(msg: NSAttributedString?, result: TurnResult)
+    func showTurnResult(
+        msg: NSAttributedString?,
+        result: TurnResult,
+        quizResult: QuizResult)
 }
 
 extension PracticeFormView {
@@ -45,7 +48,10 @@ protocol PracticeFormPresenter {
 
 protocol PracticeFormControllerDelegate: AnyObject {
 
-    func practiceFormController(_ controller: PracticeFormController, result: TurnResult)
+    func practiceFormController(
+        _ controller: PracticeFormController,
+        result: TurnResult,
+        quizResult: QuizResult)
 }
 
 class PracticeFormController: UIViewController {
@@ -64,7 +70,8 @@ class PracticeFormController: UIViewController {
     func presentResultPopup(msg: NSAttributedString, result: TurnResult) {
         let popupStoryboard = UIStoryboard(name: R.storyboard.popupStoryboard.name, bundle: nil)
         guard let popupVC = popupStoryboard.instantiateViewController(
-            withIdentifier: String(describing: TurnResultPopup.self)) as? TurnResultPopup else { return }
+            withIdentifier: String(describing: TurnResultPopup.self)) as? TurnResultPopup
+        else { return }
         popupVC.message = msg
         popupVC.result = result
         popupVC.completionHandler = { [weak self] in
@@ -83,10 +90,12 @@ extension PracticeFormController: PracticeFormDelegate {
     func practiceForm(
         _ form: any PracticeFormView,
         msg: NSAttributedString?,
-        result: TurnResult) {
+        result: TurnResult,
+        quizResult: QuizResult
+    ) {
         if let msg = msg {
             presentResultPopup(msg: msg, result: result)
         }
-        delegate?.practiceFormController(self, result: result)
+        delegate?.practiceFormController(self, result: result, quizResult: quizResult)
     }
 }

@@ -597,7 +597,7 @@ struct _R {
     }
   }
 
-  /// This `_R.reuseIdentifier` struct is generated, and contains static references to 10 reuse identifiers.
+  /// This `_R.reuseIdentifier` struct is generated, and contains static references to 11 reuse identifiers.
   struct reuseIdentifier {
 
     /// Reuse identifier `HomeMenuTableViewCell`.
@@ -611,6 +611,9 @@ struct _R {
 
     /// Reuse identifier `PartOfSpeechTableCell`.
     let partOfSpeechTableCell: RswiftResources.ReuseIdentifier<PartOfSpeechTableCell> = .init(identifier: "PartOfSpeechTableCell")
+
+    /// Reuse identifier `PracticeResultTableCell`.
+    let practiceResultTableCell: RswiftResources.ReuseIdentifier<PracticeResultTableCell> = .init(identifier: "PracticeResultTableCell")
 
     /// Reuse identifier `ReviewCardCollectionCell`.
     let reviewCardCollectionCell: RswiftResources.ReuseIdentifier<ReviewCardCollectionCell> = .init(identifier: "ReviewCardCollectionCell")
@@ -727,7 +730,6 @@ struct _R {
       var turnResultPopup: RswiftResources.StoryboardViewControllerIdentifier<TurnResultPopup> { .init(identifier: "TurnResultPopup", storyboard: name, bundle: bundle) }
 
       func validate() throws {
-        if UIKit.UIImage(named: "Image", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Image named 'Image' is used in storyboard 'PopupStoryboard', but couldn't be loaded.") }
         if UIKit.UIImage(named: "happyFaceIcon", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Image named 'happyFaceIcon' is used in storyboard 'PopupStoryboard', but couldn't be loaded.") }
         if UIKit.UIColor(named: "cellBackground", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Color named 'cellBackground' is used in storyboard 'PopupStoryboard', but couldn't be loaded.") }
         if practicalResultViewController() == nil { throw RswiftResources.ValidationError("[R.swift] ViewController with identifier 'practicalResultViewController' could not be loaded from storyboard 'PopupStoryboard' as 'PracticalResultViewController'.") }
