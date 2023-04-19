@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Charts
+import Lottie
 
 protocol PracticalResultPopupDelegate: AnyObject {
 
@@ -18,8 +20,7 @@ protocol PracticalResultPopupDelegate: AnyObject {
 class PracticalResultViewController: UIViewController, Storyboarded {
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var correctAnswerCountLabel: UILabel!
-    @IBOutlet weak var progressBar: UIProgressView!
+    @IBOutlet weak var pieChartView: PieChartView!
     @IBOutlet weak var yourResultLabel: UILabel!
     @IBOutlet weak var yourAnswerLabel: UILabel!
     var allResults: [QuizResult]? {
@@ -35,19 +36,98 @@ class PracticalResultViewController: UIViewController, Storyboarded {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        correctAnswerCountLabel.font = Fonts.regularText
-        correctAnswerCountLabel.textColor = Colors.mainText
 
         let correctCount = allResults?.filter({
             $0.isCorrect
         }).count
-        correctAnswerCountLabel.text = "\(correctCount ?? 0)/\(allResults?.count ?? 0)"
-        progressBar.progress = Float(correctCount ?? 0)/Float(allResults?.count ?? 1)
 
-        yourResultLabel.font = Fonts.subtitle
-        yourAnswerLabel.font = Fonts.subtitle
+        yourResultLabel.font = Fonts.title
+        yourAnswerLabel.font = Fonts.title
+        yourAnswerLabel.textColor = Colors.mainText
+        yourResultLabel.textColor = Colors.mainText
         yourResultLabel.text = "Your result"
-        yourAnswerLabel.text = "Your sanswers"
+        yourAnswerLabel.text = "Your practice"
+
+//        pieChartView.delegate = self
+
+        let l = pieChartView.legend
+        l.textColor = UIColor.white
+        l.horizontalAlignment = .right
+        l.verticalAlignment = .top
+        l.orientation = .vertical
+        l.xEntrySpace = 2
+        l.yEntrySpace = 2
+        l.yOffset = 2
+
+        pieChartView.entryLabelColor = Colors.mainText
+        pieChartView.entryLabelFont = Fonts.regularText
+
+        pieChartView.animate(xAxisDuration: 0.3, easingOption: .easeOutBack)
+        pieChartView.holeColor = Colors.mainText
+
+        pieChartView.backgroundColor = Colors.cellBackground
+        pieChartView.addCornerRadius()
+
+        let corrects = allResults?.filter({
+            $0.isCorrect
+        }).count ?? 0
+        let incorrects = (allResults?.count ?? 0) - corrects
+
+        let percent = Double(corrects) / Double(allResults?.count ?? 1)
+        pieChartView.centerText = percent * 10 < 0.9 * 10 ? "Fail" : "Pass"
+
+        var entries: [PieChartDataEntry] = []
+
+        if corrects > 0 {
+            entries.append(PieChartDataEntry(value: Double(corrects),
+                                             label: "Correct",
+                                             icon: R.image.addRoundIcon()))
+        }
+        if incorrects > 0 {
+            entries.append(PieChartDataEntry(value: Double(corrects),
+                               label: "Incorrect",
+                               icon: R.image.addRoundIcon()))
+        }
+
+        let set = PieChartDataSet(entries: entries, label: "")
+        set.drawIconsEnabled = false
+        set.sliceSpace = 2
+
+        set.colors = [Colors.correct]
+        + [Colors.incorrect]
+
+        let data = PieChartData(dataSet: set)
+
+        let pFormatter = NumberFormatter()
+        pFormatter.numberStyle = .percent
+        pFormatter.multiplier = 1
+        pFormatter.maximumFractionDigits = 1
+        data.setValueFormatter(DefaultValueFormatter(formatter: pFormatter))
+
+        data.setValueFont(Fonts.subtitle)
+        data.setValueTextColor(UIColor.white)
+
+        pieChartView.data = data
+        pieChartView.highlightValues(nil)
+
+
+
+        let jsonName = R.file.lf20_tiviyc3pJson.name
+        let animation = Animation.named(jsonName)
+
+        // Load animation to AnimationView
+        let animationView = AnimationView(animation: animation)
+        animationView.frame = view.bounds
+
+        // Add animationView as subview
+        view.addSubview(animationView)
+
+        // Play the animation
+        animationView.play(completion: { isComplete in
+            guard isComplete else { return }
+            animationView.removeFromSuperview()
+//            self.dismissScreen()
+        })
     }
 }
 

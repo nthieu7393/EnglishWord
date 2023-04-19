@@ -62,6 +62,7 @@
 		A0BE9D8129E1F12700EEFA72 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BE9D8029E1F12700EEFA72 /* BaseTableViewCell.swift */; };
 		A0BFE16C29B7AFDD0038406A /* PracticeDescriptionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BFE16B29B7AFDD0038406A /* PracticeDescriptionPresenter.swift */; };
 		A0BFE16E29B7B00F0038406A /* PracticeTermPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BFE16D29B7B00F0038406A /* PracticeTermPresenter.swift */; };
+		A0C8B6B529EFB77200831186 /* congratulation-badge-animation.json in Resources */ = {isa = PBXBuildFile; fileRef = A0C8B6B429EFB77100831186 /* congratulation-badge-animation.json */; };
 		A0CCB9B329C0CE3300523AF6 /* PartOfSpeechTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CCB9B229C0CE3300523AF6 /* PartOfSpeechTableCell.swift */; };
 		A0CCF1E829ABB554008C34C4 /* TwitterHeartButton.json in Resources */ = {isa = PBXBuildFile; fileRef = A0CCF1E729ABB554008C34C4 /* TwitterHeartButton.json */; };
 		A0D34B4B29A5C9EE005A2171 /* IconTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0D34B4A29A5C9EE005A2171 /* IconTextView.xib */; };
@@ -259,6 +260,7 @@
 		A0BE9D8029E1F12700EEFA72 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		A0BFE16B29B7AFDD0038406A /* PracticeDescriptionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeDescriptionPresenter.swift; sourceTree = "<group>"; };
 		A0BFE16D29B7B00F0038406A /* PracticeTermPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeTermPresenter.swift; sourceTree = "<group>"; };
+		A0C8B6B429EFB77100831186 /* congratulation-badge-animation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "congratulation-badge-animation.json"; sourceTree = "<group>"; };
 		A0CCB9B229C0CE3300523AF6 /* PartOfSpeechTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartOfSpeechTableCell.swift; sourceTree = "<group>"; };
 		A0CCF1E729ABB554008C34C4 /* TwitterHeartButton.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TwitterHeartButton.json; sourceTree = "<group>"; };
 		A0D34B4A29A5C9EE005A2171 /* IconTextView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IconTextView.xib; sourceTree = "<group>"; };
@@ -951,6 +953,7 @@
 		A0E7F7C4299E9EC500F63140 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A0C8B6B429EFB77100831186 /* congratulation-badge-animation.json */,
 				A0A12A0F29B66A640096D9A0 /* lf20_tiviyc3p.json */,
 				A0CCF1E729ABB554008C34C4 /* TwitterHeartButton.json */,
 				A0E7F818299F2A1500F63140 /* GoogleService-Info.plist */,
@@ -1131,6 +1134,7 @@
 				A0EB7BFD29AE5EC70044FC38 /* TextCollectionCell.xib in Resources */,
 				A0D34B4B29A5C9EE005A2171 /* IconTextView.xib in Resources */,
 				A0E7F7B4299E9EBD00F63140 /* Home.storyboard in Resources */,
+				A0C8B6B529EFB77200831186 /* congratulation-badge-animation.json in Resources */,
 				A0E7F7D4299E9EC500F63140 /* HindSiliguri-Regular.ttf in Resources */,
 				A0E7F7D1299E9EC500F63140 /* Localizable.strings in Resources */,
 				A0E7F6E5299E9D3C00F63140 /* Assets.xcassets in Resources */,

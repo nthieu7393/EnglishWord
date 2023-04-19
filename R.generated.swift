@@ -507,7 +507,7 @@ struct _R {
     }
   }
 
-  /// This `_R.file` struct is generated, and contains static references to 10 resource files.
+  /// This `_R.file` struct is generated, and contains static references to 11 resource files.
   struct file {
     let bundle: Foundation.Bundle
 
@@ -531,6 +531,9 @@ struct _R {
 
     /// Resource file `TwitterHeartButton.json`.
     var twitterHeartButtonJson: RswiftResources.FileResource { .init(name: "TwitterHeartButton", pathExtension: "json", bundle: bundle, locale: LocaleReference.none) }
+
+    /// Resource file `congratulation-badge-animation.json`.
+    var congratulationBadgeAnimationJson: RswiftResources.FileResource { .init(name: "congratulation-badge-animation", pathExtension: "json", bundle: bundle, locale: LocaleReference.none) }
 
     /// Resource file `lf20_tiviyc3p.json`.
     var lf20_tiviyc3pJson: RswiftResources.FileResource { .init(name: "lf20_tiviyc3p", pathExtension: "json", bundle: bundle, locale: LocaleReference.none) }
@@ -731,7 +734,6 @@ struct _R {
 
       func validate() throws {
         if UIKit.UIImage(named: "happyFaceIcon", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Image named 'happyFaceIcon' is used in storyboard 'PopupStoryboard', but couldn't be loaded.") }
-        if UIKit.UIColor(named: "active", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Color named 'active' is used in storyboard 'PopupStoryboard', but couldn't be loaded.") }
         if UIKit.UIColor(named: "cellBackground", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Color named 'cellBackground' is used in storyboard 'PopupStoryboard', but couldn't be loaded.") }
         if UIKit.UIColor(named: "mainBackground", in: bundle, compatibleWith: nil) == nil { throw RswiftResources.ValidationError("[R.swift] Color named 'mainBackground' is used in storyboard 'PopupStoryboard', but couldn't be loaded.") }
         if practicalResultViewController() == nil { throw RswiftResources.ValidationError("[R.swift] ViewController with identifier 'practicalResultViewController' could not be loaded from storyboard 'PopupStoryboard' as 'PracticalResultViewController'.") }

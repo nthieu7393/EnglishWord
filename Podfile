@@ -15,6 +15,7 @@ target 'EngWord' do
   pod 'DropDown'
   pod 'SVProgressHUD'
   pod 'lottie-ios', '~> 3.2.3'
+  pod 'Charts', '~>4.1.0'
 
   # Pods for EngWord
 
