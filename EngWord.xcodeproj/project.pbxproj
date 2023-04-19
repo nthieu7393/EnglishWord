@@ -177,6 +177,8 @@
 		A0EB7BFC29AE5EC70044FC38 /* TextCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EB7BFA29AE5EC70044FC38 /* TextCollectionCell.swift */; };
 		A0EB7BFD29AE5EC70044FC38 /* TextCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0EB7BFB29AE5EC70044FC38 /* TextCollectionCell.xib */; };
 		A0EB7BFF29AE69DA0044FC38 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EB7BFE29AE69DA0044FC38 /* ArrayExtension.swift */; };
+		A0F36D0529EFB8CB00874197 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F36D0429EFB8CB00874197 /* Animations.swift */; };
+		A0F36D0729EFBF5200874197 /* ResultPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F36D0629EFBF5200874197 /* ResultPopupViewController.swift */; };
 		E11C1E18D261783C9A5868D9 /* Pods_EngWord_EngWordUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18B0CCAF6B5FB68F5FE87EC1 /* Pods_EngWord_EngWordUITests.framework */; };
 		EBEE06619DD72115E1C7B9BD /* Pods_EngWord.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 319A93D2CD1038853E960848 /* Pods_EngWord.framework */; };
 /* End PBXBuildFile section */
@@ -380,6 +382,8 @@
 		A0EB7BFA29AE5EC70044FC38 /* TextCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCollectionCell.swift; sourceTree = "<group>"; };
 		A0EB7BFB29AE5EC70044FC38 /* TextCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextCollectionCell.xib; sourceTree = "<group>"; };
 		A0EB7BFE29AE69DA0044FC38 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
+		A0F36D0429EFB8CB00874197 /* Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
+		A0F36D0629EFBF5200874197 /* ResultPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultPopupViewController.swift; sourceTree = "<group>"; };
 		A6FBAFEFC65B209B0B311B53 /* Pods-EngWordTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EngWordTests.debug.xcconfig"; path = "Target Support Files/Pods-EngWordTests/Pods-EngWordTests.debug.xcconfig"; sourceTree = "<group>"; };
 		AADE7F192D8B27AB58CE9A36 /* Pods-EngWord-EngWordUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EngWord-EngWordUITests.release.xcconfig"; path = "Target Support Files/Pods-EngWord-EngWordUITests/Pods-EngWord-EngWordUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -466,6 +470,7 @@
 				A0543B3D29B8FE89003B47E3 /* GradientView.swift */,
 				A0B5D38829BADAA500B81F79 /* PracticalResultViewController.swift */,
 				A0D740B929EDC8FF0094D8F7 /* PracticeResultTableViewCell.swift */,
+				A0F36D0629EFBF5200874197 /* ResultPopupViewController.swift */,
 			);
 			path = Popups;
 			sourceTree = "<group>";
@@ -789,6 +794,7 @@
 				A0E7F741299E9EBC00F63140 /* Storyboards.swift */,
 				A0E7F742299E9EBC00F63140 /* Fonts.swift */,
 				A0E7F743299E9EBC00F63140 /* Colors.swift */,
+				A0F36D0429EFB8CB00874197 /* Animations.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1325,6 +1331,7 @@
 				A0E7F78F299E9EBD00F63140 /* BasePresenter.swift in Sources */,
 				A070A66929A7BF15004956D8 /* ReviewCardPresenter.swift in Sources */,
 				A0E7F827299F8D6200F63140 /* AllTopicsViewProtocol.swift in Sources */,
+				A0F36D0529EFB8CB00874197 /* Animations.swift in Sources */,
 				A0E9DEB829E2CEC4008D4A4F /* CheckView.swift in Sources */,
 				A0E7F7B0299E9EBD00F63140 /* TermTableCell.swift in Sources */,
 				A06F41BC29A910E400DBBDCB /* PracticeTermForm.swift in Sources */,
@@ -1398,6 +1405,7 @@
 				A00B365129A5222A0077250D /* LearnTopicPresenter.swift in Sources */,
 				A0E7F7AF299E9EBD00F63140 /* SignUpPresenter.swift in Sources */,
 				A06F41B929A9090E00DBBDCB /* PracticeTopicViewProtocol.swift in Sources */,
+				A0F36D0729EFBF5200874197 /* ResultPopupViewController.swift in Sources */,
 				A0E7F782299E9EBD00F63140 /* UIView+Extensions.swift in Sources */,
 				A0E7F798299E9EBD00F63140 /* StorageProtocol.swift in Sources */,
 				A0E7F7A2299E9EBD00F63140 /* Fonts.swift in Sources */,

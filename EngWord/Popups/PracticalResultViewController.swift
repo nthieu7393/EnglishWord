@@ -61,9 +61,8 @@ class PracticalResultViewController: UIViewController, Storyboarded {
 
         pieChartView.entryLabelColor = Colors.mainText
         pieChartView.entryLabelFont = Fonts.regularText
-
+        pieChartView.holeColor = Colors.cellBackground
         pieChartView.animate(xAxisDuration: 0.3, easingOption: .easeOutBack)
-        pieChartView.holeColor = Colors.mainText
 
         pieChartView.backgroundColor = Colors.cellBackground
         pieChartView.addCornerRadius()
@@ -74,7 +73,6 @@ class PracticalResultViewController: UIViewController, Storyboarded {
         let incorrects = (allResults?.count ?? 0) - corrects
 
         let percent = Double(corrects) / Double(allResults?.count ?? 1)
-        pieChartView.centerText = percent * 10 < 0.9 * 10 ? "Fail" : "Pass"
 
         var entries: [PieChartDataEntry] = []
 
@@ -91,7 +89,7 @@ class PracticalResultViewController: UIViewController, Storyboarded {
 
         let set = PieChartDataSet(entries: entries, label: "")
         set.drawIconsEnabled = false
-        set.sliceSpace = 2
+        set.sliceSpace = 20
 
         set.colors = [Colors.correct]
         + [Colors.incorrect]
@@ -99,7 +97,7 @@ class PracticalResultViewController: UIViewController, Storyboarded {
         let data = PieChartData(dataSet: set)
 
         let pFormatter = NumberFormatter()
-        pFormatter.numberStyle = .percent
+        pFormatter.numberStyle = .scientific
         pFormatter.multiplier = 1
         pFormatter.maximumFractionDigits = 1
         data.setValueFormatter(DefaultValueFormatter(formatter: pFormatter))
@@ -109,25 +107,6 @@ class PracticalResultViewController: UIViewController, Storyboarded {
 
         pieChartView.data = data
         pieChartView.highlightValues(nil)
-
-
-
-        let jsonName = R.file.lf20_tiviyc3pJson.name
-        let animation = Animation.named(jsonName)
-
-        // Load animation to AnimationView
-        let animationView = AnimationView(animation: animation)
-        animationView.frame = view.bounds
-
-        // Add animationView as subview
-        view.addSubview(animationView)
-
-        // Play the animation
-        animationView.play(completion: { isComplete in
-            guard isComplete else { return }
-            animationView.removeFromSuperview()
-//            self.dismissScreen()
-        })
     }
 }
 

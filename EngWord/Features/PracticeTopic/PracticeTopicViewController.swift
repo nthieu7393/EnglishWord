@@ -102,16 +102,24 @@ extension PracticeTopicViewController: PracticeTopicViewProtocol, Storyboarded {
 //            self.dismissScreen()
 //        })
 
-        let storyboard = PracticalResultViewController.instantiatePopup()
+        let storyboard = ResultPopupViewController.instantiatePopup()
         storyboard?.delegate = self
-        storyboard?.allResults = myPresenter?.getAllResults()
-        self.present(storyboard!, animated: true)
+        storyboard?.modalPresentationStyle = .automatic
+        present(storyboard!, animated: true)
     }
 
     func showPracticeFail() {
+        
+    }
+}
+
+extension PracticeTopicViewController: ResultPopupViewDelegate {
+    
+    func resultView(_ view: ResultPopupViewController, didTap detailsButton: ResponsiveButton) {
         let storyboard = PracticalResultViewController.instantiatePopup()
         storyboard?.delegate = self
         storyboard?.allResults = myPresenter?.getAllResults()
+        self.dismissScreen()
         self.present(storyboard!, animated: true)
     }
 }
