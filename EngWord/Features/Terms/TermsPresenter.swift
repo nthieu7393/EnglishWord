@@ -94,7 +94,8 @@ class TermsPresenter: BasePresenter {
         }
     }
     
-    func loadDataOf(card: any Card, at cell: TermTableCell, forceUpdateCardView: Bool) {
+    func getWordMeaning(card: any Card, at cell: TermTableCell, forceUpdateCardView: Bool) {
+        print("-----start get word meaning")
         searchDataOfCardDispatchWork?.cancel()
         guard !card.termDisplay.isEmpty else { return }
         if card.hasRecommendedData,

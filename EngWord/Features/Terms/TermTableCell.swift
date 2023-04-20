@@ -313,7 +313,6 @@ extension TermTableCell: UITextViewDelegate {
         textViewInProcess = textView
         if let card = card, !card.termDisplay.isEmpty && !card.hasRecommendedData {
             startLoading()
-//            delegate?.cardTableCell(self)
             delegate?.cardTableCell(
                 self,
                 didUpdate: card,
@@ -325,7 +324,6 @@ extension TermTableCell: UITextViewDelegate {
 
     func textViewDidEndEditing(_ textView: UITextView) {
         textViewInProcess = nil
-//        delegate?.cardTableCell(self)
     }
     
     func updateDataOfCard() {

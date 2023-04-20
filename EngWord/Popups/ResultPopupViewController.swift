@@ -10,7 +10,8 @@ import Lottie
 
 protocol ResultPopupViewDelegate: AnyObject {
     
-    func resultView(_ view: ResultPopupViewController, didTap detailsButton: ResponsiveButton)
+    func resultPopup(_ view: ResultPopupViewController, didTap detailsButton: ResponsiveButton)
+    func resultPopup(_ view: ResultPopupViewController, onTap dismissButton: TextButton)
 }
 
 class ResultPopupViewController: UIViewController, Storyboarded {
@@ -20,23 +21,18 @@ class ResultPopupViewController: UIViewController, Storyboarded {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var resultDetailButton: ResponsiveButton!
     @IBOutlet weak var effectContainerView: UIView!
-    
+    @IBOutlet weak var closeButton: TextButton!
+
     weak var delegate: ResultPopupViewDelegate?
-    var animationView: AnimationView!
+    var medalAnimationView: AnimationView!
+    var fireworkAnimationView: AnimationView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         animationContainerView.backgroundColor = Colors.cellBackground
         animationContainerView.addCornerRadius()
-        
-        
-        let animation = Animation.named(Animations.congratulation.name)
-        animationView = AnimationView(animation: animation)
-        animationView.frame.size = CGSize(width: effectContainerView.bounds.height, height: effectContainerView.bounds.height)
-        animationView.center = CGPoint(x: effectContainerView.bounds.width/2, y: effectContainerView.bounds.height/2)
-        effectContainerView.backgroundColor = Colors.cellBackground
-        effectContainerView.addSubview(animationView)
-      
+
+       animationViews()
         
         titleLabel.textAlignment = .center
         titleLabel.font = Fonts.title
@@ -49,16 +45,40 @@ class ResultPopupViewController: UIViewController, Storyboarded {
         messageLabel.numberOfLines = 0
         messageLabel.text = "You have passed\nthe test"
         resultDetailButton.title = "Check details"
+
+        closeButton.title = "Dismiss"
+    }
+    
+    @IBAction func closeButtonOnTap(_ sender: TextButton) {
+        delegate?.resultPopup(self, onTap: sender)
+    }
+
+    private func animationViews() {
+        let medalAnimation = Animation.named(Animations.congratulation.name)
+        medalAnimationView = AnimationView(animation: medalAnimation)
+        effectContainerView.backgroundColor = UIColor.clear
+        medalAnimationView.frame.size = CGSize(
+            width: effectContainerView.bounds.height,
+            height: effectContainerView.bounds.height)
+        medalAnimationView.center = CGPoint(
+            x: effectContainerView.bounds.width/2,
+            y: effectContainerView.bounds.height/2)
+        effectContainerView.addSubview(medalAnimationView)
+        medalAnimationView.play()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        animationView.play()
+
+        let fireworkAnimation = Animation.named(Animations.confettiWithFireworks.name)
+        fireworkAnimationView = AnimationView(animation: fireworkAnimation)
+        fireworkAnimationView.frame = animationContainerView.bounds
+        animationContainerView.insertSubview(fireworkAnimationView, at: 0)
+
+        fireworkAnimationView.play()
     }
     
     @IBAction func detailsButtonOnTap(_ sender: ResponsiveButton) {
-        delegate?.resultView(self, didTap: sender)
+        delegate?.resultPopup(self, didTap: sender)
     }
-    
 }

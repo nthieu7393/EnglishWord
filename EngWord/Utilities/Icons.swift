@@ -15,4 +15,5 @@ struct Icons {
     static let moreActionIcon = R.image.moreActionIcon()
 //    static let createCalendarIcon = R.image.createCalendarIcon()
     static let victoryIcon = R.image.victoryIcon
+    static let closeRound = R.image.closeRoundIcon
 }

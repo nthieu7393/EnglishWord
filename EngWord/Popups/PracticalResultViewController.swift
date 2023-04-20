@@ -19,10 +19,11 @@ protocol PracticalResultPopupDelegate: AnyObject {
 
 class PracticalResultViewController: UIViewController, Storyboarded {
     
+    @IBOutlet weak var chartContainerView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var pieChartView: PieChartView!
     @IBOutlet weak var yourResultLabel: UILabel!
-    @IBOutlet weak var yourAnswerLabel: UILabel!
+
     var allResults: [QuizResult]? {
         didSet {
 
@@ -42,11 +43,8 @@ class PracticalResultViewController: UIViewController, Storyboarded {
         }).count
 
         yourResultLabel.font = Fonts.title
-        yourAnswerLabel.font = Fonts.title
-        yourAnswerLabel.textColor = Colors.mainText
         yourResultLabel.textColor = Colors.mainText
         yourResultLabel.text = "Your result"
-        yourAnswerLabel.text = "Your practice"
 
 //        pieChartView.delegate = self
 
@@ -64,8 +62,8 @@ class PracticalResultViewController: UIViewController, Storyboarded {
         pieChartView.holeColor = Colors.cellBackground
         pieChartView.animate(xAxisDuration: 0.3, easingOption: .easeOutBack)
 
-        pieChartView.backgroundColor = Colors.cellBackground
-        pieChartView.addCornerRadius()
+        chartContainerView.backgroundColor = Colors.cellBackground
+        chartContainerView.addCornerRadius()
 
         let corrects = allResults?.filter({
             $0.isCorrect
@@ -76,32 +74,28 @@ class PracticalResultViewController: UIViewController, Storyboarded {
 
         var entries: [PieChartDataEntry] = []
 
-        if corrects > 0 {
-            entries.append(PieChartDataEntry(value: Double(corrects),
-                                             label: "Correct",
-                                             icon: R.image.addRoundIcon()))
-        }
-        if incorrects > 0 {
-            entries.append(PieChartDataEntry(value: Double(corrects),
-                               label: "Incorrect",
-                               icon: R.image.addRoundIcon()))
-        }
+//        if corrects > 0 {
+        entries.append(PieChartDataEntry(value: percent, label: "Correct", data: percent * 100))
+//        }
+//        if incorrects > 0 {
+        entries.append(PieChartDataEntry(value: 1-percent, label: "Incorrect", data: (1-percent)*100))
+//        }
 
         let set = PieChartDataSet(entries: entries, label: "")
         set.drawIconsEnabled = false
-        set.sliceSpace = 20
-
+        set.sliceSpace = 2
         set.colors = [Colors.correct]
         + [Colors.incorrect]
 
-        let data = PieChartData(dataSet: set)
-
         let pFormatter = NumberFormatter()
-        pFormatter.numberStyle = .scientific
+        pFormatter.numberStyle = .percent
+        pFormatter.percentSymbol = " %"
         pFormatter.multiplier = 1
         pFormatter.maximumFractionDigits = 1
-        data.setValueFormatter(DefaultValueFormatter(formatter: pFormatter))
+        pieChartView.usePercentValuesEnabled = true
 
+        let data = PieChartData(dataSet: set)
+        data.setValueFormatter(DefaultValueFormatter(formatter: pFormatter))
         data.setValueFont(Fonts.subtitle)
         data.setValueTextColor(UIColor.white)
 

@@ -184,9 +184,8 @@ final class PracticeTopicPresenter: BasePresenter {
                 if let err = err {
                     self.view?.showErrorAlert(msg: err.localizedDescription)
                 } else {
-                    self.checkResultPassOrFail() == .pass
-                    ? self.view?.showPracticePass()
-                    : self.view?.showPracticeFail()
+//                    self.checkResultPassOrFail() == .pass
+                    self.view?.showPracticePass()
                 }
             }
         } else {

@@ -13,5 +13,4 @@ protocol PracticeTopicViewProtocol: BaseViewProtocol {
     func dismissScreen()
     func moveToNextRound(index: Int)
     func showPracticePass()
-    func showPracticeFail()
 }

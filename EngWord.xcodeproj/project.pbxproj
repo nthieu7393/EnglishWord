@@ -23,6 +23,7 @@
 		A011076F29AD171F00B84E6F /* ResizeTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A011076E29AD171F00B84E6F /* ResizeTableView.swift */; };
 		A011077129AD1D7100B84E6F /* TextTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A011077029AD1D7100B84E6F /* TextTableCell.swift */; };
 		A011077329AD233000B84E6F /* TextTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A011077229AD233000B84E6F /* TextTableCell.xib */; };
+		A016A8F129F05DC90033EC0F /* congratulation-badge-animation.json in Resources */ = {isa = PBXBuildFile; fileRef = A016A8F029F05DC80033EC0F /* congratulation-badge-animation.json */; };
 		A0368AFB29A291AD000A671B /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0368AFA29A291AD000A671B /* IconButton.swift */; };
 		A0437B7629B8F2200094E373 /* PopupStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0437B7529B8F2200094E373 /* PopupStoryboard.storyboard */; };
 		A0437B7929B8F41A0094E373 /* TurnResultPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0437B7829B8F41A0094E373 /* TurnResultPopup.swift */; };
@@ -53,6 +54,11 @@
 		A0A2271A29A1D76F00EB41F5 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A2271929A1D76F00EB41F5 /* UIButtonExtension.swift */; };
 		A0A2271C29A1DA5200EB41F5 /* TextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A2271B29A1DA5200EB41F5 /* TextButton.swift */; };
 		A0A2A20A29EC715B0056A3D3 /* QuizResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A2A20929EC715B0056A3D3 /* QuizResult.swift */; };
+		A0A3447229F1476E00987FE0 /* paper-firework.json in Resources */ = {isa = PBXBuildFile; fileRef = A0A3447129F1476E00987FE0 /* paper-firework.json */; };
+		A0A3447429F148EF00987FE0 /* confetti-sparkle.json in Resources */ = {isa = PBXBuildFile; fileRef = A0A3447329F148EF00987FE0 /* confetti-sparkle.json */; };
+		A0A3447629F14C8B00987FE0 /* failed.json in Resources */ = {isa = PBXBuildFile; fileRef = A0A3447529F14C8B00987FE0 /* failed.json */; };
+		A0A3447829F1AEDA00987FE0 /* confetti-explode.json in Resources */ = {isa = PBXBuildFile; fileRef = A0A3447729F1AEDA00987FE0 /* confetti-explode.json */; };
+		A0A3447A29F1B02B00987FE0 /* confetti-with-fireworks.json in Resources */ = {isa = PBXBuildFile; fileRef = A0A3447929F1B02B00987FE0 /* confetti-with-fireworks.json */; };
 		A0A7B63A29BE4BF30080A6DC /* PartOfSpeechMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A7B63729BE4BF30080A6DC /* PartOfSpeechMenuPresenter.swift */; };
 		A0A7B63B29BE4BF30080A6DC /* PartOfSpeechMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A7B63829BE4BF30080A6DC /* PartOfSpeechMenuViewController.swift */; };
 		A0A7B63C29BE4BF30080A6DC /* PartOfSpeechMenuViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A7B63929BE4BF30080A6DC /* PartOfSpeechMenuViewProtocol.swift */; };
@@ -62,7 +68,6 @@
 		A0BE9D8129E1F12700EEFA72 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BE9D8029E1F12700EEFA72 /* BaseTableViewCell.swift */; };
 		A0BFE16C29B7AFDD0038406A /* PracticeDescriptionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BFE16B29B7AFDD0038406A /* PracticeDescriptionPresenter.swift */; };
 		A0BFE16E29B7B00F0038406A /* PracticeTermPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BFE16D29B7B00F0038406A /* PracticeTermPresenter.swift */; };
-		A0C8B6B529EFB77200831186 /* congratulation-badge-animation.json in Resources */ = {isa = PBXBuildFile; fileRef = A0C8B6B429EFB77100831186 /* congratulation-badge-animation.json */; };
 		A0CCB9B329C0CE3300523AF6 /* PartOfSpeechTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CCB9B229C0CE3300523AF6 /* PartOfSpeechTableCell.swift */; };
 		A0CCF1E829ABB554008C34C4 /* TwitterHeartButton.json in Resources */ = {isa = PBXBuildFile; fileRef = A0CCF1E729ABB554008C34C4 /* TwitterHeartButton.json */; };
 		A0D34B4B29A5C9EE005A2171 /* IconTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0D34B4A29A5C9EE005A2171 /* IconTextView.xib */; };
@@ -223,6 +228,7 @@
 		A011076E29AD171F00B84E6F /* ResizeTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizeTableView.swift; sourceTree = "<group>"; };
 		A011077029AD1D7100B84E6F /* TextTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTableCell.swift; sourceTree = "<group>"; };
 		A011077229AD233000B84E6F /* TextTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextTableCell.xib; sourceTree = "<group>"; };
+		A016A8F029F05DC80033EC0F /* congratulation-badge-animation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "congratulation-badge-animation.json"; sourceTree = "<group>"; };
 		A0368AFA29A291AD000A671B /* IconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
 		A0437B7529B8F2200094E373 /* PopupStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PopupStoryboard.storyboard; sourceTree = "<group>"; };
 		A0437B7829B8F41A0094E373 /* TurnResultPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnResultPopup.swift; sourceTree = "<group>"; };
@@ -253,6 +259,11 @@
 		A0A2271929A1D76F00EB41F5 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
 		A0A2271B29A1DA5200EB41F5 /* TextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextButton.swift; sourceTree = "<group>"; };
 		A0A2A20929EC715B0056A3D3 /* QuizResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizResult.swift; sourceTree = "<group>"; };
+		A0A3447129F1476E00987FE0 /* paper-firework.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "paper-firework.json"; sourceTree = "<group>"; };
+		A0A3447329F148EF00987FE0 /* confetti-sparkle.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "confetti-sparkle.json"; sourceTree = "<group>"; };
+		A0A3447529F14C8B00987FE0 /* failed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = failed.json; sourceTree = "<group>"; };
+		A0A3447729F1AEDA00987FE0 /* confetti-explode.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "confetti-explode.json"; sourceTree = "<group>"; };
+		A0A3447929F1B02B00987FE0 /* confetti-with-fireworks.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "confetti-with-fireworks.json"; sourceTree = "<group>"; };
 		A0A7B63729BE4BF30080A6DC /* PartOfSpeechMenuPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartOfSpeechMenuPresenter.swift; sourceTree = "<group>"; };
 		A0A7B63829BE4BF30080A6DC /* PartOfSpeechMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartOfSpeechMenuViewController.swift; sourceTree = "<group>"; };
 		A0A7B63929BE4BF30080A6DC /* PartOfSpeechMenuViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartOfSpeechMenuViewProtocol.swift; sourceTree = "<group>"; };
@@ -262,7 +273,6 @@
 		A0BE9D8029E1F12700EEFA72 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		A0BFE16B29B7AFDD0038406A /* PracticeDescriptionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeDescriptionPresenter.swift; sourceTree = "<group>"; };
 		A0BFE16D29B7B00F0038406A /* PracticeTermPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeTermPresenter.swift; sourceTree = "<group>"; };
-		A0C8B6B429EFB77100831186 /* congratulation-badge-animation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "congratulation-badge-animation.json"; sourceTree = "<group>"; };
 		A0CCB9B229C0CE3300523AF6 /* PartOfSpeechTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartOfSpeechTableCell.swift; sourceTree = "<group>"; };
 		A0CCF1E729ABB554008C34C4 /* TwitterHeartButton.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TwitterHeartButton.json; sourceTree = "<group>"; };
 		A0D34B4A29A5C9EE005A2171 /* IconTextView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IconTextView.xib; sourceTree = "<group>"; };
@@ -959,7 +969,12 @@
 		A0E7F7C4299E9EC500F63140 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				A0C8B6B429EFB77100831186 /* congratulation-badge-animation.json */,
+				A0A3447929F1B02B00987FE0 /* confetti-with-fireworks.json */,
+				A0A3447729F1AEDA00987FE0 /* confetti-explode.json */,
+				A0A3447529F14C8B00987FE0 /* failed.json */,
+				A0A3447329F148EF00987FE0 /* confetti-sparkle.json */,
+				A0A3447129F1476E00987FE0 /* paper-firework.json */,
+				A016A8F029F05DC80033EC0F /* congratulation-badge-animation.json */,
 				A0A12A0F29B66A640096D9A0 /* lf20_tiviyc3p.json */,
 				A0CCF1E729ABB554008C34C4 /* TwitterHeartButton.json */,
 				A0E7F818299F2A1500F63140 /* GoogleService-Info.plist */,
@@ -1131,21 +1146,26 @@
 				A057414C29DCA7ED002C1C0E /* TopicInRoutineTableCell.xib in Resources */,
 				A00B364529A4D79B0077250D /* TermActivitiesTableCell.xib in Resources */,
 				A0E7F7D6299E9EC500F63140 /* phrasal-verbs.json in Resources */,
+				A0A3447A29F1B02B00987FE0 /* confetti-with-fireworks.json in Resources */,
 				A04976C429A914C300CFB595 /* PracticeTermForm.xib in Resources */,
 				A00B364929A4E3A60077250D /* TermActivityCollectionCell.xib in Resources */,
 				A0E7F6E8299E9D3C00F63140 /* LaunchScreen.storyboard in Resources */,
 				A0BE9D7F29E1DE6F00EEFA72 /* NoDataTableCell.xib in Resources */,
+				A0A3447229F1476E00987FE0 /* paper-firework.json in Resources */,
+				A0A3447429F148EF00987FE0 /* confetti-sparkle.json in Resources */,
 				A04976C929A9155E00CFB595 /* PracticeDescriptionForm.xib in Resources */,
 				A0E7F7A8299E9EBD00F63140 /* SignInNoteView.xib in Resources */,
 				A0EB7BFD29AE5EC70044FC38 /* TextCollectionCell.xib in Resources */,
 				A0D34B4B29A5C9EE005A2171 /* IconTextView.xib in Resources */,
 				A0E7F7B4299E9EBD00F63140 /* Home.storyboard in Resources */,
-				A0C8B6B529EFB77200831186 /* congratulation-badge-animation.json in Resources */,
+				A016A8F129F05DC90033EC0F /* congratulation-badge-animation.json in Resources */,
 				A0E7F7D4299E9EC500F63140 /* HindSiliguri-Regular.ttf in Resources */,
+				A0A3447629F14C8B00987FE0 /* failed.json in Resources */,
 				A0E7F7D1299E9EC500F63140 /* Localizable.strings in Resources */,
 				A0E7F6E5299E9D3C00F63140 /* Assets.xcassets in Resources */,
 				A0CCF1E829ABB554008C34C4 /* TwitterHeartButton.json in Resources */,
 				A0A12A1029B66A640096D9A0 /* lf20_tiviyc3p.json in Resources */,
+				A0A3447829F1AEDA00987FE0 /* confetti-explode.json in Resources */,
 				A0437B7629B8F2200094E373 /* PopupStoryboard.storyboard in Resources */,
 				A0E7F7D7299E9EC500F63140 /* HindSiliguri-Light.ttf in Resources */,
 				A0E7F819299F2A1500F63140 /* GoogleService-Info.plist in Resources */,

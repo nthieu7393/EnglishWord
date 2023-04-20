@@ -277,7 +277,7 @@ extension TermsViewController: TermTableCellDelegate {
         loadRecommendation: Bool
     ) {
         if loadRecommendation {
-            termsPresenter?.loadDataOf(
+            termsPresenter?.getWordMeaning(
                 card: card,
                 at: cell,
                 forceUpdateCardView: forceUpdateUI
