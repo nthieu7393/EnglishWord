@@ -96,7 +96,9 @@ struct WordsApiWordItem: Card {
     }
 
     var listOfDefinition: [String] {
-        return results?.compactMap({ $0.definition }) ?? []
+        get {
+            return results?.compactMap({ $0.definition }) ?? []
+        }
     }
 
     var listOfLexicalCategory: [PartOfSpeech]? {

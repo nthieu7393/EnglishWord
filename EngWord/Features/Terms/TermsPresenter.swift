@@ -94,12 +94,17 @@ class TermsPresenter: BasePresenter {
         }
     }
     
-    func getWordMeaning(card: any Card, at cell: TermTableCell, forceUpdateCardView: Bool) {
+    func getWordMeaning(
+        card: any Card,
+        at cell: TermTableCell,
+        forceUpdateCardView: Bool
+    ) {
         print("-----start get word meaning")
         searchDataOfCardDispatchWork?.cancel()
         guard !card.termDisplay.isEmpty else { return }
-        if card.hasRecommendedData,
-            let index = cards?.firstIndex(where: { $0.idOfCard == card.idOfCard }) {
+        if let index = cards?.firstIndex(where: { $0.idOfCard == card.idOfCard }),
+           card.hasRecommendedData,
+           card.termDisplay == cards?[index].termDisplay {
             if card.isEqual(card: cards?[index]) {
                 view.updateCell(card: card, at: index, needUpdateCardView: false)
             } else {
@@ -110,7 +115,11 @@ class TermsPresenter: BasePresenter {
 
         searchDataOfCardDispatchWork = DispatchWorkItem(block: {
             if card.termDisplay.components(separatedBy: " ").count == 1 {
-                self.getDataOfWord(card: card, cell: cell, needUpdateCardView: forceUpdateCardView)
+                self.getDataOfWord(
+                    card: card,
+                    cell: cell,
+                    needUpdateCardView: forceUpdateCardView
+                )
             } else {
                 self.getDataOfPhrasalVerbs(card: card, cell: cell, needUpdateCardView: forceUpdateCardView)
             }
@@ -144,8 +153,8 @@ class TermsPresenter: BasePresenter {
                         debugPrint("☠️: \(error.localizedDescription)")
                     } else if var wordItem = wordItem {
                         wordItem.idOfCard = card.idOfCard
-                        wordItem.selectedExample = card.selectedExample
-                        wordItem.selectedDefinition = card.selectedDefinition
+//                        wordItem.selectedExample = card.selectedExample
+//                        wordItem.selectedDefinition = card.selectedDefinition
                         let ordinalNumber = self.updateCardList(card: wordItem)
                         self.view.updateCell(
                             card: wordItem,

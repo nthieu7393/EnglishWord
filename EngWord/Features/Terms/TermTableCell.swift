@@ -25,7 +25,7 @@ class TermTableCell: UITableViewCell {
 
     @IBOutlet private weak var definitionTextView: UnderlineTextView!
     @IBOutlet private weak var exampleTextView: UnderlineTextView!
-    @IBOutlet weak var termTextField: UnderlineTextField!
+    @IBOutlet private weak var termTextField: UnderlineTextField!
     @IBOutlet private weak var containerView: UIView!
     @IBOutlet private weak var termLabel: UILabel!
     @IBOutlet private weak var definitionLabel: UILabel!
@@ -33,10 +33,10 @@ class TermTableCell: UITableViewCell {
     @IBOutlet private weak var partOfSpeechButton: TextButton!
     @IBOutlet private weak var pronunciationButton: IconTextButton!
     @IBOutlet private weak var loadingIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var recommendedDefinitionView: UIStackView!
-    @IBOutlet weak var recommendedDefinitionHeightConstraintConstant: NSLayoutConstraint!
-    @IBOutlet weak var recommendedExampleView: UIStackView!
-    @IBOutlet weak var recommendedExampleHeightConstraintConstant: NSLayoutConstraint!
+    @IBOutlet private weak var recommendedDefinitionView: UIStackView!
+    @IBOutlet private weak var recommendedDefinitionHeightConstraintConstant: NSLayoutConstraint!
+    @IBOutlet private weak var recommendedExampleView: UIStackView!
+    @IBOutlet private weak var recommendedExampleHeightConstraintConstant: NSLayoutConstraint!
 
     private var tempHeightOfDefinition: CGFloat = 0
     private var tempHeightOfExample: CGFloat = 0
@@ -296,7 +296,7 @@ extension TermTableCell: UITextViewDelegate {
 
     func textViewDidChange(_ textView: UITextView) {
         guard var card = card else { return }
-        
+        guard textViewInProcess != nil else { return }
         if textView == definitionTextView {
             card.selectedDefinition = textView.text
         } else if textView == exampleTextView {
