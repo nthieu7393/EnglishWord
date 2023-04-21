@@ -145,6 +145,10 @@ class PracticalResultViewController: UIViewController, Storyboarded {
             return
         }
         viewController.selectedSortedBy = sortedBy
+        viewController.didSelectSortedByItem = { sortedBy in
+            self.dismiss(animated: true)
+            self.sortedBy = sortedBy
+        }
         viewController.modalPresentationStyle = .overFullScreen
         present(viewController, animated: true)
     }

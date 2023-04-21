@@ -10,16 +10,23 @@ import UIKit
 class SortedByMenuViewController: UIViewController, Storyboarded {
 
     @IBOutlet weak var tableView: UITableView!
+    
+    var didSelectSortedByItem: ((SortedBy) -> Void)?
+    
     var sortedByMenus: [SortedBy] = [
         .alphabetAscending,
         .alphabetDescending,
         .roundAscending,
         .roundDescending]
-    var selectedSortedBy: SortedBy = .alphabetAscending
+    var selectedSortedBy: SortedBy = .alphabetAscending {
+        didSet {
+            
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        tableView.backgroundColor = .clear
         view.backgroundColor = Colors.mainBackground
         tableView.dataSource = self
         tableView.delegate = self
@@ -36,8 +43,9 @@ extension SortedByMenuViewController: UITableViewDataSource, UITableViewDelegate
         guard let cell = tableView.dequeueCell(SortedByMenuCell.self, for: indexPath) else {
             return UITableViewCell()
         }
-
-        cell.label.text = sortedByMenus[indexPath.row].text
+        cell.setData(
+            sortedBy: sortedByMenus[indexPath.row],
+            highlight: sortedByMenus[indexPath.row] == selectedSortedBy)
         return cell
     }
 
@@ -46,7 +54,9 @@ extension SortedByMenuViewController: UITableViewDataSource, UITableViewDelegate
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("🤣: \(indexPath.row)")
+        selectedSortedBy = sortedByMenus[indexPath.row]
+        tableView.reloadData()
+        didSelectSortedByItem?(selectedSortedBy)
     }
 }
 
@@ -56,5 +66,12 @@ class SortedByMenuCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        contentView.backgroundColor = .clear
+    }
+    
+    func setData(sortedBy: SortedBy, highlight: Bool) {
+        label.text = sortedBy.text
+        label.font = highlight ? Fonts.boldText : Fonts.mediumText
+        label.textColor = highlight ? Colors.active : Colors.mainText
     }
 }
