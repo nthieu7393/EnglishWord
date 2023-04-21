@@ -24,6 +24,7 @@ class PracticalResultViewController: UIViewController, Storyboarded {
     @IBOutlet weak var pieChartView: PieChartView!
     @IBOutlet weak var yourResultLabel: UILabel!
 
+    @IBOutlet weak var sortedByButton: TextButton!
     var allResults: [QuizResult]? {
         didSet {
 
@@ -68,17 +69,24 @@ class PracticalResultViewController: UIViewController, Storyboarded {
         let corrects = allResults?.filter({
             $0.isCorrect
         }).count ?? 0
-        let incorrects = (allResults?.count ?? 0) - corrects
 
         let percent = Double(corrects) / Double(allResults?.count ?? 1)
 
         var entries: [PieChartDataEntry] = []
 
 //        if corrects > 0 {
-        entries.append(PieChartDataEntry(value: percent, label: "Correct", data: percent * 100))
+        entries.append(PieChartDataEntry(
+            value: percent,
+            label: "Correct",
+            data: percent * 100)
+        )
 //        }
 //        if incorrects > 0 {
-        entries.append(PieChartDataEntry(value: 1-percent, label: "Incorrect", data: (1-percent)*100))
+        entries.append(PieChartDataEntry(
+            value: 1-percent,
+            label: "Incorrect",
+            data: (1-percent)*100)
+        )
 //        }
 
         let set = PieChartDataSet(entries: entries, label: "")
@@ -101,7 +109,46 @@ class PracticalResultViewController: UIViewController, Storyboarded {
 
         pieChartView.data = data
         pieChartView.highlightValues(nil)
+        sortedByButton.title = sortedBy.text
+
     }
+
+    private var sortedBy: SortedBy = .alphabetDescending {
+        didSet {
+            switch sortedBy {
+                case .alphabetAscending:
+                    allResults?.sort(by: {
+                        $0.answer > $1.answer
+                    })
+                case .alphabetDescending:
+                    allResults?.sort(by: {
+                        $0.answer < $1.answer
+                    })
+                case .roundAscending:
+                    allResults?.sort(by: {
+                        $0.round > $1.round
+                    })
+                case .roundDescending:
+                    allResults?.sort(by: {
+                        $0.round < $1.round
+                    })
+            }
+            sortedByButton.title = sortedBy.text
+            tableView.beginUpdates()
+            tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+            tableView.endUpdates()
+        }
+    }
+    @IBAction func sortedByButtonOnTap(_ sender: TextButton) {
+//        sortedBy = sortedBy == .alphabet ? .round : .alphabet
+        guard let viewController = SortedByMenuViewController.instantiate() else {
+            return
+        }
+        viewController.selectedSortedBy = sortedBy
+        viewController.modalPresentationStyle = .overFullScreen
+        present(viewController, animated: true)
+    }
+
 }
 
 extension PracticalResultViewController: UITableViewDelegate {

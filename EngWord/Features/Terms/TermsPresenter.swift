@@ -99,7 +99,6 @@ class TermsPresenter: BasePresenter {
         at cell: TermTableCell,
         forceUpdateCardView: Bool
     ) {
-        print("-----start get word meaning")
         searchDataOfCardDispatchWork?.cancel()
         guard !card.termDisplay.isEmpty else { return }
         if let index = cards?.firstIndex(where: { $0.idOfCard == card.idOfCard }),

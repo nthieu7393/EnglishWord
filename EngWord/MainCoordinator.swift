@@ -236,4 +236,10 @@ class MainCoordinator {
         viewController.coordinator = self
         navigationController.show(viewController, sender: nil)
     }
+
+    func presentMenuOfSortedByScreen(
+        by screen: UIViewController,
+        sortedBy: SortedBy) {
+        
+    }
 }

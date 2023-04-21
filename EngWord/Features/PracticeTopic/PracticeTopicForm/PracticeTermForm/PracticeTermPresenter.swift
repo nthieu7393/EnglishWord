@@ -51,7 +51,7 @@ class PracticeTermPresenter: PracticeFormPresenter {
 
     func checkAnswer(answer: String) {
         guard let card = getProcessingCard() else { return }
-        let isAnswerCorrect = answer == card.termDisplay
+        let isAnswerCorrect = answer.lowercased() == card.termDisplay.lowercased()
         let textColor = isAnswerCorrect ? Colors.correct : Colors.incorrect
         let message = isAnswerCorrect ? "Correct. Well done." : "Incorrect. Oh no."
         guard let attributeString = message.hightLight(text: message, colorHighlight: textColor) else { return }

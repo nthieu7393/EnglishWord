@@ -74,6 +74,24 @@ enum IntervalBetweenPractice: Int, Codable {
     }
 }
 
+enum SortedBy {
+
+    case roundDescending, roundAscending, alphabetDescending, alphabetAscending
+
+    var text: String {
+        switch self {
+            case .alphabetAscending:
+                return "Alphabet Ascending"
+            case .alphabetDescending:
+                return "Alphabet Descending"
+            case .roundAscending:
+                return "Round Ascending"
+            case .roundDescending:
+                return "Round Descending"
+        }
+    }
+}
+
 extension Notification.Name {
 
     static let practiceFinishNotification = Notification.Name("PracticeFinishNotification")

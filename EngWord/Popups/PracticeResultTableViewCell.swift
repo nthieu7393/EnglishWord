@@ -13,7 +13,9 @@ class PracticeResultTableViewCell: BaseTableViewCell {
     @IBOutlet weak var answerLabel: UILabel!
     @IBOutlet weak var resultLabel: UILabel!
     @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var roundNumberContainerview: UIView!
 
+    @IBOutlet weak var roundNumberLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
 
@@ -24,13 +26,10 @@ class PracticeResultTableViewCell: BaseTableViewCell {
         answerLabel.font = Fonts.regularText
         resultLabel.font = Fonts.regularText
         resultLabel.textColor = Colors.mainText
-
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+        roundNumberLabel.font = Fonts.subtitle
+        roundNumberLabel.textColor = Colors.mainText
+        roundNumberContainerview.addCornerRadius()
+        roundNumberContainerview.backgroundColor = Colors.mainBackground
     }
 
     func setData(quizResult: QuizResult?) {
@@ -39,5 +38,6 @@ class PracticeResultTableViewCell: BaseTableViewCell {
         answerLabel.text = "Your answer: \(quizResult.answer)"
         resultLabel.text = quizResult.result
         questionLabel.text = quizResult.question
+        roundNumberLabel.text = "Round \(quizResult.round)"
     }
 }

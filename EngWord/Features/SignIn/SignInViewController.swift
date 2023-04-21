@@ -43,7 +43,7 @@ class SignInViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Colors.mainBackground
-        inputFieldsContainer.addLineBorder(
+        _ = inputFieldsContainer.addLineBorder(
             Colors.mainText,
             cornerRadius: CGFloat(Constants.borderRadius)
         )
@@ -57,6 +57,8 @@ class SignInViewController: BaseViewController {
         quicklySignInWithLabel.text = Localizations.quicklySignInWith.uppercased()
         quicklySignInWithLabel.textColor = Colors.mainText
 
+        emailTextField.keyboardType = .emailAddress
+        emailTextField.autocorrectionType = .no
         emailTextField.font = Fonts.regularText
         emailTextField.textColor = Colors.mainText
         emailTextField.attributedPlaceholder = NSAttributedString(
