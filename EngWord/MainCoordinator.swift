@@ -24,7 +24,7 @@ class MainCoordinator {
     }
 
     func start() {
-//        guard let viewController = ViewController.instantiate() else { return }
+        //        guard let viewController = ViewController.instantiate() else { return }
         guard let viewController = LaunchViewController.instantiate() else { return }
         let presenter = LaunchPresenter(view: viewController, storageService: ServiceInjector.storageService)
         viewController.presenter = presenter
@@ -46,7 +46,7 @@ class MainCoordinator {
         viewController.presenter = presenter
         viewController.coordinator = self
         navigationController.setViewControllers([viewController], animated: true)
-//        navigationController.show(viewController, animated: false)
+        //        navigationController.show(viewController, animated: false)
     }
     
     func goToSetsScreen(folders: [SetTopicModel]) {
@@ -68,18 +68,6 @@ class MainCoordinator {
         viewController.coordinator = self
         viewController.delegate = delegatedView
         navigationController.pushViewController(viewController, animated: true)
-    }
-
-    func presentTextMenuScreen(
-            menuItems: [String],
-            initialSelectedItemIndex: Int?,
-            didSelectHandler: @escaping ((Int) -> Void)) {
-//        let viewController = TextMenuViewController.instantiate()
-//        viewController?.menuItems = menuItems
-//        viewController?.selectedItemIndex = initialSelectedItemIndex
-//        viewController?.didSelectHandler = didSelectHandler
-//        guard let viewController = viewController else { return }
-//        navigationController.topViewController?.present(viewController, animated: true)
     }
 
     func presentNewSetInputScreen(delegateView: NewFolderInputViewDelegate, initialSet: SetTopicModel? = nil) {
@@ -178,13 +166,13 @@ class MainCoordinator {
         delegate: ReviewCardDelegate,
         card: any Card,
         cards: [any Card]) {
-        guard let view = ReviewCardViewController.instantiate() else { return }
-        let presenter = ReviewCardPresenter(view: view, cards: cards, currentCard: card)
-        view.presenter = presenter
-        view.modalPresentationStyle = .fullScreen
-        view.coordinator = self
-        screen.present(view, animated: true)
-    }
+            guard let view = ReviewCardViewController.instantiate() else { return }
+            let presenter = ReviewCardPresenter(view: view, cards: cards, currentCard: card)
+            view.presenter = presenter
+            view.modalPresentationStyle = .fullScreen
+            view.coordinator = self
+            screen.present(view, animated: true)
+        }
 
     func presentPracticeTopicScreen(
         from screen: UIViewController,
@@ -203,28 +191,10 @@ class MainCoordinator {
             folder: folder
         )
         viewController.presenter = presenter
-//        viewController.modalPresentationStyle = .fullScreen
+        //        viewController.modalPresentationStyle = .fullScreen
         viewController.coordinator = self
-//        screen.present(viewController, animated: true)
+        //        screen.present(viewController, animated: true)
         navigationController.show(viewController, sender: nil)
-    }
-
-    func presentPartOfSpeechMenuScreen(
-        from screen: UIViewController,
-        card: (any Card),
-        delegateScreen: PartOfSpeechMenuViewControllerDelegate
-    ) {
-        guard let viewController = PartOfSpeechMenuViewController.instantiate() else {
-            return
-        }
-        let presenter = PartOfSpeechMenuPresenter(
-            view: viewController,
-            card: card)
-        viewController.modalPresentationStyle = .popover
-        viewController.presenter = presenter
-        viewController.coordinator = self
-        viewController.delegate = delegateScreen
-        screen.present(viewController, animated: true)
     }
 
     func gotoTopicsListScreen(allTopics: [TopicFolderWrapper]) {
@@ -237,9 +207,20 @@ class MainCoordinator {
         navigationController.show(viewController, sender: nil)
     }
 
-    func presentMenuOfSortedByScreen(
+    func presentSelectionMenuScreen(
         by screen: UIViewController,
-        sortedBy: SortedBy) {
-        
+        items: [SelectionMenuItem],
+        selectedItem: SelectionMenuItem,
+        didSelect: ((SelectionMenuItem) -> Void)?
+    ) {
+        guard let viewController = SortedByMenuViewController.instantiate() else {
+            return
+        }
+        viewController.modalPresentationStyle = .formSheet
+        viewController.allItems = items
+        viewController.selectedItem = selectedItem
+        viewController.didSelectSortedByItem = didSelect
+        viewController.modalPresentationStyle = .overFullScreen
+        screen.present(viewController, animated: true)
     }
 }

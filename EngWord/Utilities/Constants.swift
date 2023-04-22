@@ -23,7 +23,7 @@ enum TurnResult {
     case correct, incorrect
 }
 
-enum PartOfSpeech: String, Codable, Equatable {
+enum PartOfSpeech: String, Codable, SelectionMenuItem {
 
     case none
     case noun
@@ -41,8 +41,18 @@ enum PartOfSpeech: String, Codable, Equatable {
         }
     }
 
-    static func == (lhs: PartOfSpeech, rhs: PartOfSpeech) -> Bool {
-        return self == self
+    var text: String {
+        switch self {
+            case .noun: return "noun"
+            case .adjective: return "adjective"
+            case .adverb: return "adverb"
+            case .verb: return "verb"
+            default: return ""
+        }
+    }
+
+    func isEqual(to other: SelectionMenuItem) -> Bool {
+        return self.text == other.text && type(of: self) == type(of: other)
     }
 }
 
@@ -79,12 +89,14 @@ enum IntervalBetweenPractice: Int, Codable {
     }
 }
 
-protocol SelectionMenuItem: Equatable {
+protocol SelectionMenuItem {
 
+    var text: String { get }
 
+    func isEqual(to other: SelectionMenuItem) -> Bool
 }
 
-enum SortedBy: Equatable {
+enum SortedBy: SelectionMenuItem {
 
     case roundDescending, roundAscending, alphabetDescending, alphabetAscending
 
@@ -101,8 +113,8 @@ enum SortedBy: Equatable {
         }
     }
 
-    static func == (lhs: SortedBy, rhs: SortedBy) -> Bool {
-        return self == self
+    func isEqual(to other: SelectionMenuItem) -> Bool {
+        return self.text == other.text && type(of: self) == type(of: other)
     }
 }
 

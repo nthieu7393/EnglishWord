@@ -296,7 +296,27 @@ extension TermsViewController: TermTableCellDelegate {
 
     func cardTableCell(_ cell: TermTableCell, didTapPartOfSpeech card: (Card)?) {
         guard let card = card else { return }
-        coordinator?.presentPartOfSpeechMenuScreen(from: self, card: card, delegateScreen: self)
+//        coordinator?.presentPartOfSpeechMenuScreen(from: self, card: card, delegateScreen: self)
+        let allPartOfSpeech: [SelectionMenuItem] = [
+            PartOfSpeech.noun,
+            PartOfSpeech.verb,
+            PartOfSpeech.adjective,
+            PartOfSpeech.adverb
+        ]
+        guard let partOfSpeech = PartOfSpeech(rawValue: card.partOfSpeechDisplay ?? "") else { return }
+        coordinator?.presentSelectionMenuScreen(
+            by: self,
+            items: allPartOfSpeech,
+            selectedItem: partOfSpeech,
+            didSelect: { partOfSpseech in
+                var mutatingCard = card
+                mutatingCard.partOfSpeechDisplay = partOfSpseech.text
+                guard let index = self.termsPresenter.updateCardList(card: mutatingCard) else { return }
+                let indexPath = IndexPath(row: index, section: 0)
+                let cell = self.tableView.cellForRow(at: indexPath) as? TermTableCell
+                cell?.setCard(term: mutatingCard, delegate: self)
+                self.coordinator?.dismissScreen(self)
+            })
     }
 
     func cardTableCell(_ cell: TermTableCell) {
@@ -304,19 +324,6 @@ extension TermsViewController: TermTableCellDelegate {
         tableView.beginUpdates()
         tableView.endUpdates()
     }
-}
-
-extension TermsViewController: PartOfSpeechMenuViewControllerDelegate {
-
-    func partOfSpeechMenu(
-        _ view: PartOfSpeechMenuViewController,
-        didUpdatePartOfSpeech card: (any Card)?) {
-            guard let index = termsPresenter.updateCardList(card: card) else { return }
-            let indexPath = IndexPath(row: index, section: 0)
-            let cell = tableView.cellForRow(at: indexPath) as? TermTableCell
-            cell?.setCard(term: card, delegate: self)
-            coordinator?.dismissScreen(self)
-        }
 }
 
 extension TermsViewController: ReviewCardDelegate {

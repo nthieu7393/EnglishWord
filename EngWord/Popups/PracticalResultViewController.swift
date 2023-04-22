@@ -17,7 +17,7 @@ protocol PracticalResultPopupDelegate: AnyObject {
     )
 }
 
-class PracticalResultViewController: UIViewController, Storyboarded {
+class PracticalResultViewController: BaseViewController, Storyboarded {
     
     @IBOutlet weak var chartContainerView: UIView!
     @IBOutlet weak var tableView: UITableView!
@@ -38,12 +38,12 @@ class PracticalResultViewController: UIViewController, Storyboarded {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+//
+//        let correctCount = allResults?.filter({
+//            $0.isCorrect
+//        }).count
 
-        let correctCount = allResults?.filter({
-            $0.isCorrect
-        }).count
-
-        yourResultLabel.font = Fonts.title
+        yourResultLabel.font = Fonts.bigTitle
         yourResultLabel.textColor = Colors.mainText
         yourResultLabel.text = "Your result"
 
@@ -113,25 +113,26 @@ class PracticalResultViewController: UIViewController, Storyboarded {
 
     }
 
-    private var sortedBy: SortedBy = .alphabetDescending {
+    private var sortedBy: SelectionMenuItem = SortedBy.alphabetAscending {
         didSet {
             switch sortedBy {
-                case .alphabetAscending:
+                case SortedBy.alphabetAscending:
                     allResults?.sort(by: {
                         $0.answer > $1.answer
                     })
-                case .alphabetDescending:
+                case SortedBy.alphabetDescending:
                     allResults?.sort(by: {
                         $0.answer < $1.answer
                     })
-                case .roundAscending:
+                case SortedBy.roundAscending:
                     allResults?.sort(by: {
                         $0.round > $1.round
                     })
-                case .roundDescending:
+                case SortedBy.roundDescending:
                     allResults?.sort(by: {
                         $0.round < $1.round
                     })
+                default: break
             }
             sortedByButton.title = sortedBy.text
             tableView.beginUpdates()
@@ -140,17 +141,30 @@ class PracticalResultViewController: UIViewController, Storyboarded {
         }
     }
     @IBAction func sortedByButtonOnTap(_ sender: TextButton) {
-//        sortedBy = sortedBy == .alphabet ? .round : .alphabet
-        guard let viewController = SortedByMenuViewController.instantiate() else {
-            return
-        }
-        viewController.selectedSortedBy = sortedBy
-        viewController.didSelectSortedByItem = { sortedBy in
-            self.dismiss(animated: true)
-            self.sortedBy = sortedBy
-        }
-        viewController.modalPresentationStyle = .overFullScreen
-        present(viewController, animated: true)
+//        guard let viewController = SortedByMenuViewController.instantiate() else {
+//            return
+//        }
+        let array: [SelectionMenuItem] = [
+            SortedBy.alphabetAscending,
+            SortedBy.alphabetDescending,
+            SortedBy.roundAscending,
+            SortedBy.roundDescending
+        ]
+        coordinator?.presentSelectionMenuScreen(
+            by: self,
+            items: array,
+            selectedItem: sortedBy, didSelect: { sortedBy in
+                self.dismiss(animated: true)
+                self.sortedBy = sortedBy
+            })
+//        viewController.allItems = array
+//        viewController.selectedItem = sortedBy
+//        viewController.didSelectSortedByItem = { sortedBy in
+//            self.dismiss(animated: true)
+//            self.sortedBy = sortedBy
+//        }
+//        viewController.modalPresentationStyle = .overFullScreen
+//        present(viewController, animated: true)
     }
 
 }

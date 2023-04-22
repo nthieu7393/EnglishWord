@@ -59,16 +59,12 @@
 		A0A3447629F14C8B00987FE0 /* failed.json in Resources */ = {isa = PBXBuildFile; fileRef = A0A3447529F14C8B00987FE0 /* failed.json */; };
 		A0A3447829F1AEDA00987FE0 /* confetti-explode.json in Resources */ = {isa = PBXBuildFile; fileRef = A0A3447729F1AEDA00987FE0 /* confetti-explode.json */; };
 		A0A3447A29F1B02B00987FE0 /* confetti-with-fireworks.json in Resources */ = {isa = PBXBuildFile; fileRef = A0A3447929F1B02B00987FE0 /* confetti-with-fireworks.json */; };
-		A0A7B63A29BE4BF30080A6DC /* PartOfSpeechMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A7B63729BE4BF30080A6DC /* PartOfSpeechMenuPresenter.swift */; };
-		A0A7B63B29BE4BF30080A6DC /* PartOfSpeechMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A7B63829BE4BF30080A6DC /* PartOfSpeechMenuViewController.swift */; };
-		A0A7B63C29BE4BF30080A6DC /* PartOfSpeechMenuViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A7B63929BE4BF30080A6DC /* PartOfSpeechMenuViewProtocol.swift */; };
 		A0B5D38929BADAA500B81F79 /* PracticalResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B5D38829BADAA500B81F79 /* PracticalResultViewController.swift */; };
 		A0BE9D7E29E1DE6F00EEFA72 /* NoDataTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BE9D7C29E1DE6F00EEFA72 /* NoDataTableCell.swift */; };
 		A0BE9D7F29E1DE6F00EEFA72 /* NoDataTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0BE9D7D29E1DE6F00EEFA72 /* NoDataTableCell.xib */; };
 		A0BE9D8129E1F12700EEFA72 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BE9D8029E1F12700EEFA72 /* BaseTableViewCell.swift */; };
 		A0BFE16C29B7AFDD0038406A /* PracticeDescriptionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BFE16B29B7AFDD0038406A /* PracticeDescriptionPresenter.swift */; };
 		A0BFE16E29B7B00F0038406A /* PracticeTermPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BFE16D29B7B00F0038406A /* PracticeTermPresenter.swift */; };
-		A0CCB9B329C0CE3300523AF6 /* PartOfSpeechTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CCB9B229C0CE3300523AF6 /* PartOfSpeechTableCell.swift */; };
 		A0CCF1E829ABB554008C34C4 /* TwitterHeartButton.json in Resources */ = {isa = PBXBuildFile; fileRef = A0CCF1E729ABB554008C34C4 /* TwitterHeartButton.json */; };
 		A0D34B4B29A5C9EE005A2171 /* IconTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0D34B4A29A5C9EE005A2171 /* IconTextView.xib */; };
 		A0D34B4D29A5D0D7005A2171 /* IconTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D34B4C29A5D0D7005A2171 /* IconTextView.swift */; };
@@ -265,16 +261,12 @@
 		A0A3447529F14C8B00987FE0 /* failed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = failed.json; sourceTree = "<group>"; };
 		A0A3447729F1AEDA00987FE0 /* confetti-explode.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "confetti-explode.json"; sourceTree = "<group>"; };
 		A0A3447929F1B02B00987FE0 /* confetti-with-fireworks.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "confetti-with-fireworks.json"; sourceTree = "<group>"; };
-		A0A7B63729BE4BF30080A6DC /* PartOfSpeechMenuPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartOfSpeechMenuPresenter.swift; sourceTree = "<group>"; };
-		A0A7B63829BE4BF30080A6DC /* PartOfSpeechMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartOfSpeechMenuViewController.swift; sourceTree = "<group>"; };
-		A0A7B63929BE4BF30080A6DC /* PartOfSpeechMenuViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartOfSpeechMenuViewProtocol.swift; sourceTree = "<group>"; };
 		A0B5D38829BADAA500B81F79 /* PracticalResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticalResultViewController.swift; sourceTree = "<group>"; };
 		A0BE9D7C29E1DE6F00EEFA72 /* NoDataTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDataTableCell.swift; sourceTree = "<group>"; };
 		A0BE9D7D29E1DE6F00EEFA72 /* NoDataTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoDataTableCell.xib; sourceTree = "<group>"; };
 		A0BE9D8029E1F12700EEFA72 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		A0BFE16B29B7AFDD0038406A /* PracticeDescriptionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeDescriptionPresenter.swift; sourceTree = "<group>"; };
 		A0BFE16D29B7B00F0038406A /* PracticeTermPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeTermPresenter.swift; sourceTree = "<group>"; };
-		A0CCB9B229C0CE3300523AF6 /* PartOfSpeechTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartOfSpeechTableCell.swift; sourceTree = "<group>"; };
 		A0CCF1E729ABB554008C34C4 /* TwitterHeartButton.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TwitterHeartButton.json; sourceTree = "<group>"; };
 		A0D34B4A29A5C9EE005A2171 /* IconTextView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IconTextView.xib; sourceTree = "<group>"; };
 		A0D34B4C29A5D0D7005A2171 /* IconTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconTextView.swift; sourceTree = "<group>"; };
@@ -564,17 +556,6 @@
 			path = ReviewCard;
 			sourceTree = "<group>";
 		};
-		A0A7B63629BE4BCE0080A6DC /* PartOfSpeechMenu */ = {
-			isa = PBXGroup;
-			children = (
-				A0A7B63729BE4BF30080A6DC /* PartOfSpeechMenuPresenter.swift */,
-				A0A7B63829BE4BF30080A6DC /* PartOfSpeechMenuViewController.swift */,
-				A0A7B63929BE4BF30080A6DC /* PartOfSpeechMenuViewProtocol.swift */,
-				A0CCB9B229C0CE3300523AF6 /* PartOfSpeechTableCell.swift */,
-			);
-			path = PartOfSpeechMenu;
-			sourceTree = "<group>";
-		};
 		A0BBFDCD29BC8288001251EC /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
@@ -825,7 +806,6 @@
 				A0F4D11829F3211C005835FD /* SortedByMenu */,
 				A057413F29DBF14E002C1C0E /* TopicsList */,
 				A0D8646929DB72AE00942538 /* Launch */,
-				A0A7B63629BE4BCE0080A6DC /* PartOfSpeechMenu */,
 				A06F41B329A8CC2E00DBBDCB /* PracticeTopic */,
 				A070A66529A7BF04004956D8 /* ReviewCard */,
 				A00B364D29A522130077250D /* TestTopic */,
@@ -1348,7 +1328,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0A7B63C29BE4BF30080A6DC /* PartOfSpeechMenuViewProtocol.swift in Sources */,
 				A0E7F79A299E9EBD00F63140 /* NetworkVocabularyService.swift in Sources */,
 				A057414529DBF17C002C1C0E /* TopicsListViewProtocol.swift in Sources */,
 				A011077129AD1D7100B84E6F /* TextTableCell.swift in Sources */,
@@ -1376,7 +1355,6 @@
 				A08DCC9229E877A700FA31FF /* ResponsiveView.swift in Sources */,
 				A0E7F79B299E9EBD00F63140 /* FirebaseStorageService.swift in Sources */,
 				A0E7F78B299E9EBD00F63140 /* UnderlineTextField.swift in Sources */,
-				A0CCB9B329C0CE3300523AF6 /* PartOfSpeechTableCell.swift in Sources */,
 				A0E7F77E299E9EBD00F63140 /* WordsAPIWordItem.swift in Sources */,
 				A0E7F826299F8D6200F63140 /* AllTopicsViewController.swift in Sources */,
 				A0E7F7BD299E9EBD00F63140 /* SetTableViewCell.swift in Sources */,
@@ -1403,7 +1381,6 @@
 				A0E7F77D299E9EBD00F63140 /* FreeDictAPIWordItem.swift in Sources */,
 				A0BFE16E29B7B00F0038406A /* PracticeTermPresenter.swift in Sources */,
 				A06F41B829A9090E00DBBDCB /* PracticeTopicViewController.swift in Sources */,
-				A0A7B63A29BE4BF30080A6DC /* PartOfSpeechMenuPresenter.swift in Sources */,
 				A0E7F81B299F344000F63140 /* R.generated.swift in Sources */,
 				A0D8646D29DB731B00942538 /* LaunchPresenter.swift in Sources */,
 				A0E7F817299EBA7F00F63140 /* NewSetInputViewProtocol.swift in Sources */,
@@ -1419,7 +1396,6 @@
 				A070A66229A66C8C004956D8 /* TermActivityModel.swift in Sources */,
 				A0E7F7B1299E9EBD00F63140 /* TermsViewController.swift in Sources */,
 				A057414B29DCA7ED002C1C0E /* TopicInRoutineTableCell.swift in Sources */,
-				A0A7B63B29BE4BF30080A6DC /* PartOfSpeechMenuViewController.swift in Sources */,
 				A0D8646E29DB731B00942538 /* LaunchViewController.swift in Sources */,
 				A0E7F78A299E9EBD00F63140 /* UnderlineTextView.swift in Sources */,
 				A00B365229A5222A0077250D /* LearnTopicViewController.swift in Sources */,

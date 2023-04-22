@@ -115,8 +115,9 @@ extension PracticeTopicViewController: ResultPopupViewDelegate {
         let storyboard = PracticalResultViewController.instantiatePopup()
         storyboard?.delegate = self
         storyboard?.allResults = myPresenter?.getAllResults()
-        storyboard?.modalPresentationStyle = .popover
+        storyboard?.modalPresentationStyle = .fullScreen
         self.dismissScreen()
+        storyboard?.coordinator = coordinator
         self.present(storyboard!, animated: true)
     }
 

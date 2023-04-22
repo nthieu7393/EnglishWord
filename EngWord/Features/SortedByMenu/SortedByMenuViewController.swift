@@ -11,17 +11,10 @@ class SortedByMenuViewController: UIViewController, Storyboarded {
 
     @IBOutlet weak var tableView: UITableView!
     
-    var didSelectSortedByItem: ((SortedBy) -> Void)?
+    var didSelectSortedByItem: ((any SelectionMenuItem) -> Void)?
 
-    var allItems: [any Equatable] = []
-    var selectedItem: (any Equatable)?
-
-    var sortedByMenus: [SortedBy] = [
-        .alphabetAscending,
-        .alphabetDescending,
-        .roundAscending,
-        .roundDescending]
-    var selectedSortedBy: SortedBy = .alphabetAscending
+    var allItems: [any SelectionMenuItem] = []
+    var selectedItem: (any SelectionMenuItem)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +22,7 @@ class SortedByMenuViewController: UIViewController, Storyboarded {
         view.backgroundColor = Colors.mainBackground
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.separatorColor = Colors.separatorLine
     }
 }
 
@@ -42,9 +36,16 @@ extension SortedByMenuViewController: UITableViewDataSource, UITableViewDelegate
         guard let cell = tableView.dequeueCell(SortedByMenuCell.self, for: indexPath) else {
             return UITableViewCell()
         }
+        let smt = allItems[indexPath.row]
+        cell.tag = indexPath.row
         cell.setData(
-            sortedBy: sortedByMenus[indexPath.row],
-            highlight: sortedByMenus[indexPath.row] == selectedSortedBy)
+            sortedBy: smt,
+            highlight: selectedItem?.isEqual(to: smt) ?? false
+        )
+        cell.onTap = {
+            self.didSelect(index: cell.tag)
+        }
+        cell.backgroundColor = UIColor.clear
         return cell
     }
 
@@ -53,24 +54,35 @@ extension SortedByMenuViewController: UITableViewDataSource, UITableViewDelegate
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedSortedBy = sortedByMenus[indexPath.row]
+        didSelect(index: indexPath.row)
+    }
+
+    private func didSelect(index: Int) {
+        selectedItem = allItems[index]
         tableView.reloadData()
-        didSelectSortedByItem?(selectedSortedBy)
+        guard let item = selectedItem else { return }
+        didSelectSortedByItem?(item)
     }
 }
 
 class SortedByMenuCell: UITableViewCell {
 
     @IBOutlet weak var label: UILabel!
+
+    var onTap: (() -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         contentView.backgroundColor = .clear
     }
     
-    func setData(sortedBy: SortedBy, highlight: Bool) {
+    func setData(sortedBy: any SelectionMenuItem, highlight: Bool) {
         label.text = sortedBy.text
         label.font = highlight ? Fonts.boldText : Fonts.mediumText
         label.textColor = highlight ? Colors.active : Colors.mainText
+    }
+
+    @IBAction func viewOnTap(_ sender: ResponsiveView) {
+        onTap?()
     }
 }

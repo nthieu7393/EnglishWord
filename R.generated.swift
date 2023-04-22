@@ -615,7 +615,7 @@ struct _R {
     }
   }
 
-  /// This `_R.reuseIdentifier` struct is generated, and contains static references to 12 reuse identifiers.
+  /// This `_R.reuseIdentifier` struct is generated, and contains static references to 11 reuse identifiers.
   struct reuseIdentifier {
 
     /// Reuse identifier `HomeMenuTableViewCell`.
@@ -626,9 +626,6 @@ struct _R {
 
     /// Reuse identifier `NoDataTableCell`.
     let noDataTableCell: RswiftResources.ReuseIdentifier<NoDataTableCell> = .init(identifier: "NoDataTableCell")
-
-    /// Reuse identifier `PartOfSpeechTableCell`.
-    let partOfSpeechTableCell: RswiftResources.ReuseIdentifier<PartOfSpeechTableCell> = .init(identifier: "PartOfSpeechTableCell")
 
     /// Reuse identifier `PracticeResultTableViewCell`.
     let practiceResultTableViewCell: RswiftResources.ReuseIdentifier<PracticeResultTableViewCell> = .init(identifier: "PracticeResultTableViewCell")
@@ -689,7 +686,6 @@ struct _R {
       var launchViewController: RswiftResources.StoryboardViewControllerIdentifier<LaunchViewController> { .init(identifier: "LaunchViewController", storyboard: name, bundle: bundle) }
       var learnTopicViewController: RswiftResources.StoryboardViewControllerIdentifier<LearnTopicViewController> { .init(identifier: "LearnTopicViewController", storyboard: name, bundle: bundle) }
       var newFolderInputViewController: RswiftResources.StoryboardViewControllerIdentifier<NewFolderInputViewController> { .init(identifier: "NewFolderInputViewController", storyboard: name, bundle: bundle) }
-      var partOfSpeechMenuViewController: RswiftResources.StoryboardViewControllerIdentifier<PartOfSpeechMenuViewController> { .init(identifier: "PartOfSpeechMenuViewController", storyboard: name, bundle: bundle) }
       var practiceTopicViewController: RswiftResources.StoryboardViewControllerIdentifier<PracticeTopicViewController> { .init(identifier: "PracticeTopicViewController", storyboard: name, bundle: bundle) }
       var reviewCardViewController: RswiftResources.StoryboardViewControllerIdentifier<ReviewCardViewController> { .init(identifier: "ReviewCardViewController", storyboard: name, bundle: bundle) }
       var signInViewController: RswiftResources.StoryboardViewControllerIdentifier<SignInViewController> { .init(identifier: "SignInViewController", storyboard: name, bundle: bundle) }
@@ -717,7 +713,6 @@ struct _R {
         if launchViewController() == nil { throw RswiftResources.ValidationError("[R.swift] ViewController with identifier 'launchViewController' could not be loaded from storyboard 'Home' as 'LaunchViewController'.") }
         if learnTopicViewController() == nil { throw RswiftResources.ValidationError("[R.swift] ViewController with identifier 'learnTopicViewController' could not be loaded from storyboard 'Home' as 'LearnTopicViewController'.") }
         if newFolderInputViewController() == nil { throw RswiftResources.ValidationError("[R.swift] ViewController with identifier 'newFolderInputViewController' could not be loaded from storyboard 'Home' as 'NewFolderInputViewController'.") }
-        if partOfSpeechMenuViewController() == nil { throw RswiftResources.ValidationError("[R.swift] ViewController with identifier 'partOfSpeechMenuViewController' could not be loaded from storyboard 'Home' as 'PartOfSpeechMenuViewController'.") }
         if practiceTopicViewController() == nil { throw RswiftResources.ValidationError("[R.swift] ViewController with identifier 'practiceTopicViewController' could not be loaded from storyboard 'Home' as 'PracticeTopicViewController'.") }
         if reviewCardViewController() == nil { throw RswiftResources.ValidationError("[R.swift] ViewController with identifier 'reviewCardViewController' could not be loaded from storyboard 'Home' as 'ReviewCardViewController'.") }
         if signInViewController() == nil { throw RswiftResources.ValidationError("[R.swift] ViewController with identifier 'signInViewController' could not be loaded from storyboard 'Home' as 'SignInViewController'.") }
