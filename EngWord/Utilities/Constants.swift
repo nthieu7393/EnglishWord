@@ -23,7 +23,8 @@ enum TurnResult {
     case correct, incorrect
 }
 
-enum PartOfSpeech: String, Codable {
+enum PartOfSpeech: String, Codable, Equatable {
+
     case none
     case noun
     case adjective
@@ -38,6 +39,10 @@ enum PartOfSpeech: String, Codable {
             case .verb: return "v."
             default: return ""
         }
+    }
+
+    static func == (lhs: PartOfSpeech, rhs: PartOfSpeech) -> Bool {
+        return self == self
     }
 }
 
@@ -74,7 +79,12 @@ enum IntervalBetweenPractice: Int, Codable {
     }
 }
 
-enum SortedBy {
+protocol SelectionMenuItem: Equatable {
+
+    
+}
+
+enum SortedBy: Equatable {
 
     case roundDescending, roundAscending, alphabetDescending, alphabetAscending
 
@@ -89,6 +99,10 @@ enum SortedBy {
             case .roundDescending:
                 return "Round Descending"
         }
+    }
+
+    static func == (lhs: SortedBy, rhs: SortedBy) -> Bool {
+        return self == self
     }
 }
 

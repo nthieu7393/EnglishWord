@@ -12,17 +12,16 @@ class SortedByMenuViewController: UIViewController, Storyboarded {
     @IBOutlet weak var tableView: UITableView!
     
     var didSelectSortedByItem: ((SortedBy) -> Void)?
-    
+
+    var allItems: [any Equatable] = []
+    var selectedItem: (any Equatable)?
+
     var sortedByMenus: [SortedBy] = [
         .alphabetAscending,
         .alphabetDescending,
         .roundAscending,
         .roundDescending]
-    var selectedSortedBy: SortedBy = .alphabetAscending {
-        didSet {
-            
-        }
-    }
+    var selectedSortedBy: SortedBy = .alphabetAscending
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +35,7 @@ class SortedByMenuViewController: UIViewController, Storyboarded {
 extension SortedByMenuViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sortedByMenus.count
+        return allItems.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
