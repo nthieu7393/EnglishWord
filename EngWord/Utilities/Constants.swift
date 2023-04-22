@@ -81,7 +81,7 @@ enum IntervalBetweenPractice: Int, Codable {
 
 protocol SelectionMenuItem: Equatable {
 
-    
+
 }
 
 enum SortedBy: Equatable {
