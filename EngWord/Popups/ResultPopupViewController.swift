@@ -26,6 +26,7 @@ class ResultPopupViewController: UIViewController, Storyboarded {
     weak var delegate: ResultPopupViewDelegate?
     var medalAnimationView: AnimationView!
     var fireworkAnimationView: AnimationView!
+    var isPass = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,14 +37,15 @@ class ResultPopupViewController: UIViewController, Storyboarded {
         
         titleLabel.textAlignment = .center
         titleLabel.font = Fonts.title
-        titleLabel.textColor = Colors.mainText
-        titleLabel.text = "Congratulations!"
+        titleLabel.textColor = isPass ? Colors.correct : Colors.incorrect
+        titleLabel.text = isPass ? "Congratulations!" : "Opps..."
         
         messageLabel.textAlignment = .center
         messageLabel.font = Fonts.regularText
         messageLabel.textColor = Colors.mainText
         messageLabel.numberOfLines = 0
-        messageLabel.text = "You have passed\nthe test"
+        messageLabel.text = isPass ? "You have passed\nthe test" : "You have failed\nthe test"
+        
         resultDetailButton.title = "Check details"
 
         closeButton.title = "Dismiss"
@@ -54,7 +56,7 @@ class ResultPopupViewController: UIViewController, Storyboarded {
     }
 
     private func animationViews() {
-        let medalAnimation = Animation.named(Animations.congratulation.name)
+        let medalAnimation = Animation.named(isPass ? Animations.congratulation.name : Animations.crying.name)
         medalAnimationView = AnimationView(animation: medalAnimation)
         effectContainerView.backgroundColor = UIColor.clear
         medalAnimationView.frame.size = CGSize(
@@ -69,13 +71,15 @@ class ResultPopupViewController: UIViewController, Storyboarded {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        if isPass {
+            let fireworkAnimation = Animation.named(Animations.confettiWithFireworks.name)
+            fireworkAnimationView = AnimationView(animation: fireworkAnimation)
+            fireworkAnimationView.frame = animationContainerView.bounds
+            animationContainerView.insertSubview(fireworkAnimationView, at: 0)
 
-        let fireworkAnimation = Animation.named(Animations.confettiWithFireworks.name)
-        fireworkAnimationView = AnimationView(animation: fireworkAnimation)
-        fireworkAnimationView.frame = animationContainerView.bounds
-        animationContainerView.insertSubview(fireworkAnimationView, at: 0)
-
-        fireworkAnimationView.play()
+            fireworkAnimationView.play()
+        }
     }
     
     @IBAction func detailsButtonOnTap(_ sender: ResponsiveButton) {

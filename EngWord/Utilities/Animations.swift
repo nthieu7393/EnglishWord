@@ -14,5 +14,7 @@ struct Animations {
     static let confettiSparkle = R.file.confettiSparkleJson
     static let confettiExplode = R.file.confettiExplodeJson
     static let confettiWithFireworks = R.file.confettiWithFireworksJson
+    static let sadEmoji = R.file.sadEmojiJson
+    static let crying = R.file.cryingJson
     static let failed = R.file.failedJson
 }

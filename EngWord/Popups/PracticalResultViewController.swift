@@ -43,7 +43,7 @@ class PracticalResultViewController: BaseViewController, Storyboarded {
 //            $0.isCorrect
 //        }).count
 
-        yourResultLabel.font = Fonts.bigTitle
+        yourResultLabel.font = Fonts.mainTitle
         yourResultLabel.textColor = Colors.mainText
         yourResultLabel.text = "Your result"
 

@@ -12,5 +12,5 @@ protocol PracticeTopicViewProtocol: BaseViewProtocol {
     func reloadCollectionView()
     func dismissScreen()
     func moveToNextRound(index: Int)
-    func showPracticePass()
+    func showPracticePass(isPass: Bool)
 }

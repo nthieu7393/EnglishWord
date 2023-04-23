@@ -84,27 +84,11 @@ extension PracticeTopicViewController: PracticeTopicViewProtocol, Storyboarded {
         
     }
 
-    func showPracticePass() {
-//        let jsonName = "lf20_tiviyc3p"
-//        let animation = Animation.named(jsonName)
-//
-//        // Load animation to AnimationView
-//        animationView = AnimationView(animation: animation)
-//        animationView?.frame = view.bounds
-//
-//        // Add animationView as subview
-//        view.addSubview(animationView!)
-//
-//        // Play the animation
-//        animationView?.play(completion: { isComplete in
-//            guard isComplete else { return }
-//            self.animationView?.removeFromSuperview()
-//            self.dismissScreen()
-//        })
-
+    func showPracticePass(isPass: Bool) {
         let storyboard = ResultPopupViewController.instantiatePopup()
         storyboard?.delegate = self
         storyboard?.modalPresentationStyle = .overFullScreen
+        storyboard?.isPass = isPass
         present(storyboard!, animated: true)
     }
 }

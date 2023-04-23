@@ -15,6 +15,7 @@ final class PracticeTopicPresenter: BasePresenter {
     private var practiceRound: Int = 0
     private let topic: TopicModel
     private let folder: SetTopicModel
+    var quizResults: [QuizResult] = []
     
     private let cards: [any Card]
     
@@ -117,7 +118,8 @@ final class PracticeTopicPresenter: BasePresenter {
     
     private func calculateDifferenceBetween(
         components: Set<Calendar.Component>,
-        topic: TopicModel) -> DateComponents {
+        topic: TopicModel
+    ) -> DateComponents {
             let calendar = Calendar.current
             let fromDate = Date(timeIntervalSince1970: topic.lastDatePractice!)
             let toDate = Date()
@@ -168,6 +170,11 @@ final class PracticeTopicPresenter: BasePresenter {
     private func endPracticeRound() {
         practiceRound += 1
         if practiceRound >= practicalFormControllers.count {
+            let isPass = self.checkResultPassOrFail() == .pass
+            guard isPass else {
+                self.view?.showPracticePass(isPass: isPass)
+                return
+            }
             let updatedPracticeIntervalTopic = self.updatePracticeValue(of: self.topic)
             let topicFolder = TopicFolderWrapper(
                 folder: self.folder,
@@ -184,8 +191,7 @@ final class PracticeTopicPresenter: BasePresenter {
                 if let err = err {
                     self.view?.showErrorAlert(msg: err.localizedDescription)
                 } else {
-//                    self.checkResultPassOrFail() == .pass
-                    self.view?.showPracticePass()
+                    self.view?.showPracticePass(isPass: isPass)
                 }
             }
         } else {
@@ -215,7 +221,7 @@ final class PracticeTopicPresenter: BasePresenter {
         resultsOfAnswerCards.append(result)
         quizResults.append(quizResult)
     }
-    var quizResults: [QuizResult] = []
+    
     func checkResultPassOrFail() -> PracticalResult {
         let correct = resultsOfAnswerCards.filter {
             $0 == .correct
@@ -223,6 +229,7 @@ final class PracticeTopicPresenter: BasePresenter {
         let incorrect = resultsOfAnswerCards.filter {
             $0 == .incorrect
         }.count
-        return correct > incorrect ? .pass : .fail
+        let percentOfCorrectAnswer = Float(correct) / Float(resultsOfAnswerCards.count)
+        return percentOfCorrectAnswer > 0.95 ? .pass : .fail
     }
 }

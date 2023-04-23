@@ -65,6 +65,8 @@
 		A0BE9D8129E1F12700EEFA72 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BE9D8029E1F12700EEFA72 /* BaseTableViewCell.swift */; };
 		A0BFE16C29B7AFDD0038406A /* PracticeDescriptionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BFE16B29B7AFDD0038406A /* PracticeDescriptionPresenter.swift */; };
 		A0BFE16E29B7B00F0038406A /* PracticeTermPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BFE16D29B7B00F0038406A /* PracticeTermPresenter.swift */; };
+		A0C4CF7C29F4730900783E1B /* sad-emoji.json in Resources */ = {isa = PBXBuildFile; fileRef = A0C4CF7B29F4730900783E1B /* sad-emoji.json */; };
+		A0C4CF8029F47BBC00783E1B /* crying.json in Resources */ = {isa = PBXBuildFile; fileRef = A0C4CF7F29F47BBC00783E1B /* crying.json */; };
 		A0CCF1E829ABB554008C34C4 /* TwitterHeartButton.json in Resources */ = {isa = PBXBuildFile; fileRef = A0CCF1E729ABB554008C34C4 /* TwitterHeartButton.json */; };
 		A0D34B4B29A5C9EE005A2171 /* IconTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0D34B4A29A5C9EE005A2171 /* IconTextView.xib */; };
 		A0D34B4D29A5D0D7005A2171 /* IconTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D34B4C29A5D0D7005A2171 /* IconTextView.swift */; };
@@ -267,6 +269,8 @@
 		A0BE9D8029E1F12700EEFA72 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		A0BFE16B29B7AFDD0038406A /* PracticeDescriptionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeDescriptionPresenter.swift; sourceTree = "<group>"; };
 		A0BFE16D29B7B00F0038406A /* PracticeTermPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeTermPresenter.swift; sourceTree = "<group>"; };
+		A0C4CF7B29F4730900783E1B /* sad-emoji.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sad-emoji.json"; sourceTree = "<group>"; };
+		A0C4CF7F29F47BBC00783E1B /* crying.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = crying.json; sourceTree = "<group>"; };
 		A0CCF1E729ABB554008C34C4 /* TwitterHeartButton.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TwitterHeartButton.json; sourceTree = "<group>"; };
 		A0D34B4A29A5C9EE005A2171 /* IconTextView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IconTextView.xib; sourceTree = "<group>"; };
 		A0D34B4C29A5D0D7005A2171 /* IconTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconTextView.swift; sourceTree = "<group>"; };
@@ -952,6 +956,8 @@
 		A0E7F7C4299E9EC500F63140 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A0C4CF7F29F47BBC00783E1B /* crying.json */,
+				A0C4CF7B29F4730900783E1B /* sad-emoji.json */,
 				A0A3447929F1B02B00987FE0 /* confetti-with-fireworks.json */,
 				A0A3447729F1AEDA00987FE0 /* confetti-explode.json */,
 				A0A3447529F14C8B00987FE0 /* failed.json */,
@@ -1139,6 +1145,7 @@
 				A0E7F7D6299E9EC500F63140 /* phrasal-verbs.json in Resources */,
 				A0A3447A29F1B02B00987FE0 /* confetti-with-fireworks.json in Resources */,
 				A04976C429A914C300CFB595 /* PracticeTermForm.xib in Resources */,
+				A0C4CF8029F47BBC00783E1B /* crying.json in Resources */,
 				A00B364929A4E3A60077250D /* TermActivityCollectionCell.xib in Resources */,
 				A0E7F6E8299E9D3C00F63140 /* LaunchScreen.storyboard in Resources */,
 				A0BE9D7F29E1DE6F00EEFA72 /* NoDataTableCell.xib in Resources */,
@@ -1155,6 +1162,7 @@
 				A0E7F7D1299E9EC500F63140 /* Localizable.strings in Resources */,
 				A0E7F6E5299E9D3C00F63140 /* Assets.xcassets in Resources */,
 				A0CCF1E829ABB554008C34C4 /* TwitterHeartButton.json in Resources */,
+				A0C4CF7C29F4730900783E1B /* sad-emoji.json in Resources */,
 				A0A12A1029B66A640096D9A0 /* lf20_tiviyc3p.json in Resources */,
 				A0A3447829F1AEDA00987FE0 /* confetti-explode.json in Resources */,
 				A0437B7629B8F2200094E373 /* PopupStoryboard.storyboard in Resources */,
