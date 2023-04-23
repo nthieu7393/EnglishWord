@@ -68,14 +68,14 @@ extension TopicsInRoutineViewController: UITableViewDataSource, UITableViewDeleg
             return UITableViewCell()
         }
         cell.setData(topic: topics[indexPath.row])
-        cell.onTap = {
-            self.delegate?.topicInRoutineView(self, didSelect: self.topics[indexPath.row], at: indexPath.row)
-        }
+//        cell.onTap = {
+//            self.delegate?.topicInRoutineView(self, didSelect: self.topics[indexPath.row], at: indexPath.row)
+//        }
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard indexPath.row < topics.count else { return }
-        delegate?.topicInRoutineView(self, didSelect: topics[indexPath.row], at: indexPath.row)
+//        guard indexPath.row < topics.count else { return }
+//        delegate?.topicInRoutineView(self, didSelect: topics[indexPath.row], at: indexPath.row)
     }
 }

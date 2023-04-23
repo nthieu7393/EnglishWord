@@ -15,6 +15,7 @@ class TopicInRoutineTableCell: BaseTableViewCell {
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var containerView: ResponsiveView!
     @IBOutlet weak var percentLabel: UILabel!
+    @IBOutlet weak var startTestingButton: ResponsiveButton!
 
     var onTap: (() -> Void)?
 
@@ -22,11 +23,17 @@ class TopicInRoutineTableCell: BaseTableViewCell {
         onTap?()
     }
 
+
+    @IBAction func startTestingOnTap(_ sender: ResponsiveButton) {
+
+    }
+
     override func awakeFromNib() {
         super.awakeFromNib()
         progressBar.tintColor = Colors.active
         containerView.addCornerRadius()
         containerView.backgroundColor = Colors.cellBackground
+        startTestingButton.title = "Start"
         setFonts()
     }
 
