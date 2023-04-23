@@ -83,10 +83,16 @@ extension TopicsListViewController: TopicsInRoutineViewDelegate {
         _ view: TopicsInRoutineViewController,
         didSelect topic: TopicFolderWrapper,
         at index: Int) {
-        coordinator?.presentTermsScreen(
-            folder: topic.folder,
+//        coordinator?.presentTermsScreen(
+//            folder: topic.folder,
+//            topic: topic.topic,
+//            delegateView: self)
+        coordinator?.presentPracticeTopicScreen(
+            from: self,
+            cards: topic.topic.terms ?? [],
             topic: topic.topic,
-            delegateView: self)
+            folder: topic.folder
+        )
     }
 }
 

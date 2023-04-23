@@ -49,7 +49,26 @@ class TopicsInRoutineViewController: UIViewController {
         tableView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 0).isActive = true
         tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: 0).isActive = true
 
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(practiceNotificationReceived(_:)),
+            name: .practiceFinishNotification,
+            object: nil
+        )
+        
         tableView.registerRow(NoDataTableCell.self)
+    }
+    
+    @objc
+    func practiceNotificationReceived(_ notification: Notification) {
+        guard let topicFolder = notification.object as? TopicFolderWrapper else {
+            return
+        }
+        guard let index = topics.firstIndex(where: {
+            $0.topic == topicFolder.topic
+        }) else { return }
+        topics[index] = topicFolder
+        tableView.reloadData()
     }
 }
 
@@ -68,9 +87,13 @@ extension TopicsInRoutineViewController: UITableViewDataSource, UITableViewDeleg
             return UITableViewCell()
         }
         cell.setData(topic: topics[indexPath.row])
-//        cell.onTap = {
-//            self.delegate?.topicInRoutineView(self, didSelect: self.topics[indexPath.row], at: indexPath.row)
-//        }
+        cell.onTap = {
+            self.delegate?.topicInRoutineView(
+                self,
+                didSelect: self.topics[indexPath.row],
+                at: indexPath.row
+            )
+        }
         return cell
     }
 

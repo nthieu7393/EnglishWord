@@ -19,13 +19,8 @@ class TopicInRoutineTableCell: BaseTableViewCell {
 
     var onTap: (() -> Void)?
 
-    @IBAction func containerViewOnTap(_ sender: ResponsiveView) {
-        onTap?()
-    }
-
-
     @IBAction func startTestingOnTap(_ sender: ResponsiveButton) {
-
+        onTap?()
     }
 
     override func awakeFromNib() {
