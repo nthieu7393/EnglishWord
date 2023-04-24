@@ -67,6 +67,11 @@
 		A0BFE16E29B7B00F0038406A /* PracticeTermPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BFE16D29B7B00F0038406A /* PracticeTermPresenter.swift */; };
 		A0C4CF7C29F4730900783E1B /* sad-emoji.json in Resources */ = {isa = PBXBuildFile; fileRef = A0C4CF7B29F4730900783E1B /* sad-emoji.json */; };
 		A0C4CF8029F47BBC00783E1B /* crying.json in Resources */ = {isa = PBXBuildFile; fileRef = A0C4CF7F29F47BBC00783E1B /* crying.json */; };
+		A0C4CF8729F5A7B700783E1B /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C4CF8629F5A7B700783E1B /* WidgetKit.framework */; };
+		A0C4CF8929F5A7B700783E1B /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C4CF8829F5A7B700783E1B /* SwiftUI.framework */; };
+		A0C4CF8C29F5A7B700783E1B /* EngWordWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C4CF8B29F5A7B700783E1B /* EngWordWidget.swift */; };
+		A0C4CF8E29F5A7B900783E1B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0C4CF8D29F5A7B900783E1B /* Assets.xcassets */; };
+		A0C4CF9229F5A7B900783E1B /* EngWordWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A0C4CF8529F5A7B700783E1B /* EngWordWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A0CCF1E829ABB554008C34C4 /* TwitterHeartButton.json in Resources */ = {isa = PBXBuildFile; fileRef = A0CCF1E729ABB554008C34C4 /* TwitterHeartButton.json */; };
 		A0D34B4B29A5C9EE005A2171 /* IconTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0D34B4A29A5C9EE005A2171 /* IconTextView.xib */; };
 		A0D34B4D29A5D0D7005A2171 /* IconTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D34B4C29A5D0D7005A2171 /* IconTextView.swift */; };
@@ -188,6 +193,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		A0C4CF9029F5A7B900783E1B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A0E7F6CD299E9D3B00F63140 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A0C4CF8429F5A7B700783E1B;
+			remoteInfo = EngWordWidgetExtension;
+		};
 		A0E7F6EF299E9D3C00F63140 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A0E7F6CD299E9D3B00F63140 /* Project object */;
@@ -203,6 +215,20 @@
 			remoteInfo = EngWord;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A0C4CF9629F5A7B900783E1B /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				A0C4CF9229F5A7B900783E1B /* EngWordWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		18B0CCAF6B5FB68F5FE87EC1 /* Pods_EngWord_EngWordUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EngWord_EngWordUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -271,6 +297,12 @@
 		A0BFE16D29B7B00F0038406A /* PracticeTermPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeTermPresenter.swift; sourceTree = "<group>"; };
 		A0C4CF7B29F4730900783E1B /* sad-emoji.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sad-emoji.json"; sourceTree = "<group>"; };
 		A0C4CF7F29F47BBC00783E1B /* crying.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = crying.json; sourceTree = "<group>"; };
+		A0C4CF8529F5A7B700783E1B /* EngWordWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = EngWordWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0C4CF8629F5A7B700783E1B /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		A0C4CF8829F5A7B700783E1B /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		A0C4CF8B29F5A7B700783E1B /* EngWordWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngWordWidget.swift; sourceTree = "<group>"; };
+		A0C4CF8D29F5A7B900783E1B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A0C4CF8F29F5A7B900783E1B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A0CCF1E729ABB554008C34C4 /* TwitterHeartButton.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TwitterHeartButton.json; sourceTree = "<group>"; };
 		A0D34B4A29A5C9EE005A2171 /* IconTextView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IconTextView.xib; sourceTree = "<group>"; };
 		A0D34B4C29A5D0D7005A2171 /* IconTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconTextView.swift; sourceTree = "<group>"; };
@@ -397,6 +429,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		A0C4CF8229F5A7B700783E1B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A0C4CF8929F5A7B700783E1B /* SwiftUI.framework in Frameworks */,
+				A0C4CF8729F5A7B700783E1B /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A0E7F6D2299E9D3B00F63140 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -579,6 +620,16 @@
 			path = NoDataTableCell;
 			sourceTree = "<group>";
 		};
+		A0C4CF8A29F5A7B700783E1B /* EngWordWidget */ = {
+			isa = PBXGroup;
+			children = (
+				A0C4CF8B29F5A7B700783E1B /* EngWordWidget.swift */,
+				A0C4CF8D29F5A7B900783E1B /* Assets.xcassets */,
+				A0C4CF8F29F5A7B900783E1B /* Info.plist */,
+			);
+			path = EngWordWidget;
+			sourceTree = "<group>";
+		};
 		A0D8646929DB72AE00942538 /* Launch */ = {
 			isa = PBXGroup;
 			children = (
@@ -595,6 +646,7 @@
 				A0E7F6D7299E9D3B00F63140 /* EngWord */,
 				A0E7F6F1299E9D3C00F63140 /* EngWordTests */,
 				A0E7F6FB299E9D3C00F63140 /* EngWordUITests */,
+				A0C4CF8A29F5A7B700783E1B /* EngWordWidget */,
 				A0E7F6D6299E9D3B00F63140 /* Products */,
 				36E53962FAEB8321158D0F99 /* Pods */,
 				ABAEC4232E4D47D3AB8221B8 /* Frameworks */,
@@ -607,6 +659,7 @@
 				A0E7F6D5299E9D3B00F63140 /* EngWord.app */,
 				A0E7F6EE299E9D3C00F63140 /* EngWordTests.xctest */,
 				A0E7F6F8299E9D3C00F63140 /* EngWordUITests.xctest */,
+				A0C4CF8529F5A7B700783E1B /* EngWordWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1022,6 +1075,8 @@
 				319A93D2CD1038853E960848 /* Pods_EngWord.framework */,
 				18B0CCAF6B5FB68F5FE87EC1 /* Pods_EngWord_EngWordUITests.framework */,
 				4B07553EE9F287B285A7FEBB /* Pods_EngWordTests.framework */,
+				A0C4CF8629F5A7B700783E1B /* WidgetKit.framework */,
+				A0C4CF8829F5A7B700783E1B /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1029,6 +1084,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		A0C4CF8429F5A7B700783E1B /* EngWordWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A0C4CF9329F5A7B900783E1B /* Build configuration list for PBXNativeTarget "EngWordWidgetExtension" */;
+			buildPhases = (
+				A0C4CF8129F5A7B700783E1B /* Sources */,
+				A0C4CF8229F5A7B700783E1B /* Frameworks */,
+				A0C4CF8329F5A7B700783E1B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EngWordWidgetExtension;
+			productName = EngWordWidgetExtension;
+			productReference = A0C4CF8529F5A7B700783E1B /* EngWordWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		A0E7F6D4299E9D3B00F63140 /* EngWord */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A0E7F702299E9D3C00F63140 /* Build configuration list for PBXNativeTarget "EngWord" */;
@@ -1040,10 +1112,12 @@
 				A0E7F6D3299E9D3B00F63140 /* Resources */,
 				F31546D38D1064FBBAF2FFA6 /* [CP] Embed Pods Frameworks */,
 				A0E7F7DC299E9F3200F63140 /* ShellScript */,
+				A0C4CF9629F5A7B900783E1B /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				A0C4CF9129F5A7B900783E1B /* PBXTargetDependency */,
 			);
 			name = EngWord;
 			productName = EngWord;
@@ -1096,9 +1170,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1420;
+				LastSwiftUpdateCheck = 1400;
 				LastUpgradeCheck = 1420;
 				TargetAttributes = {
+					A0C4CF8429F5A7B700783E1B = {
+						CreatedOnToolsVersion = 14.0.1;
+					};
 					A0E7F6D4299E9D3B00F63140 = {
 						CreatedOnToolsVersion = 14.2;
 					};
@@ -1129,11 +1206,20 @@
 				A0E7F6D4299E9D3B00F63140 /* EngWord */,
 				A0E7F6ED299E9D3C00F63140 /* EngWordTests */,
 				A0E7F6F7299E9D3C00F63140 /* EngWordUITests */,
+				A0C4CF8429F5A7B700783E1B /* EngWordWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		A0C4CF8329F5A7B700783E1B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A0C4CF8E29F5A7B900783E1B /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A0E7F6D3299E9D3B00F63140 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1332,6 +1418,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		A0C4CF8129F5A7B700783E1B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A0C4CF8C29F5A7B700783E1B /* EngWordWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A0E7F6D1299E9D3B00F63140 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1496,6 +1590,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		A0C4CF9129F5A7B900783E1B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A0C4CF8429F5A7B700783E1B /* EngWordWidgetExtension */;
+			targetProxy = A0C4CF9029F5A7B900783E1B /* PBXContainerItemProxy */;
+		};
 		A0E7F6F0299E9D3C00F63140 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = A0E7F6D4299E9D3B00F63140 /* EngWord */;
@@ -1537,6 +1636,64 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		A0C4CF9429F5A7B900783E1B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TR3J5S5CGX;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = EngWordWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = EngWordWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hieunguyen.EngWord.EngWordWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A0C4CF9529F5A7B900783E1B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TR3J5S5CGX;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = EngWordWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = EngWordWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hieunguyen.EngWord.EngWordWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		A0E7F700299E9D3C00F63140 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1655,6 +1812,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1FF35874575EF694B1773B1F /* Pods-EngWord.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -1687,6 +1845,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2931B2779DF76FE03ABE8DEA /* Pods-EngWord.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -1798,6 +1957,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A0C4CF9329F5A7B900783E1B /* Build configuration list for PBXNativeTarget "EngWordWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A0C4CF9429F5A7B900783E1B /* Debug */,
+				A0C4CF9529F5A7B900783E1B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A0E7F6D0299E9D3B00F63140 /* Build configuration list for PBXProject "EngWord" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
