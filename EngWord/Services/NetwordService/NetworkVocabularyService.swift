@@ -34,3 +34,8 @@ class NetworkVocabularyService: NetworkVocabularyProtocol {
         }
     }
 }
+
+class OxfordDictionaryService: NetworkVocabularyProtocol {
+
+    
+}

@@ -1,5 +1,6 @@
 import WidgetKit
 import SwiftUI
+import UIKit
 
 // MARK: - The Timeline Entry
 struct ViewSizeEntry: TimelineEntry {

@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol TopicInRoutineTableCellDelegate: AnyObject {
+
+    func topicInRoutineCell(_ view: TopicInRoutineTableCell, didTap startButton: ResponsiveButton)
+}
+
 class TopicInRoutineTableCell: BaseTableViewCell {
 
     @IBOutlet weak var titleLabel: UILabel!
@@ -17,10 +22,10 @@ class TopicInRoutineTableCell: BaseTableViewCell {
     @IBOutlet weak var percentLabel: UILabel!
     @IBOutlet weak var startTestingButton: ResponsiveButton!
 
-    var onTap: (() -> Void)?
+    weak var delegate: TopicInRoutineTableCellDelegate?
 
     @IBAction func startTestingOnTap(_ sender: ResponsiveButton) {
-        onTap?()
+        delegate?.topicInRoutineCell(self, didTap: sender)
     }
 
     override func awakeFromNib() {

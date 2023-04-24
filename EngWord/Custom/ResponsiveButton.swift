@@ -100,15 +100,11 @@ class ResponsiveButton: UIControl {
 
     @objc func buttonOnTap(_ gesture: Any) {
         let transAnimation = CABasicAnimation(keyPath: "transform.translation")
+        transAnimation.fromValue = NSValue(cgPoint: CGPoint(x: 0, y: 0))
         transAnimation.toValue = NSValue(cgPoint: CGPoint(x: 0, y: shadowOffset))
+        transAnimation.duration = 0.08
         transAnimation.delegate = self
-        let groupTransform = CAAnimationGroup()
-        groupTransform.duration = 0.08
-        groupTransform.beginTime = CACurrentMediaTime()
-        groupTransform.animations = [transAnimation]
-        groupTransform.isRemovedOnCompletion = false
-        cornerRadiusLayer?.add(groupTransform, forKey: "transform")
-        titleLabel?.layer.add(groupTransform, forKey: "transform")
+        layer.add(transAnimation, forKey: "transform")
     }
 
     override var intrinsicContentSize: CGSize {
@@ -145,7 +141,7 @@ class ResponsiveButton: UIControl {
 extension ResponsiveButton: CAAnimationDelegate {
     
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        guard flag else { return }
         sendActions(for: UIControl.Event.allTouchEvents)
-        sendActions(for: UIControl.Event.valueChanged)
     }
 }

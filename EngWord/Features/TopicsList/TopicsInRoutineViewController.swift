@@ -86,19 +86,21 @@ extension TopicsInRoutineViewController: UITableViewDataSource, UITableViewDeleg
         guard let cell = tableView.dequeueCell(TopicInRoutineTableCell.self, for: indexPath) else {
             return UITableViewCell()
         }
+
+        cell.delegate = self
         cell.setData(topic: topics[indexPath.row])
-        cell.onTap = {
-            self.delegate?.topicInRoutineView(
-                self,
-                didSelect: self.topics[indexPath.row],
-                at: indexPath.row
-            )
-        }
+        cell.tag = indexPath.row
         return cell
     }
+}
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        guard indexPath.row < topics.count else { return }
-//        delegate?.topicInRoutineView(self, didSelect: topics[indexPath.row], at: indexPath.row)
+extension TopicsInRoutineViewController: TopicInRoutineTableCellDelegate {
+
+    func topicInRoutineCell(_ view: TopicInRoutineTableCell, didTap startButton: ResponsiveButton) {
+        self.delegate?.topicInRoutineView(
+            self,
+            didSelect: self.topics[view.tag],
+            at: view.tag
+        )
     }
 }
