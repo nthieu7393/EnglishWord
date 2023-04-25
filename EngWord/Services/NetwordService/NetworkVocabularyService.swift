@@ -37,5 +37,21 @@ class NetworkVocabularyService: NetworkVocabularyProtocol {
 
 class OxfordDictionaryService: NetworkVocabularyProtocol {
 
+    let network = NetworkProvider<VocabularyRequest>()
     
+    func getDefination<T>(
+        term: String,
+        onComplete: @escaping (T?, Error?) -> Void) where T : Decodable {
+            network.load(
+                request: VocabularyRequest.oxford(term), decodeType: T.self) { result in
+                    switch result {
+                    case .success(let data):
+                        onComplete(data, nil)
+                    case .failure(let error):
+                        onComplete(nil, error)
+                    default:
+                        onComplete(nil, GeneralError.notDefined)
+                    }
+                }
+    }
 }

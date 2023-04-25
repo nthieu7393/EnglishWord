@@ -43,8 +43,11 @@ extension NetworkRequest {
             fatalError("URL could not be built")
         }
         var request = URLRequest(url: url)
-        request.addValue("687f879fd7mshc6f17304318d6b7p15771ajsnf6ef45c79755", forHTTPHeaderField: "X-RapidAPI-Key")
-        request.addValue("wordsapiv1.p.rapidapi.com", forHTTPHeaderField: "X-RapidAPI-Host")
+        headers?.forEach({ (key: String, value: String) in
+            request.addValue(value, forHTTPHeaderField: key)
+        })
+//        request.addValue("687f879fd7mshc6f17304318d6b7p15771ajsnf6ef45c79755", forHTTPHeaderField: "X-RapidAPI-Key")
+//        request.addValue("wordsapiv1.p.rapidapi.com", forHTTPHeaderField: "X-RapidAPI-Host")
         return request
     }
 }

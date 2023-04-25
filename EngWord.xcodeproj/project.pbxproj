@@ -59,6 +59,7 @@
 		A0A3447629F14C8B00987FE0 /* failed.json in Resources */ = {isa = PBXBuildFile; fileRef = A0A3447529F14C8B00987FE0 /* failed.json */; };
 		A0A3447829F1AEDA00987FE0 /* confetti-explode.json in Resources */ = {isa = PBXBuildFile; fileRef = A0A3447729F1AEDA00987FE0 /* confetti-explode.json */; };
 		A0A3447A29F1B02B00987FE0 /* confetti-with-fireworks.json in Resources */ = {isa = PBXBuildFile; fileRef = A0A3447929F1B02B00987FE0 /* confetti-with-fireworks.json */; };
+		A0ABC28E29F70B9B00381C30 /* OxfordWordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0ABC28D29F70B9B00381C30 /* OxfordWordItem.swift */; };
 		A0B5D38929BADAA500B81F79 /* PracticalResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B5D38829BADAA500B81F79 /* PracticalResultViewController.swift */; };
 		A0BE9D7E29E1DE6F00EEFA72 /* NoDataTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BE9D7C29E1DE6F00EEFA72 /* NoDataTableCell.swift */; };
 		A0BE9D7F29E1DE6F00EEFA72 /* NoDataTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0BE9D7D29E1DE6F00EEFA72 /* NoDataTableCell.xib */; };
@@ -289,6 +290,7 @@
 		A0A3447529F14C8B00987FE0 /* failed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = failed.json; sourceTree = "<group>"; };
 		A0A3447729F1AEDA00987FE0 /* confetti-explode.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "confetti-explode.json"; sourceTree = "<group>"; };
 		A0A3447929F1B02B00987FE0 /* confetti-with-fireworks.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "confetti-with-fireworks.json"; sourceTree = "<group>"; };
+		A0ABC28D29F70B9B00381C30 /* OxfordWordItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OxfordWordItem.swift; sourceTree = "<group>"; };
 		A0B5D38829BADAA500B81F79 /* PracticalResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticalResultViewController.swift; sourceTree = "<group>"; };
 		A0BE9D7C29E1DE6F00EEFA72 /* NoDataTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDataTableCell.swift; sourceTree = "<group>"; };
 		A0BE9D7D29E1DE6F00EEFA72 /* NoDataTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoDataTableCell.xib; sourceTree = "<group>"; };
@@ -727,6 +729,7 @@
 				A0E7F712299E9EB900F63140 /* TermModel.swift */,
 				A0E7F713299E9EB900F63140 /* FreeDictAPIWordItem.swift */,
 				A0E7F714299E9EB900F63140 /* WordsAPIWordItem.swift */,
+				A0ABC28D29F70B9B00381C30 /* OxfordWordItem.swift */,
 			);
 			path = WordModel;
 			sourceTree = "<group>";
@@ -1518,6 +1521,7 @@
 				A0E7F782299E9EBD00F63140 /* UIView+Extensions.swift in Sources */,
 				A0E7F798299E9EBD00F63140 /* StorageProtocol.swift in Sources */,
 				A0E7F7A2299E9EBD00F63140 /* Fonts.swift in Sources */,
+				A0ABC28E29F70B9B00381C30 /* OxfordWordItem.swift in Sources */,
 				A0E7F793299E9EBD00F63140 /* RealmVocabularyService.swift in Sources */,
 				A0E7F7AE299E9EBD00F63140 /* SignUpViewProtocol.swift in Sources */,
 				A0E7F816299EBA7F00F63140 /* NewFolderInputViewController.swift in Sources */,

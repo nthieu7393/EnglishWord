@@ -32,6 +32,9 @@ class HomePresenter: BasePresenter {
 
     func viewDidLoad() {
         calculateMenus(folders: folders)
+        ServiceInjector.dictionaryService.getDefination(term: "swimming", onComplete: { (result: OxfordWordItem?, error: Error?) in
+            print(result)
+        })
     }
 
     private func calculateMenus(folders: [SetTopicModel]) {

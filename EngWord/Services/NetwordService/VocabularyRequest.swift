@@ -12,6 +12,7 @@ enum VocabularyRequest {
     case wordsAPI(String)
     case googleTranslate
     case freeDic
+    case oxford(String)
 }
 
 extension VocabularyRequest: NetworkRequest {
@@ -24,6 +25,8 @@ extension VocabularyRequest: NetworkRequest {
             return ""
         case .freeDic:
             return ""
+        case .oxford:
+            return "https://od-api.oxforddictionaries.com"
         }
     }
     
@@ -35,6 +38,8 @@ extension VocabularyRequest: NetworkRequest {
             return ""
         case .freeDic:
             return ""
+        case .oxford:
+            return "/api/v2/words/en-gb"
         }
     }
     
@@ -42,18 +47,28 @@ extension VocabularyRequest: NetworkRequest {
         switch self {
         case .googleTranslate, .wordsAPI, .freeDic:
             return [:]
+        case .oxford(let word):
+            return ["q": word]
         }
     }
     
     var method: RequestMethod {
-        switch self {
-        case .wordsAPI, .googleTranslate, .freeDic: return .get
-        }
+        return .get
     }
     
     var headers: [String : String]? {
-        return [
-            "X-RapidAPI-Key": "687f879fd7mshc6f17304318d6b7p15771ajsnf6ef45c79755",
-            "X-RapidAPI-Host": "wordsapiv1.p.rapidapi.com"]
+        switch self {
+        case .wordsAPI:
+            return [
+                "X-RapidAPI-Key": "687f879fd7mshc6f17304318d6b7p15771ajsnf6ef45c79755",
+                "X-RapidAPI-Host": "wordsapiv1.p.rapidapi.com"]
+        case .oxford:
+            return [
+                "app_id": "23d5c6e7",
+                "app_key": "2cc7f4c4fdf686c440db103de02301d8"
+            ]
+        default:
+            return [:]
+        }
     }
 }

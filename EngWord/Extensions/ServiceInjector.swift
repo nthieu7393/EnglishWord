@@ -17,6 +17,7 @@ func registerServices() {
             authService: container.resolve(type: Authentication.self)))
     container.register(type: NetworkVocabularyProtocol.self, service: NetworkVocabularyService())
     container.register(type: Authentication.self, service: FirebaseAuthentication())
+    container.register(type: OxfordDictionaryService.self, service: OxfordDictionaryService())
 }
 
 var storage: StorageProtocol? = {
@@ -27,6 +28,10 @@ var vocabularyService: NetworkVocabularyProtocol? = {
     return container.resolve(type: NetworkVocabularyProtocol.self)
 }()
 
+var dictionaryService: NetworkVocabularyProtocol? = {
+    return container.resolve(type: OxfordDictionaryService.self)
+}()
+
 class ServiceInjector {
     
     static var authenticationService: Authentication = {
@@ -35,5 +40,9 @@ class ServiceInjector {
     
     static var storageService: StorageProtocol = {
         return container.resolve(type: StorageProtocol.self)!
+    }()
+    
+    static var dictionaryService: NetworkVocabularyProtocol = {
+        return container.resolve(type: OxfordDictionaryService.self)!
     }()
 }
