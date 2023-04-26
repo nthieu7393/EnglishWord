@@ -11,9 +11,11 @@ struct OxfordWordItem: Decodable {
     
     private var id = UUID().uuidString
     var word: String?
-    var pronunciation: [Pronunciation] = []
+    var pronunciation: Pronunciation?
     var examples: [Example] = []
     var definitions: [String] = []
+    var lexicalCategory: LexicalCategory?
+    
 
     struct Example: Decodable {
         var text: String
@@ -23,6 +25,15 @@ struct OxfordWordItem: Decodable {
         }
     }
 
+    struct LexicalCategory: Decodable {
+        var id: String
+        var text: String
+        
+        enum CodingKeys: String, CodingKey {
+            case id, text
+        }
+    }
+    
     struct Pronunciation: Decodable {
         var audioFile: String?
         var phoneticNotation: String?
@@ -79,102 +90,100 @@ struct OxfordWordItem: Decodable {
             var lexicalEntriesContainer = try resultContainer.nestedUnkeyedContainer(forKey: .lexicalEntries)
             while !lexicalEntriesContainer.isAtEnd {
                 var lexicalEntryContainer = try lexicalEntriesContainer.nestedContainer(keyedBy: LexicalEntriesKeys.self)
-//                let text = try lexicalEntryContainer.decode(String.self, forKey: .text)
-                let lexicalCategory = try lexicalEntryContainer.nestedContainer(keyedBy: LexicalCategoryKeys.self, forKey: .lexicalCategory)
-
-                let lexicalCategoryId = try lexicalCategory.decode(String.self, forKey: .id)
-                let lexicalCategoryText = try lexicalCategory.decode(String.self, forKey: .text)
-
+                
+                lexicalCategory = try lexicalEntryContainer.decode(LexicalCategory.self, forKey: .lexicalCategory)
+                
                 var entriesContainer = try lexicalEntryContainer.nestedUnkeyedContainer(forKey: .entries)
                 while !entriesContainer.isAtEnd {
                     var entryContainer = try entriesContainer.nestedContainer(keyedBy: EntriesKeys.self)
                     var pronunciationsContainer = try entryContainer.nestedUnkeyedContainer(forKey: .pronunciations)
                     var pronunciationContainer = try pronunciationsContainer.nestedContainer(keyedBy: PronunciationKeys.self)
+                    
                     let audioFile = try pronunciationContainer.decode(String.self, forKey: .audioFile)
-
+                    let phoneticNotation = try pronunciationContainer.decode(String.self, forKey: .phoneticNotation)
+                    let phoneticSpelling = try pronunciationContainer.decode(String.self, forKey: .phoneticSpelling)
+                    
+                    pronunciation = Pronunciation(
+                        audioFile: audioFile,
+                        phoneticNotation: phoneticNotation,
+                        phoneticSpelling: phoneticSpelling)
+                    
                     var sensesContainer = try entryContainer.nestedUnkeyedContainer(forKey: .senses)
                     if !sensesContainer.isAtEnd {
                         let senseContainer = try sensesContainer.nestedContainer(keyedBy: SensesKeys.self)
-                        var definitions = try senseContainer.nestedUnkeyedContainer(forKey: .definitions)
-                        let definition = try definitions.decode(String.self)
-
+                        var definitionsContainer = try senseContainer.nestedUnkeyedContainer(forKey: .definitions)
+                        
+                        let definition = try definitionsContainer.decode(String.self)
+                        definitions.append(definition)
+                    
                         examples = try senseContainer.decode([Example].self, forKey: .examples)
                     }
 
                 }
-                print(text)
             }
         }
+        print("")
     }
 }
 
-//extension OxfordWordItem: Card {
-//    var termDisplay: String {
-//        get {
-//            <#code#>
-//        }
-//        set {
-//            <#code#>
-//        }
-//    }
-//
-//    var idOfCard: String {
-//        get {
-//            <#code#>
-//        }
-//        set {
-//            <#code#>
-//        }
-//    }
-//
-//    var phoneticDisplay: String? {
-//        get {
-//            <#code#>
-//        }
-//        set {
-//            <#code#>
-//        }
-//    }
-//
-//    var partOfSpeechDisplay: String? {
-//        get {
-//            <#code#>
-//        }
-//        set {
-//            <#code#>
-//        }
-//    }
-//
-//    var listOfDefinition: [String] {
-//        <#code#>
-//    }
-//
-//    var listOfLexicalCategory: [PartOfSpeech]? {
-//        <#code#>
-//    }
-//
-//    var listOfExamples: [String]? {
-//        <#code#>
-//    }
-//
-//    var selectedDefinition: String? {
-//        get {
-//            <#code#>
-//        }
-//        set {
-//            <#code#>
-//        }
-//    }
-//
-//    var selectedExample: String? {
-//        get {
-//            <#code#>
-//        }
-//        set {
-//            <#code#>
-//        }
-//    }
-//
-//
-//
-//}
+extension OxfordWordItem: Card {
+
+    var termDisplay: String {
+        get { return word ?? "" }
+        set { word = newValue }
+    }
+
+    var idOfCard: String {
+        get { return id }
+        set { id = newValue }
+    }
+
+    var phoneticDisplay: String? {
+        get { pronunciation?.phoneticSpelling }
+        set {
+            
+        }
+    }
+
+    var partOfSpeechDisplay: String? {
+        get {
+            <#code#>
+        }
+        set {
+            <#code#>
+        }
+    }
+
+    var listOfDefinition: [String] {
+        return definitions
+    }
+
+    var listOfLexicalCategory: [PartOfSpeech]? {
+        return []
+    }
+
+    var listOfExamples: [String]? {
+        return examples.map { $0.text }
+    }
+
+    var selectedDefinition: String? {
+        get {
+            <#code#>
+        }
+        set {
+            <#code#>
+        }
+    }
+
+    var selectedExample: String? {
+        get {
+            <#code#>
+        }
+        set {
+            <#code#>
+        }
+    }
+
+
+
+}
