@@ -170,6 +170,14 @@ extension TermsViewController: TermsViewProtocol {
     func createNewTopicSuccess(topic: TopicModel, folder: SetTopicModel) {
         delegate?.termsView(self, add: topic, to: folder)
     }
+    
+    func enableNewTerm() {
+        newTermButton.isEnabled = true
+    }
+    
+    func disableNewTerm() {
+        newTermButton.isEnabled = false
+    }
 }
 
 extension TermsViewController: UITableViewDataSource {

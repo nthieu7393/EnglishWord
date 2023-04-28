@@ -99,6 +99,7 @@ class TermsPresenter: BasePresenter {
         at cell: TermTableCell,
         forceUpdateCardView: Bool
     ) {
+        view.disableNewTerm()
         searchDataOfCardDispatchWork?.cancel()
         guard !card.termDisplay.isEmpty else { return }
         if let index = cards?.firstIndex(where: { $0.idOfCard == card.idOfCard }),
@@ -106,6 +107,7 @@ class TermsPresenter: BasePresenter {
            card.termDisplay == cards?[index].termDisplay {
             if card.isEqual(card: cards?[index]) {
                 view.updateCell(card: card, at: index, needUpdateCardView: false)
+                view.enableNewTerm()
             } else {
                 updateCardList(card: card)
             }
@@ -154,9 +156,9 @@ class TermsPresenter: BasePresenter {
                         debugPrint("☠️: \(error.localizedDescription)")
                     } else if var wordItem = wordItem {
                         wordItem.idOfCard = card.idOfCard
+                        
                         if let audioUrl = URL(string: wordItem.pronunciation?.audioFile ?? "") {
                             self.storeAudioFile(url: audioUrl, card: wordItem) { filePath in
-
                                 DispatchQueue.main.async {
                                     wordItem.audioFilePath = filePath?.relativePath
                                     let ordinalNumber = self.updateCardList(card: wordItem)
@@ -164,6 +166,7 @@ class TermsPresenter: BasePresenter {
                                         card: wordItem,
                                         at: ordinalNumber ?? 0,
                                         needUpdateCardView: needUpdateCardView)
+                                    self.view.enableNewTerm()
                                 }
                             }
                         }
@@ -255,7 +258,8 @@ class TermsPresenter: BasePresenter {
                 definition: $0.selectedDefinition,
                 partOfSpeech: $0.partOfSpeechDisplay,
                 pronunciation: $0.phoneticDisplay,
-                phrases: $0.selectedExample
+                phrases: $0.selectedExample,
+                audioPath: $0.audioFilePath
             )
         })
         do {
@@ -300,7 +304,8 @@ class TermsPresenter: BasePresenter {
                         definition: $0.selectedDefinition,
                         partOfSpeech: $0.partOfSpeechDisplay,
                         pronunciation: $0.phoneticDisplay,
-                        phrases: $0.selectedExample
+                        phrases: $0.selectedExample,
+                        audioPath: $0.audioFilePath
                     )
                 })
                 _ = try await storageService.updateTopic(topic, folder: folder)

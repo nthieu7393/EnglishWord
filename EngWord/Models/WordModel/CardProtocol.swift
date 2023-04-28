@@ -30,7 +30,8 @@ extension Card {
             "part_of_speech": partOfSpeechDisplay ?? PartOfSpeech.none.rawValue,
             "phrases": selectedExample ?? "",
             "term": termDisplay,
-            "pronunciation": phoneticDisplay ?? ""
+            "pronunciation": phoneticDisplay ?? "",
+            "audioPath": audioFilePath ?? ""
         ]
     }
     

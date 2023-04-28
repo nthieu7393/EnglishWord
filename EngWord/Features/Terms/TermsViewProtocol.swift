@@ -21,4 +21,7 @@ protocol TermsViewProtocol: BaseViewProtocol {
     func disablePracticeButton()
     func saveUpdatedTopicSuccess(topic: TopicModel, folder: SetTopicModel)
     func createNewTopicSuccess(topic: TopicModel, folder: SetTopicModel)
+    func enableNewTerm()
+    func disableNewTerm()
 }
+ 

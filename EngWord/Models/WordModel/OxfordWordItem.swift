@@ -177,8 +177,8 @@ extension OxfordWordItem: Card {
         }
         set {
             lexicalCategory = LexicalCategory(
-                id: partOfSpeechDisplay?.lowercased() ?? "",
-                text: partOfSpeechDisplay ?? "")
+                id: newValue?.lowercased() ?? "",
+                text: newValue ?? "")
         }
     }
 

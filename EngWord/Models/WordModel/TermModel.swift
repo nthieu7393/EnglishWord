@@ -10,7 +10,10 @@ import FirebaseFirestoreSwift
 
 struct TermModel: Codable, Card {
 
-    var audioFilePath: String?
+    var audioFilePath: String? {
+        get { return audioPath }
+        set { audioPath = newValue }
+    }
 
     var idOfCard: String {
         get { return id ?? "" }
