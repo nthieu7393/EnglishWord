@@ -24,7 +24,6 @@ class MainCoordinator {
     }
 
     func start() {
-        //        guard let viewController = ViewController.instantiate() else { return }
         guard let viewController = LaunchViewController.instantiate() else { return }
         let presenter = LaunchPresenter(view: viewController, storageService: ServiceInjector.storageService)
         viewController.presenter = presenter
@@ -111,7 +110,7 @@ class MainCoordinator {
             storageService: FirebaseStorageService<TermModel>(
                 authService: FirebaseAuthentication()
             ),
-            networkVocabularyService: vocabularyService!
+            networkVocabularyService: ServiceInjector.dictionaryService
         )
         viewController.presenter = presenter
         viewController.coordinator = self
@@ -119,7 +118,7 @@ class MainCoordinator {
         navigationController.show(viewController, sender: nil)
     }
 
-    func dismissScreen(_ screen: UIViewController) {
+    func dismiss(by screen: UIViewController) {
         screen.dismiss(animated: true)
     }
 
@@ -211,7 +210,8 @@ class MainCoordinator {
         by screen: UIViewController,
         items: [SelectionMenuItem],
         selectedItem: SelectionMenuItem,
-        didSelect: ((SelectionMenuItem) -> Void)?
+        didSelect: ((SelectionMenuItem) -> Void)?,
+        didClose: (() -> Void)? = nil
     ) {
         guard let viewController = SortedByMenuViewController.instantiate() else {
             return
@@ -220,7 +220,13 @@ class MainCoordinator {
         viewController.allItems = items
         viewController.selectedItem = selectedItem
         viewController.didSelectSortedByItem = didSelect
+        viewController.didClose = didClose
         viewController.modalPresentationStyle = .overFullScreen
+        if didClose == nil {
+            viewController.didClose = {
+                screen.dismiss(animated: true)
+            }
+        }
         screen.present(viewController, animated: true)
     }
 }

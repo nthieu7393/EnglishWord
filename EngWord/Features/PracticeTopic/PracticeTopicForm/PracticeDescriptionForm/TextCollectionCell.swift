@@ -49,17 +49,22 @@ class TextCollectionCell: UICollectionViewCell {
         containerView.isHidden = false
         contentView.frame.size = containerView.bounds.size
         label.text = text
+        isPairedWithQuestion = false
     }
 
     func hideContentView() {
         label.isHidden = true
     }
 
-    func showContentView() {
+    func showAnswerLabel() {
         label.isHidden = false
     }
 
     func getTextOfCell() -> String {
         return label.text ?? ""
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
     }
 }

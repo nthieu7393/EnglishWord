@@ -9,9 +9,11 @@ import UIKit
 
 class SortedByMenuViewController: UIViewController, Storyboarded {
 
+    @IBOutlet weak var closeButton: TextButton!
     @IBOutlet weak var tableView: UITableView!
     
     var didSelectSortedByItem: ((any SelectionMenuItem) -> Void)?
+    var didClose: (() -> Void)?
 
     var allItems: [any SelectionMenuItem] = []
     var selectedItem: (any SelectionMenuItem)?
@@ -23,6 +25,11 @@ class SortedByMenuViewController: UIViewController, Storyboarded {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorColor = Colors.separatorLine
+        closeButton.title = "Dismiss"
+    }
+
+    @IBAction func closeButtonOnTap(_ sender: TextButton) {
+        didClose?()
     }
 }
 

@@ -56,6 +56,19 @@ class ResultPopupViewController: UIViewController, Storyboarded {
     }
 
     private func animationViews() {
+
+        if isPass {
+            let fireworkAnimation = Animation.named(Animations.confettiWithFireworks.name)
+            fireworkAnimationView = AnimationView(animation: fireworkAnimation)
+            fireworkAnimationView.frame = animationContainerView.bounds
+            animationContainerView.insertSubview(fireworkAnimationView, at: 0)
+
+            fireworkAnimationView.play()
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         let medalAnimation = Animation.named(isPass ? Animations.congratulation.name : Animations.crying.name)
         medalAnimationView = AnimationView(animation: medalAnimation)
         effectContainerView.backgroundColor = UIColor.clear
@@ -67,19 +80,7 @@ class ResultPopupViewController: UIViewController, Storyboarded {
             y: effectContainerView.bounds.height/2)
         effectContainerView.addSubview(medalAnimationView)
         medalAnimationView.play()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        if isPass {
-            let fireworkAnimation = Animation.named(Animations.confettiWithFireworks.name)
-            fireworkAnimationView = AnimationView(animation: fireworkAnimation)
-            fireworkAnimationView.frame = animationContainerView.bounds
-            animationContainerView.insertSubview(fireworkAnimationView, at: 0)
 
-            fireworkAnimationView.play()
-        }
     }
     
     @IBAction func detailsButtonOnTap(_ sender: ResponsiveButton) {

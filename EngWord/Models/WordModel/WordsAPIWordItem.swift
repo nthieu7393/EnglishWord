@@ -38,6 +38,7 @@ struct WordsApiWordItem: Card {
     var results: [Result]?
     private var result: Result?
     private var pronunciation: Pronunciation?
+    var audioFilePath: String?
     
     private var definition: String?
     private var lexicalCategory: PartOfSpeech?

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 protocol TermTableCellDelegate: AnyObject {
     
@@ -37,6 +38,26 @@ class TermTableCell: UITableViewCell {
     @IBOutlet private weak var recommendedDefinitionHeightConstraintConstant: NSLayoutConstraint!
     @IBOutlet private weak var recommendedExampleView: UIStackView!
     @IBOutlet private weak var recommendedExampleHeightConstraintConstant: NSLayoutConstraint!
+
+    @IBAction func pronunciationOnTap(_ sender: IconTextButton) {
+
+        playSound()
+    }
+
+    var player: AVAudioPlayer?
+    func playSound() {
+//        guard let path = try? Path.inLibrary("\(card?.idOfCard ?? "")") else {
+//            return }
+        let url = URL(fileURLWithPath: card?.audioFilePath ?? "")
+
+        do {
+            player = try AVAudioPlayer(contentsOf: url)
+            player?.play()
+
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
 
     private var tempHeightOfDefinition: CGFloat = 0
     private var tempHeightOfExample: CGFloat = 0
@@ -236,7 +257,7 @@ class TermTableCell: UITableViewCell {
         if !isEditingTermOfCard {
             termTextField.text = term.termDisplay
         }
-
+        
         becomeFirstResponserIfNeed(card: term)
     }
 

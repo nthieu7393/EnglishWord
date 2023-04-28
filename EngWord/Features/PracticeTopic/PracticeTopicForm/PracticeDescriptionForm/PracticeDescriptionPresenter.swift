@@ -8,17 +8,17 @@
 import Foundation
 
 class PracticeDescriptionPresenter: PracticeFormPresenter {
-
+    
     var view: (any PracticeFormView)!
     private var processingCardIndex: Int?
     private var allCards: [Card]!
     private var unseenCards: [any Card]!
-    private let numberOfCardsEachTurn = 2
+    private let numberOfCardsEachTurn = 4
     private var numberOfAnswers = 0
     private var answeredCards: [TurnResult] = []
-
+    
     var endTestHandler: ((String) -> Void)?
-
+    
     init(view: (any PracticeFormView), cards: [Card]) {
         self.view = view
         self.allCards = []
@@ -28,15 +28,16 @@ class PracticeDescriptionPresenter: PracticeFormPresenter {
             self.unseenCards = self.allCards
         }
     }
-
+    
     func getProcessingCard() -> (any Card)? {
         return nil
     }
-
+    
     func getCard(at index: Int) -> (any Card)? {
+        guard index < unseenCards.count else { return nil }
         return unseenCards?[index]
     }
-
+    
     func getUnseenCardsPerSession() -> [Card] {
         guard unseenCards.count >= numberOfCardsEachTurn else {
             return unseenCards
@@ -44,7 +45,7 @@ class PracticeDescriptionPresenter: PracticeFormPresenter {
         let cards = Array(unseenCards.prefix(numberOfCardsEachTurn))
         return Array(cards)
     }
-
+    
     func getPracticeCards() -> [Card] {
         return getUnseenCardsPerSession()
     }
@@ -74,15 +75,17 @@ class PracticeDescriptionPresenter: PracticeFormPresenter {
             if unseenCards.isEmpty {
                 endTestHandler?("")
             } else {
-                let isPass = checkResultOfTurnIsPass(answeredCards)
-                let text = isPass ? "Good" : "Not Good"
-                let msg = NSAttributedString(string: text, attributes: [
-                    NSAttributedString.Key.font: Fonts.boldText,
-                    NSAttributedString.Key.foregroundColor: Colors.mainText
-                ])
-//                view.showTurnResult(msg: msg, result: checkResultOfTurnIsPass(answeredCards) ? TurnResult.correct : TurnResult.incorrect,
-//                    quizResult: <#T##QuizResult#>)
+//                let isPass = checkResultOfTurnIsPass(answeredCards)
+//                let text = isPass ? "Good" : "Not Good"
+//                let msg = NSAttributedString(string: text, attributes: [
+//                    NSAttributedString.Key.font: Fonts.boldText,
+//                    NSAttributedString.Key.foregroundColor: Colors.mainText
+//                ])
+////                view.showTurnResult(msg: msg, result: checkResultOfTurnIsPass(answeredCards) ? TurnResult.correct : TurnResult.incorrect,
+////                    quizResult: <#T##QuizResult#>)
+//                numberOfAnswers = 0
                 numberOfAnswers = 0
+                view.moveToNextCard()
             }
         }
     }

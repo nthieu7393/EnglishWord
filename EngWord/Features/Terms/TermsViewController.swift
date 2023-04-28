@@ -296,7 +296,6 @@ extension TermsViewController: TermTableCellDelegate {
 
     func cardTableCell(_ cell: TermTableCell, didTapPartOfSpeech card: (Card)?) {
         guard let card = card else { return }
-//        coordinator?.presentPartOfSpeechMenuScreen(from: self, card: card, delegateScreen: self)
         let allPartOfSpeech: [SelectionMenuItem] = [
             PartOfSpeech.noun,
             PartOfSpeech.verb,
@@ -315,8 +314,12 @@ extension TermsViewController: TermTableCellDelegate {
                 let indexPath = IndexPath(row: index, section: 0)
                 let cell = self.tableView.cellForRow(at: indexPath) as? TermTableCell
                 cell?.setCard(term: mutatingCard, delegate: self)
-                self.coordinator?.dismissScreen(self)
-            })
+                self.coordinator?.dismiss(by: self)
+            },
+            didClose: {
+                self.coordinator?.dismiss(by: self)
+            }
+        )
     }
 
     func cardTableCell(_ cell: TermTableCell) {

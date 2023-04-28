@@ -111,7 +111,7 @@ class IconTextButton: UIControl {
         transAnimation.toValue = 0.95
         transAnimation.duration = 0.1
         transAnimation.delegate = self
-        view.layer.add(transAnimation, forKey: nil)
+        layer.add(transAnimation, forKey: nil)
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

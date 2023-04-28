@@ -131,7 +131,7 @@ extension FolderViewController: AllTopicsViewDelegate {
         _ view: AllTopicsViewProtocol,
         didTap createTopicButton: ResponsiveButton,
         folder: SetTopicModel) {
-        coordinator?.dismissScreen(self)
+        coordinator?.dismiss(by: self)
         coordinator?.presentTermsScreen(
             folder: folder,
             topic: TopicModel(name: ""),

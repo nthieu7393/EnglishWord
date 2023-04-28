@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 
 public class PhrasalVerbEntity: Object, Card {
-    
+
     @Persisted(primaryKey: true) private var id = UUID().uuidString
     @Persisted(indexed: true) var term: String
     @Persisted var derivatives = List<String>()
@@ -31,6 +31,8 @@ public class PhrasalVerbEntity: Object, Card {
         self.descriptions.append(objectsIn: descriptions)
         self.examples.append(objectsIn: examples)
     }
+
+    var audioFilePath: String?
 
     var idOfCard: String {
         get { return id }

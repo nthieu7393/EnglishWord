@@ -67,7 +67,7 @@ extension PracticeTopicViewController: PracticeTopicViewProtocol, Storyboarded {
     }
 
     func dismissScreen() {
-        coordinator?.dismissScreen(self)
+        coordinator?.dismiss(by: self)
     }
 
     func moveToNextRound(index: Int) {

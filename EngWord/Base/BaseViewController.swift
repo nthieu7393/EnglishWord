@@ -90,12 +90,12 @@ class BaseViewController: UIViewController {
         let iconButton = IconButton()
         iconButton.tintColor = Colors.active
         iconButton.icon = R.image.closeRoundIcon()?.withRenderingMode(.alwaysTemplate)
-        iconButton.addTarget(self, action: #selector(dismissScreen), for: .touchUpInside)
+        iconButton.addTarget(self, action: #selector(dismiss), for: .touchUpInside)
         return iconButton
     }()
 
     @objc private func dismissScreen() {
-        coordinator?.dismissScreen(self)
+        coordinator?.dismiss(by: self)
     }
 
     var forceHideDismissButton: Bool {

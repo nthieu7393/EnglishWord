@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol Card: Codable {
+protocol Card: Decodable {
     var termDisplay: String { get set }
     var idOfCard: String { get set }
     var phoneticDisplay: String? { get set }
@@ -15,6 +15,7 @@ protocol Card: Codable {
     var listOfDefinition: [String] { get }
     var listOfLexicalCategory: [PartOfSpeech]? { get }
     var listOfExamples: [String]? { get }
+    var audioFilePath: String? { get set }
 
     var selectedDefinition: String? { get set }
     var selectedExample: String? { get set }

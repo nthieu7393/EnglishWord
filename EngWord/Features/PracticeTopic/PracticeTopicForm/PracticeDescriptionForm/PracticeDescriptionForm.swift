@@ -59,19 +59,35 @@ class PracticeDescriptionForm: UIView, PracticeFormView {
     }
 
     func moveToNextCard() {
-        tableView.reloadData()
-        collectionView.reloadData()
+        let visibleTableCells = tableView.visibleCells
+        for cell in visibleTableCells {
+            UIView.animate(withDuration: 0.5, delay: 0.2) {
+                cell.alpha = 0.0
+                self.layoutIfNeeded()
+            }
+        }
+
+        let visibleCollectionCells = collectionView.visibleCells
+        for cell in visibleCollectionCells {
+            UIView.animate(withDuration: 0.5, delay: 0.2) {
+                cell.alpha = 0.0
+                self.layoutIfNeeded()
+            }
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(700), execute: {
+            self.tableView.reloadData()
+            self.collectionView.reloadData()
+        })
     }
 
     func showRoundResultPass() {
-       
+
     }
 
     func showRoundResultFail() {
 
     }
-    
-    
 }
 
 extension PracticeDescriptionForm: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -86,6 +102,8 @@ extension PracticeDescriptionForm: UICollectionViewDataSource, UICollectionViewD
         }
         cell.setTitle(text: presenter!.getAnswersOfCards()[indexPath.item])
         cell.delegate = self
+        cell.tag = indexPath.item
+        cell.showAnswerLabel()
         return cell
     }
 
@@ -97,9 +115,20 @@ extension PracticeDescriptionForm: UICollectionViewDataSource, UICollectionViewD
         return 8
     }
 
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        return CGSize(width: (tableView.bounds.width / 2) - 12, height: 40)
-//    }
+    func collectionView(
+        _ collectionView: UICollectionView,
+        willDisplay cell: UICollectionViewCell,
+        forItemAt indexPath: IndexPath) {
+            cell.transform = CGAffineTransform(
+                translationX: collectionView.bounds.width,
+                y: cell.frame.origin.y)
+            UIView.animate(
+                withDuration: 0.5,
+                delay: 0.3 * Double(indexPath.row),
+                options: [.curveEaseInOut]) {
+                    cell.transform = CGAffineTransform(translationX: 0, y: 0)
+                }
+        }
 }
 
 extension PracticeDescriptionForm: TextCollectionCellDelegate {
@@ -164,32 +193,39 @@ extension PracticeDescriptionForm: TextCollectionCellDelegate {
             case .cancelled:
                 break
             case .ended:
-                if let visibleCell = (tableView.visibleCells as? [TextTableCell])?.filter({ $0.isHover }).last {
-                    guard !visibleCell.alreadyAnswered else {
+                if let hoveredCell = (tableView.visibleCells as? [TextTableCell])?.filter({ $0.isHover }).last {
+                    guard !hoveredCell.alreadyAnswered else {
+                        self.backAnswerToPosition(of: cell)
                         return
                     }
-                    visibleCell.answer(text)
-
+                    hoveredCell.answer(text)
                     tableView.beginUpdates()
                     tableView.endUpdates()
+                    draggingView.subviews.forEach {
+                        $0.removeFromSuperview()
+                    }
                     draggingView.removeFromSuperview()
 
-                    presenter?.answer(visibleCell.card, answer: text)
+                    presenter?.answer(hoveredCell.card, answer: text)
                     cell.isPairedWithQuestion = true
                 } else {
-                    UIView.animate(withDuration: 0.3, delay: 0.0) {
-                        self.draggingView.center = CGPoint(x: self.originPosition.x, y: self.originPosition.y)
-                        self.layoutIfNeeded()
-                    } completion: { isFinish in
-                        cell.showContentView()
-                        guard isFinish else { return }
-                        self.draggingView.subviews.forEach {
-                            $0.removeFromSuperview()
-                        }
-                        self.draggingView.removeFromSuperview()
-                    }
+                    self.backAnswerToPosition(of: cell)
                 }
             default: break
+        }
+    }
+
+    private func backAnswerToPosition(of cell: TextCollectionCell) {
+        UIView.animate(withDuration: 0.3, delay: 0.0) {
+            self.draggingView.center = self.originPosition
+            self.layoutIfNeeded()
+        } completion: { isFinish in
+            cell.showAnswerLabel()
+            guard isFinish else { return }
+            self.draggingView.subviews.forEach {
+                $0.removeFromSuperview()
+            }
+            self.draggingView.removeFromSuperview()
         }
     }
 }
@@ -205,6 +241,7 @@ extension PracticeDescriptionForm: UITableViewDataSource, UITableViewDelegate {
             return UITableViewCell()
         }
         cell.setCard(card: presenter?.getCard(at: indexPath.row), indexPath: indexPath)
+        cell.tag = indexPath.row
         return cell
     }
 
@@ -216,7 +253,7 @@ extension PracticeDescriptionForm: UITableViewDataSource, UITableViewDelegate {
         cell.transform = CGAffineTransform(translationX: tableView.bounds.width, y: 0)
         UIView.animate(
             withDuration: 0.5,
-            delay: indexPath.row == 0 ? 0.3 : 0.5 * Double(indexPath.row),
+            delay: 0.3 * Double(indexPath.row),
             options: [.curveEaseInOut]) {
                 cell.transform = CGAffineTransform(translationX: 0, y: 0)
             }

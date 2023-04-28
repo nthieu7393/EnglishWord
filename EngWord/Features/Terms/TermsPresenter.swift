@@ -51,17 +51,17 @@ class TermsPresenter: BasePresenter {
             extension: "json")
         realmVocabularyService = RealmVocabularyService(realm: RealmProvider.phrasalVerbs.realm!)
         
-//        let verbs: [PhrasalVerbWordItem]? = ((try? phrasalVerbsFileProvider?.loadData()) as? PhrasalVerbList)?.list
-//        let verbEntities = verbs?.compactMap({
-//            return PhrasalVerbEntity(
-//                term: $0.word,
-//                derivatives: $0.derivatives ?? [],
-//                descriptions: $0.descriptions ?? [],
-//                examples: $0.examples ?? []
-//            )
-//        })
-//        self.realmVocabularyService.saveMany(items: verbEntities ?? []) { _, _ in
-//        }
+        //        let verbs: [PhrasalVerbWordItem]? = ((try? phrasalVerbsFileProvider?.loadData()) as? PhrasalVerbList)?.list
+        //        let verbEntities = verbs?.compactMap({
+        //            return PhrasalVerbEntity(
+        //                term: $0.word,
+        //                derivatives: $0.derivatives ?? [],
+        //                descriptions: $0.descriptions ?? [],
+        //                examples: $0.examples ?? []
+        //            )
+        //        })
+        //        self.realmVocabularyService.saveMany(items: verbEntities ?? []) { _, _ in
+        //        }
         cards = []
         view.dismissLoadingIndicator()
     }
@@ -143,27 +143,65 @@ class TermsPresenter: BasePresenter {
     }
     
     func getDataOfWord(card: any Card, cell: TermTableCell, needUpdateCardView: Bool) {
-        print("😀: \(card.termDisplay)")
+        debugPrint("💩💩💩💩: get data of word: \(card.termDisplay)")
         networkVocabularySerivce.getDefination(
-            term: card.termDisplay) { [weak self] (wordItem: WordsApiWordItem?, error: Error?) in
+            term: card.termDisplay,
+            onComplete: {[weak self] (wordItem: OxfordWordItem?, error: Error?) in
                 guard let self = self else { return }
+                debugPrint("💩💩💩💩: get data of word: \(wordItem?.lexicalCategory)")
                 DispatchQueue.main.async {
                     if let error = error {
                         debugPrint("☠️: \(error.localizedDescription)")
                     } else if var wordItem = wordItem {
                         wordItem.idOfCard = card.idOfCard
-//                        wordItem.selectedExample = card.selectedExample
-//                        wordItem.selectedDefinition = card.selectedDefinition
-                        let ordinalNumber = self.updateCardList(card: wordItem)
-                        self.view.updateCell(
-                            card: wordItem,
-                            at: ordinalNumber ?? 0,
-                            needUpdateCardView: needUpdateCardView)
+                        if let audioUrl = URL(string: wordItem.pronunciation?.audioFile ?? "") {
+                            self.storeAudioFile(url: audioUrl, card: wordItem) { filePath in
+
+                                DispatchQueue.main.async {
+                                    wordItem.audioFilePath = filePath?.relativePath
+                                    let ordinalNumber = self.updateCardList(card: wordItem)
+                                    self.view.updateCell(
+                                        card: wordItem,
+                                        at: ordinalNumber ?? 0,
+                                        needUpdateCardView: needUpdateCardView)
+                                }
+                            }
+                        }
                     }
                 }
-            }
+            })
     }
-    
+
+    private func storeAudioFile(url: URL, card: Card, completionHandler: @escaping ((URL?) -> Void)) {
+        var mutatingCard = card
+        let session = URLSession(configuration: .default)
+        let request = URLRequest(url: url)
+        let downloadTask = session.downloadTask(with: request) { localUrl, _, error in
+            guard let localUrl = localUrl else { return }
+            guard error == nil else { return }
+            do {
+                let fileManager = FileManager.default
+                let documentsURL = try fileManager.url(
+                    for: .documentDirectory,
+                    in: .userDomainMask,
+                    appropriateFor: nil,
+                    create: false
+                )
+                let savedURL = documentsURL.appendingPathComponent("\(card.idOfCard).mp3")
+                guard !fileManager.fileExists(atPath: savedURL.relativePath) else {
+                    completionHandler(savedURL)
+                    return
+                }
+                try fileManager.moveItem(at: localUrl, to: savedURL)
+                completionHandler(savedURL)
+                print("File downloaded and saved to: \(savedURL)")
+            } catch {
+                print("Error saving file: \(error.localizedDescription)")
+            }
+        }
+        downloadTask.resume()
+    }
+
     func addNewCard() {
         cards?.insert(WordsApiWordItem(), at: 0)
         view.addNewCard()
@@ -315,3 +353,13 @@ class TermsPresenter: BasePresenter {
         view.reviewCard(card: card)
     }
 }
+
+//extension TermsPresenter: URLSessionDelegate {
+//
+//    func urlSession(
+//        _ session: URLSession,
+//        downloadTask: URLSessionDownloadTask,
+//        didFinishDownloadingTo location: URL) {
+//
+//    }
+//}

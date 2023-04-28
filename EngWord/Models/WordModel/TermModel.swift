@@ -10,6 +10,8 @@ import FirebaseFirestoreSwift
 
 struct TermModel: Codable, Card {
 
+    var audioFilePath: String?
+
     var idOfCard: String {
         get { return id ?? "" }
         set { id = newValue }
@@ -63,6 +65,7 @@ struct TermModel: Codable, Card {
     var partOfSpeech: String?
     var pronunciation: String?
     var phrases: String?
+    var audioPath: String?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -71,6 +74,7 @@ struct TermModel: Codable, Card {
         case partOfSpeech = "part_of_speech"
         case pronunciation
         case phrases
+        case audioPath
     }
 
 //    var toJson: [String: Any] {

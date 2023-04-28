@@ -72,6 +72,11 @@ struct PhrasalVerbWordItem: Decodable {
 }
 
 extension PhrasalVerbWordItem: Card {
+    var audioFilePath: String? {
+        get { return nil }
+        set { }
+    }
+
 
     var partOfSpeechDisplay: String? {
         get { return nil }
