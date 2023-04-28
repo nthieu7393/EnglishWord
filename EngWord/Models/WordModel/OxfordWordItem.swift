@@ -15,10 +15,9 @@ struct OxfordWordItem: Decodable {
     var examples: [Example] = []
     var definitions: [String] = []
     var lexicalCategory: LexicalCategory?
-    private var audioPath: String?
-
     private var definition: String?
     private var example: String?
+    private let fileManager = FileManager.default
 
     struct Example: Decodable {
         var text: String
@@ -84,75 +83,68 @@ struct OxfordWordItem: Decodable {
 
     init(from decoder: Decoder) throws {
         
-            let container = try decoder.container(keyedBy: RootKeys.self)
-            word = try container.decodeIfPresent(String.self, forKey: .query) ?? ""
-            var resultsContainer = try container.nestedUnkeyedContainer(forKey: .results)
+        let container = try decoder.container(keyedBy: RootKeys.self)
+        word = try container.decodeIfPresent(String.self, forKey: .query) ?? ""
+        var resultsContainer = try container.nestedUnkeyedContainer(forKey: .results)
 
-            while !resultsContainer.isAtEnd {
-                let resultContainer = try resultsContainer.nestedContainer(keyedBy: ResultsKeys.self)
-    //            let language = try resultContainer.decode(String.self, forKey: .language)
-    //            let id = try resultContainer.decode(String.self, forKey: .id)
+        while !resultsContainer.isAtEnd {
+            let resultContainer = try resultsContainer.nestedContainer(keyedBy: ResultsKeys.self)
+            //            let language = try resultContainer.decode(String.self, forKey: .language)
+            //            let id = try resultContainer.decode(String.self, forKey: .id)
 
-                var lexicalEntriesContainer = try resultContainer.nestedUnkeyedContainer(forKey: .lexicalEntries)
-                while !lexicalEntriesContainer.isAtEnd {
-                    let lexicalEntryContainer = try lexicalEntriesContainer.nestedContainer(keyedBy: LexicalEntriesKeys.self)
+            var lexicalEntriesContainer = try resultContainer.nestedUnkeyedContainer(forKey: .lexicalEntries)
+            while !lexicalEntriesContainer.isAtEnd {
+                let lexicalEntryContainer = try lexicalEntriesContainer.nestedContainer(keyedBy: LexicalEntriesKeys.self)
 
-                    if lexicalCategory == nil {
-                        lexicalCategory = try lexicalEntryContainer.decode(LexicalCategory.self, forKey: .lexicalCategory)
+                if lexicalCategory == nil {
+                    lexicalCategory = try lexicalEntryContainer.decode(LexicalCategory.self, forKey: .lexicalCategory)
+                }
+
+                var entriesContainer = try lexicalEntryContainer.nestedUnkeyedContainer(forKey: .entries)
+                while !entriesContainer.isAtEnd {
+                    let entryContainer = try entriesContainer.nestedContainer(keyedBy: EntriesKeys.self)
+                    if entryContainer.contains(.pronunciations) {
+                        var pronunciationsContainer = try entryContainer.nestedUnkeyedContainer(forKey: .pronunciations)
+                        let pronunciationContainer = try pronunciationsContainer.nestedContainer(keyedBy: PronunciationKeys.self)
+                        let audioFile = try pronunciationContainer.decode(String.self, forKey: .audioFile)
+                        let phoneticNotation = try pronunciationContainer.decode(String.self, forKey: .phoneticNotation)
+                        let phoneticSpelling = try pronunciationContainer.decode(String.self, forKey: .phoneticSpelling)
+
+                        pronunciation = Pronunciation(
+                            audioFile: audioFile,
+                            phoneticNotation: phoneticNotation,
+                            phoneticSpelling: phoneticSpelling)
                     }
 
-                    var entriesContainer = try lexicalEntryContainer.nestedUnkeyedContainer(forKey: .entries)
-                    while !entriesContainer.isAtEnd {
-                        let entryContainer = try entriesContainer.nestedContainer(keyedBy: EntriesKeys.self)
-                        if entryContainer.contains(.pronunciations) {
-                            var pronunciationsContainer = try entryContainer.nestedUnkeyedContainer(forKey: .pronunciations)
-                            let pronunciationContainer = try pronunciationsContainer.nestedContainer(keyedBy: PronunciationKeys.self)
-                            let audioFile = try pronunciationContainer.decode(String.self, forKey: .audioFile)
-                            let phoneticNotation = try pronunciationContainer.decode(String.self, forKey: .phoneticNotation)
-                            let phoneticSpelling = try pronunciationContainer.decode(String.self, forKey: .phoneticSpelling)
+                    if entryContainer.contains(.senses) {
+                        var sensesContainer = try entryContainer.nestedUnkeyedContainer(forKey: .senses)
+                        if !sensesContainer.isAtEnd {
+                            let senseContainer = try sensesContainer.nestedContainer(keyedBy: SensesKeys.self)
 
-                            pronunciation = Pronunciation(
-                                audioFile: audioFile,
-                                phoneticNotation: phoneticNotation,
-                                phoneticSpelling: phoneticSpelling)
-                        }
+                            if senseContainer.contains(.definitions) {
+                                var definitionsContainer = try senseContainer.nestedUnkeyedContainer(forKey: .definitions)
 
-                        if entryContainer.contains(.senses) {
-                            var sensesContainer = try entryContainer.nestedUnkeyedContainer(forKey: .senses)
-                            if !sensesContainer.isAtEnd {
-                                let senseContainer = try sensesContainer.nestedContainer(keyedBy: SensesKeys.self)
-
-                                if senseContainer.contains(.definitions) {
-                                    var definitionsContainer = try senseContainer.nestedUnkeyedContainer(forKey: .definitions)
-
-                                    let definition = try definitionsContainer.decode(String.self)
-                                    definitions.append(definition)
-                                }
-
-                                if senseContainer.contains(.examples) {
-                                    examples.append(contentsOf: try senseContainer.decode([Example].self, forKey: .examples))
-                                }
-
+                                let definition = try definitionsContainer.decode(String.self)
+                                definitions.append(definition)
                             }
+
+                            if senseContainer.contains(.examples) {
+                                examples.append(contentsOf: try senseContainer.decode([Example].self, forKey: .examples))
+                            }
+
                         }
                     }
                 }
             }
-
+        }
     }
 }
 
 extension OxfordWordItem: Card {
 
     var audioFilePath: String? {
-        get {
-            return audioPath
-        }
-        set {
-            audioPath = newValue
-        }
+        return try? Path.inLibrary(audioFileName).relativePath
     }
-
 
     var termDisplay: String {
         get { return word ?? "" }
@@ -165,15 +157,11 @@ extension OxfordWordItem: Card {
     }
 
     var phoneticDisplay: String? {
-        get { return pronunciation?.phoneticSpelling }
-        set {
-            
-        }
+        return pronunciation?.phoneticSpelling
     }
 
     var partOfSpeechDisplay: String? {
-        get {
-            return lexicalCategory?.id.lowercased()
+        get { return lexicalCategory?.id.lowercased()
         }
         set {
             lexicalCategory = LexicalCategory(
@@ -202,5 +190,10 @@ extension OxfordWordItem: Card {
     var selectedExample: String? {
         get { return example ?? listOfExamples?.first }
         set { example = newValue }
+    }
+
+    var isAudioFileExists: Bool {
+        let url = try? Path.inLibrary(audioFileName)
+        return FileManager.default.fileExists(atPath: url?.relativePath ?? "")
     }
 }

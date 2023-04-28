@@ -19,7 +19,7 @@ protocol TermTableCellDelegate: AnyObject {
         didUpdate card: any Card,
         forceUpdateUI: Bool,
         loadRecommendation: Bool)
-//    func cardTableCell(_ cell: TermTableCell)
+    func cardTableCell(_ cell: TermTableCell, playAudio card: Card)
 }
 
 class TermTableCell: UITableViewCell {
@@ -40,23 +40,13 @@ class TermTableCell: UITableViewCell {
     @IBOutlet private weak var recommendedExampleHeightConstraintConstant: NSLayoutConstraint!
 
     @IBAction func pronunciationOnTap(_ sender: IconTextButton) {
-
         playSound()
     }
 
     var player: AVAudioPlayer?
+
     func playSound() {
-//        guard let path = try? Path.inLibrary("\(card?.idOfCard ?? "")") else {
-//            return }
-        let url = URL(fileURLWithPath: card?.audioFilePath ?? "")
-
-        do {
-            player = try AVAudioPlayer(contentsOf: url)
-            player?.play()
-
-        } catch let error {
-            print(error.localizedDescription)
-        }
+        delegate?.cardTableCell(self, playAudio: card!)
     }
 
     private var tempHeightOfDefinition: CGFloat = 0

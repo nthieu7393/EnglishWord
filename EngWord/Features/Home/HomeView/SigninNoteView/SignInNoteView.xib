@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -15,13 +16,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="DxW-v6-e4V">
-                    <rect key="frame" x="4" y="4" width="382" height="223"/>
+                    <rect key="frame" x="4" y="4" width="382" height="189"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9va-fN-uN8">
-                            <rect key="frame" x="0.0" y="0.0" width="382" height="130.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="382" height="96.5"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="H0x-W8-96F">
-                                    <rect key="frame" x="0.0" y="48" width="197" height="35"/>
+                                    <rect key="frame" x="0.0" y="31" width="197" height="35"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QB2-YZ-x9i">
                                             <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
@@ -46,7 +47,7 @@
                                     </connections>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="mkP-E8-VFA">
-                                    <rect key="frame" x="197" y="45.5" width="185" height="40"/>
+                                    <rect key="frame" x="197" y="28.5" width="185" height="40"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="w9y-Ui-luw" customClass="ResponsiveButton" customModule="EngWord" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="88.5" height="40"/>
@@ -55,14 +56,14 @@
                                                 <constraint firstAttribute="height" constant="40" id="XU4-3N-GRI"/>
                                             </constraints>
                                             <connections>
-                                                <action selector="signInButtonDidTouch:" destination="-1" eventType="valueChanged" id="GHE-hS-rGE"/>
+                                                <action selector="signInButtonDidTouch:" destination="-1" eventType="touchUpInside" id="VRM-ET-d8V"/>
                                             </connections>
                                         </view>
                                         <view contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="zon-YS-DUb" customClass="ResponsiveButton" customModule="EngWord" customModuleProvider="target">
                                             <rect key="frame" x="96.5" y="0.0" width="88.5" height="40"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             <connections>
-                                                <action selector="signUpButtonDidTouch:" destination="-1" eventType="valueChanged" id="Typ-Ja-Gg1"/>
+                                                <action selector="signUpButtonDidTouch:" destination="-1" eventType="touchUpInside" id="b9o-hm-UCY"/>
                                             </connections>
                                         </view>
                                     </subviews>
@@ -71,7 +72,7 @@
                             <gestureRecognizers/>
                         </stackView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jil-F4-SEE">
-                            <rect key="frame" x="0.0" y="154.5" width="382" height="68.5"/>
+                            <rect key="frame" x="0.0" y="120.5" width="382" height="68.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="21R-bH-ULi">
                                     <rect key="frame" x="20" y="24" width="342" height="28.5"/>

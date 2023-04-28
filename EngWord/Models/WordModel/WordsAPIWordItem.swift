@@ -130,4 +130,12 @@ struct WordsApiWordItem: Card {
             partOfSpeech = PartOfSpeech(rawValue: newValue ?? "")
         }
     }
+
+    var isAudioFileExists: Bool {
+        get { return false }
+    }
+
+    var audioFileName: String {
+        return ""
+    }
 }

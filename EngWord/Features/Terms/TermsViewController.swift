@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 protocol TermsViewDelegate: AnyObject {
 
@@ -252,6 +253,10 @@ extension TermsViewController: TermActivitiesCellDelegate {
 }
 
 extension TermsViewController: TermTableCellDelegate {
+
+    func cardTableCell(_ cell: TermTableCell, playAudio card: Card) {
+        termsPresenter.playAudio(card: card)
+    }
 
     func cardTableCell(_ cell: TermTableCell, didUpdate card: Card) {
         heightOfRowCache.removeAll()

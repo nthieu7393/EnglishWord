@@ -77,7 +77,6 @@ extension PhrasalVerbWordItem: Card {
         set { }
     }
 
-
     var partOfSpeechDisplay: String? {
         get { return nil }
         set {}
@@ -120,5 +119,13 @@ extension PhrasalVerbWordItem: Card {
     var phoneticDisplay: String? {
         get { return nil }
         set { }
+    }
+
+    var isAudioFileExists: Bool {
+        get { return false }
+    }
+
+    var audioFileName: String {
+        return ""
     }
 }

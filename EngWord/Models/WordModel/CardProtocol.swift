@@ -10,15 +10,17 @@ import Foundation
 protocol Card: Decodable {
     var termDisplay: String { get set }
     var idOfCard: String { get set }
-    var phoneticDisplay: String? { get set }
+    var phoneticDisplay: String? { get }
     var partOfSpeechDisplay: String? { get set }
     var listOfDefinition: [String] { get }
     var listOfLexicalCategory: [PartOfSpeech]? { get }
     var listOfExamples: [String]? { get }
-    var audioFilePath: String? { get set }
+    var audioFilePath: String? { get }
 
     var selectedDefinition: String? { get set }
     var selectedExample: String? { get set }
+    var isAudioFileExists: Bool { get }
+    var audioFileName: String { get }
 }
 
 extension Card {
@@ -42,6 +44,16 @@ extension Card {
 
     var hasRecommendedData: Bool {
         return !(listOfExamples ?? []).isEmpty && !listOfDefinition.isEmpty
+    }
+
+    var audioFileName: String {
+        return "\(termDisplay).mp3"
+    }
+
+    func removeAudioFile() {
+        guard let path = audioFilePath,
+                isAudioFileExists else { return }
+        try? FileManager.default.removeItem(atPath: path)
     }
 
     func isEqual(card: (any Card)?) -> Bool {

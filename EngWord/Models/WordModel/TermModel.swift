@@ -10,9 +10,12 @@ import FirebaseFirestoreSwift
 
 struct TermModel: Codable, Card {
 
+    var isAudioFileExists: Bool {
+        return FileManager.default.fileExists(atPath: audioFilePath ?? "")
+    }
+
     var audioFilePath: String? {
-        get { return audioPath }
-        set { audioPath = newValue }
+        return try? Path.inLibrary(audioFileName).relativePath
     }
 
     var idOfCard: String {
@@ -68,7 +71,6 @@ struct TermModel: Codable, Card {
     var partOfSpeech: String?
     var pronunciation: String?
     var phrases: String?
-    var audioPath: String?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -77,23 +79,22 @@ struct TermModel: Codable, Card {
         case partOfSpeech = "part_of_speech"
         case pronunciation
         case phrases
-        case audioPath
     }
 
-//    var toJson: [String: Any] {
-//        return [
-//            "term": term ?? "",
-//            "definitions": definitions ?? "",
-//            "lexical_category": lexicalCategory ?? "",
-//            "phrases": phrases ?? ""
-//        ]
-//    }
+    //    var toJson: [String: Any] {
+    //        return [
+    //            "term": term ?? "",
+    //            "definitions": definitions ?? "",
+    //            "lexical_category": lexicalCategory ?? "",
+    //            "phrases": phrases ?? ""
+    //        ]
+    //    }
     
-//    func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(term, forKey: .term)
-//        try container.encode(definition, forKey: .definition)
-//        try container.encode(lexicalCategory, forKey: .lexicalCategory)
-//        try container.encode(phrases, forKey: .phrases)
-//    }
+    //    func encode(to encoder: Encoder) throws {
+    //        var container = encoder.container(keyedBy: CodingKeys.self)
+    //        try container.encode(term, forKey: .term)
+    //        try container.encode(definition, forKey: .definition)
+    //        try container.encode(lexicalCategory, forKey: .lexicalCategory)
+    //        try container.encode(phrases, forKey: .phrases)
+    //    }
 }

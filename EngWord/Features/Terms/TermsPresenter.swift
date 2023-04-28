@@ -7,22 +7,26 @@
 
 import Foundation
 import RealmSwift
+import AVFAudio
 
 class TermsPresenter: BasePresenter {
     private let storageService: StorageProtocol
     private let networkVocabularySerivce: NetworkVocabularyProtocol
-    private let realmVocabularyService: RealmVocabularyService<PhrasalVerbEntity>
+//    private let realmVocabularyService: RealmVocabularyService<PhrasalVerbEntity>
     private var phrasalVerbsFileProvider: (any FileDataProvider)?
     private var dispathQueue = DispatchQueue(
         label: "concurrentQueue",
         attributes: .concurrent)
-    var searchDataOfCardDispatchWork: DispatchWorkItem!
+    var searchMeaningOfCarddDispatchWork: DispatchWorkItem!
 
     private var topic: TopicModel
     private var folder: SetTopicModel
     private var cards: [any Card]? = []
     private let view: TermsViewProtocol
-    
+    private let fileManager = FileManager.default
+    private var pronunciationPlayer: AVAudioPlayer?
+    private var removedCards: [Card] = []
+
     func getTopic() -> TopicModel {
         return topic
     }
@@ -49,7 +53,7 @@ class TermsPresenter: BasePresenter {
         phrasalVerbsFileProvider = BundleFileDataProvider<PhrasalVerbList>(
             fileName: "phrasal-verbs",
             extension: "json")
-        realmVocabularyService = RealmVocabularyService(realm: RealmProvider.phrasalVerbs.realm!)
+//        realmVocabularyService = RealmVocabularyService(realm: RealmProvider.phrasalVerbs.realm!)
         
         //        let verbs: [PhrasalVerbWordItem]? = ((try? phrasalVerbsFileProvider?.loadData()) as? PhrasalVerbList)?.list
         //        let verbEntities = verbs?.compactMap({
@@ -64,6 +68,18 @@ class TermsPresenter: BasePresenter {
         //        }
         cards = []
         view.dismissLoadingIndicator()
+    }
+
+    func playAudio(card: Card) {
+        if card.isAudioFileExists,
+            let url = URL(string: card.audioFilePath ?? "") {
+            do {
+                pronunciationPlayer = try AVAudioPlayer(contentsOf: url)
+                pronunciationPlayer?.play()
+            } catch {
+                debugPrint(error.localizedDescription)
+            }
+        }
     }
 
     func loadData() {
@@ -100,7 +116,7 @@ class TermsPresenter: BasePresenter {
         forceUpdateCardView: Bool
     ) {
         view.disableNewTerm()
-        searchDataOfCardDispatchWork?.cancel()
+        searchMeaningOfCarddDispatchWork?.cancel()
         guard !card.termDisplay.isEmpty else { return }
         if let index = cards?.firstIndex(where: { $0.idOfCard == card.idOfCard }),
            card.hasRecommendedData,
@@ -114,9 +130,9 @@ class TermsPresenter: BasePresenter {
             return
         }
 
-        searchDataOfCardDispatchWork = DispatchWorkItem(block: {
+        searchMeaningOfCarddDispatchWork = DispatchWorkItem(block: {
             if card.termDisplay.components(separatedBy: " ").count == 1 {
-                self.getDataOfWord(
+                self.getDataOfSingleWord(
                     card: card,
                     cell: cell,
                     needUpdateCardView: forceUpdateCardView
@@ -128,76 +144,83 @@ class TermsPresenter: BasePresenter {
 
         dispathQueue.asyncAfter(
             deadline: .now() + 1,
-            execute: searchDataOfCardDispatchWork
+            execute: searchMeaningOfCarddDispatchWork
         )
     }
     
-    func getDataOfPhrasalVerbs(card: any Card, cell: TermTableCell, needUpdateCardView: Bool) {
-        DispatchQueue.main.async {
-            let result = self.realmVocabularyService.object(
-                type: PhrasalVerbEntity.self,
-                predicateFormat: "term == %@",
-                args: card.termDisplay
-            )
-            guard let phrasalVerb = result?.first else { return }
-            let index = self.updateCardList(card: phrasalVerb)
-        }
-    }
-    
-    func getDataOfWord(card: any Card, cell: TermTableCell, needUpdateCardView: Bool) {
+    func getDataOfSingleWord(card: any Card, cell: TermTableCell, needUpdateCardView: Bool) {
         debugPrint("💩💩💩💩: get data of word: \(card.termDisplay)")
         networkVocabularySerivce.getDefination(
             term: card.termDisplay,
             onComplete: {[weak self] (wordItem: OxfordWordItem?, error: Error?) in
                 guard let self = self else { return }
-                debugPrint("💩💩💩💩: get data of word: \(wordItem?.lexicalCategory)")
-                DispatchQueue.main.async {
-                    if let error = error {
-                        debugPrint("☠️: \(error.localizedDescription)")
-                    } else if var wordItem = wordItem {
-                        wordItem.idOfCard = card.idOfCard
-                        
-                        if let audioUrl = URL(string: wordItem.pronunciation?.audioFile ?? "") {
-                            self.storeAudioFile(url: audioUrl, card: wordItem) { filePath in
-                                DispatchQueue.main.async {
-                                    wordItem.audioFilePath = filePath?.relativePath
-                                    let ordinalNumber = self.updateCardList(card: wordItem)
-                                    self.view.updateCell(
-                                        card: wordItem,
-                                        at: ordinalNumber ?? 0,
-                                        needUpdateCardView: needUpdateCardView)
-                                    self.view.enableNewTerm()
-                                }
-                            }
+                if let error = error {
+                    debugPrint("☠️: \(error.localizedDescription)")
+                } else if var wordItem = wordItem {
+                    wordItem.idOfCard = card.idOfCard
+                    // Download Audio
+                    if !wordItem.isAudioFileExists {
+                        self.downloadAudioPronunciation(
+                            url: URL(string: wordItem.pronunciation?.audioFile ?? "")!,
+                            fileName: wordItem.audioFileName
+                        ) {
+                            self.updateItemOfListCards(
+                                card: wordItem,
+                                cell: cell,
+                                updateCardView: needUpdateCardView
+                            )
                         }
+                    } else {
+                        self.updateItemOfListCards(
+                            card: wordItem,
+                            cell: cell,
+                            updateCardView: needUpdateCardView
+                        )
                     }
                 }
             })
     }
 
-    private func storeAudioFile(url: URL, card: Card, completionHandler: @escaping ((URL?) -> Void)) {
-        var mutatingCard = card
+    private func updateItemOfListCards(card: Card, cell: TermTableCell, updateCardView: Bool) {
+        let ordinalNumber = self.updateCardList(card: card)
+        DispatchQueue.main.async {
+            self.view.updateCell(
+                card: card,
+                at: ordinalNumber ?? 0,
+                needUpdateCardView: updateCardView
+            )
+            self.view.enableNewTerm()
+        }
+    }
+
+    func getDataOfPhrasalVerbs(card: any Card, cell: TermTableCell, needUpdateCardView: Bool) {
+//        DispatchQueue.main.async {
+//            let result = self.realmVocabularyService.object(
+//                type: PhrasalVerbEntity.self,
+//                predicateFormat: "term == %@",
+//                args: card.termDisplay
+//            )
+//            guard let phrasalVerb = result?.first else { return }
+//            let index = self.updateCardList(card: phrasalVerb)
+//        }
+    }
+
+    private func downloadAudioPronunciation(
+        url: URL,
+        fileName: String,
+        completionHandler: @escaping (() -> Void)
+    ) {
         let session = URLSession(configuration: .default)
         let request = URLRequest(url: url)
         let downloadTask = session.downloadTask(with: request) { localUrl, _, error in
             guard let localUrl = localUrl else { return }
             guard error == nil else { return }
             do {
-                let fileManager = FileManager.default
-                let documentsURL = try fileManager.url(
-                    for: .documentDirectory,
-                    in: .userDomainMask,
-                    appropriateFor: nil,
-                    create: false
-                )
-                let savedURL = documentsURL.appendingPathComponent("\(card.idOfCard).mp3")
-                guard !fileManager.fileExists(atPath: savedURL.relativePath) else {
-                    completionHandler(savedURL)
-                    return
-                }
-                try fileManager.moveItem(at: localUrl, to: savedURL)
-                completionHandler(savedURL)
-                print("File downloaded and saved to: \(savedURL)")
+                let savedUrl = try Path.inLibrary(fileName)
+                try self.fileManager.moveItem(at: localUrl, to: savedUrl)
+                let realStoreFolder = try Path.createFolder(folderName: "Engword")
+                try FileManager.default.copyItem(atPath: savedUrl.relativePath, toPath: realStoreFolder)
+                completionHandler()
             } catch {
                 print("Error saving file: \(error.localizedDescription)")
             }
@@ -229,6 +252,10 @@ class TermsPresenter: BasePresenter {
             || card.selectedDefinition != oldCard?.selectedDefinition {
             view.showSaveButton()
         }
+        if let oldCard = cards?[index],
+           !(cards?[index].isEqual(card: card) ?? true) {
+            removedCards.append(oldCard)
+        }
         cards?[index] = card
         return index
     }
@@ -258,8 +285,7 @@ class TermsPresenter: BasePresenter {
                 definition: $0.selectedDefinition,
                 partOfSpeech: $0.partOfSpeechDisplay,
                 pronunciation: $0.phoneticDisplay,
-                phrases: $0.selectedExample,
-                audioPath: $0.audioFilePath
+                phrases: $0.selectedExample
             )
         })
         do {
@@ -304,11 +330,14 @@ class TermsPresenter: BasePresenter {
                         definition: $0.selectedDefinition,
                         partOfSpeech: $0.partOfSpeechDisplay,
                         pronunciation: $0.phoneticDisplay,
-                        phrases: $0.selectedExample,
-                        audioPath: $0.audioFilePath
+                        phrases: $0.selectedExample
                     )
                 })
                 _ = try await storageService.updateTopic(topic, folder: folder)
+
+                removedCards.forEach {
+                    $0.removeAudioFile()
+                }
 
                 DispatchQueue.main.async {
                     self.view.hideSaveButton()
@@ -332,11 +361,10 @@ class TermsPresenter: BasePresenter {
 
     func removeCard(_ card: (any Card)?) {
         if let deleteIndex = cards?.firstIndex(where: { $0.isEqual(card: card) }) {
-            cards?.remove(at: deleteIndex)
+            if let removedCard = cards?.remove(at: deleteIndex) {
+                removedCards.append(removedCard)
+            }
             view.deleteCard(at: deleteIndex)
-        } else {
-            cards?.removeFirst()
-            view.deleteCard(at: 0)
         }
         view.showSaveButton()
     }
