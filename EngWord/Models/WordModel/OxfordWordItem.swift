@@ -142,10 +142,6 @@ struct OxfordWordItem: Decodable {
 
 extension OxfordWordItem: Card {
 
-    var audioFilePath: String? {
-        return try? Path.inLibrary(audioFileName).relativePath
-    }
-
     var termDisplay: String {
         get { return word ?? "" }
         set { word = newValue }
@@ -190,10 +186,5 @@ extension OxfordWordItem: Card {
     var selectedExample: String? {
         get { return example ?? listOfExamples?.first }
         set { example = newValue }
-    }
-
-    var isAudioFileExists: Bool {
-        let url = try? Path.inLibrary(audioFileName)
-        return FileManager.default.fileExists(atPath: url?.relativePath ?? "")
     }
 }

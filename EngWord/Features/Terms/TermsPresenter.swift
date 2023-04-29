@@ -72,7 +72,7 @@ class TermsPresenter: BasePresenter {
 
     func playAudio(card: Card) {
         if card.isAudioFileExists,
-            let url = URL(string: card.audioFilePath ?? "") {
+            let url = card.audioFilePath {
             do {
                 pronunciationPlayer = try AVAudioPlayer(contentsOf: url)
                 pronunciationPlayer?.play()

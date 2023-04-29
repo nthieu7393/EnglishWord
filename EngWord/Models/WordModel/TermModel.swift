@@ -10,14 +10,6 @@ import FirebaseFirestoreSwift
 
 struct TermModel: Codable, Card {
 
-    var isAudioFileExists: Bool {
-        return FileManager.default.fileExists(atPath: audioFilePath ?? "")
-    }
-
-    var audioFilePath: String? {
-        return try? Path.inLibrary(audioFileName).relativePath
-    }
-
     var idOfCard: String {
         get { return id ?? "" }
         set { id = newValue }

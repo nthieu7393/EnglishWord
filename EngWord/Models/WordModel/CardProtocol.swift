@@ -15,12 +15,13 @@ protocol Card: Decodable {
     var listOfDefinition: [String] { get }
     var listOfLexicalCategory: [PartOfSpeech]? { get }
     var listOfExamples: [String]? { get }
-    var audioFilePath: String? { get }
+    var audioFilePath: URL? { get }
 
     var selectedDefinition: String? { get set }
     var selectedExample: String? { get set }
     var isAudioFileExists: Bool { get }
     var audioFileName: String { get }
+    var createDate: Date { get set }
 }
 
 extension Card {
@@ -32,8 +33,7 @@ extension Card {
             "part_of_speech": partOfSpeechDisplay ?? PartOfSpeech.none.rawValue,
             "phrases": selectedExample ?? "",
             "term": termDisplay,
-            "pronunciation": phoneticDisplay ?? "",
-            "audioPath": audioFilePath ?? ""
+            "pronunciation": phoneticDisplay ?? ""
         ]
     }
     
@@ -50,10 +50,19 @@ extension Card {
         return "\(termDisplay).mp3"
     }
 
+    var audioFilePath: URL? {
+        return try? Path.inLibrary(audioFileName)
+    }
+
     func removeAudioFile() {
         guard let path = audioFilePath,
                 isAudioFileExists else { return }
-        try? FileManager.default.removeItem(atPath: path)
+        try? FileManager.default.removeItem(atPath: path.relativePath)
+    }
+
+    var isAudioFileExists: Bool {
+        guard let path = audioFilePath else { return false }
+        return FileManager.default.fileExists(atPath: path.relativePath)
     }
 
     func isEqual(card: (any Card)?) -> Bool {
