@@ -9,6 +9,7 @@ import Foundation
 import RealmSwift
 
 public class PhrasalVerbEntity: Object, Card {
+    
     var audioFileName: String
 
     @Persisted(primaryKey: true) private var id = UUID().uuidString

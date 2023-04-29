@@ -15,13 +15,13 @@ protocol Card: Decodable {
     var listOfDefinition: [String] { get }
     var listOfLexicalCategory: [PartOfSpeech]? { get }
     var listOfExamples: [String]? { get }
-    var audioFilePath: URL? { get }
-
     var selectedDefinition: String? { get set }
     var selectedExample: String? { get set }
-    var isAudioFileExists: Bool { get }
     var audioFileName: String { get }
-    var createDate: Date { get set }
+    var hasRecommendedData: Bool { get }
+    func removeAudioFile(folder: SetTopicModel, topic: TopicModel)
+    func audioFilePath(folder: SetTopicModel, topic: TopicModel) -> URL?
+    func isAudioFileExists(folder: SetTopicModel, topic: TopicModel) -> Bool
 }
 
 extension Card {
@@ -50,19 +50,18 @@ extension Card {
         return "\(termDisplay).mp3"
     }
 
-    var audioFilePath: URL? {
-        return try? Path.inLibrary(audioFileName)
+    func removeAudioFile(folder: SetTopicModel, topic: TopicModel) {
+        guard let path = (try? Path.inLibrary("\(folder.id ?? "")/\(topic.ID ?? "")/\(audioFileName).mp3"))?.relativePath else { return }
+        try? FileManager.default.removeItem(atPath: path)
     }
 
-    func removeAudioFile() {
-        guard let path = audioFilePath,
-                isAudioFileExists else { return }
-        try? FileManager.default.removeItem(atPath: path.relativePath)
+    func isAudioFileExists(folder: SetTopicModel, topic: TopicModel) -> Bool {
+        guard let path = (try? Path.inLibrary("\(folder.id ?? "")/\(topic.ID ?? "")/\(audioFileName).mp3"))?.relativePath else { return false }
+        return FileManager.default.fileExists(atPath: path)
     }
-
-    var isAudioFileExists: Bool {
-        guard let path = audioFilePath else { return false }
-        return FileManager.default.fileExists(atPath: path.relativePath)
+    
+    func audioFilePath(folder: SetTopicModel, topic: TopicModel) -> URL? {
+        return try? Path.inLibrary("\(folder.id ?? "")/\(topic.topicId ?? "")/\(audioFileName).mp3")
     }
 
     func isEqual(card: (any Card)?) -> Bool {

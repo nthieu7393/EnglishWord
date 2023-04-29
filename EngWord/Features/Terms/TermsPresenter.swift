@@ -71,8 +71,8 @@ class TermsPresenter: BasePresenter {
     }
 
     func playAudio(card: Card) {
-        if card.isAudioFileExists,
-            let url = card.audioFilePath {
+        if card.isAudioFileExists(folder: folder, topic: topic),
+           let url = card.audioFilePath(folder: folder, topic: topic) {
             do {
                 pronunciationPlayer = try AVAudioPlayer(contentsOf: url)
                 pronunciationPlayer?.play()
@@ -159,7 +159,7 @@ class TermsPresenter: BasePresenter {
                 } else if var wordItem = wordItem {
                     wordItem.idOfCard = card.idOfCard
                     // Download Audio
-                    if !wordItem.isAudioFileExists {
+                    if !wordItem.isAudioFileExists(folder: self.folder, topic: self.topic) {
                         self.downloadAudioPronunciation(
                             url: URL(string: wordItem.pronunciation?.audioFile ?? "")!,
                             fileName: wordItem.audioFileName
@@ -336,7 +336,7 @@ class TermsPresenter: BasePresenter {
                 _ = try await storageService.updateTopic(topic, folder: folder)
 
                 removedCards.forEach {
-                    $0.removeAudioFile()
+                    $0.removeAudioFile(folder: folder, topic: topic)
                 }
 
                 DispatchQueue.main.async {

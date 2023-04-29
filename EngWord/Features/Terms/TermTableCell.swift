@@ -247,7 +247,7 @@ class TermTableCell: UITableViewCell {
         if !isEditingTermOfCard {
             termTextField.text = term.termDisplay
         }
-        pronunciationButton.isEnabled = term.isAudioFileExists
+//        pronunciationButton.isEnabled = term.isAudioFileExists(folder: <#T##SetTopicModel#>, topic: <#T##TopicModel#>) <#T##TopicModel#>)
         becomeFirstResponserIfNeed(card: term)
     }
 
