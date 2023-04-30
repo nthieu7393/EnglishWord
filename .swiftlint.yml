@@ -9,7 +9,7 @@ disabled_rules:
 - line_length
 - type_name
 - switch_case_alignment
-
+- type_body_length
 #variable_name:
 #max_length:
 #    warning: 45

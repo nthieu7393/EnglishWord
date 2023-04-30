@@ -9,6 +9,14 @@ import Foundation
 import RealmSwift
 import AVFAudio
 
+enum AudioFolderDirectory: String {
+    case main, remove, add
+
+    func url(folder: SetTopicModel, topic: TopicModel) -> URL? {
+        return try? Path.inLibrary("\(folder.id ?? "")/\(topic.topicId ?? "")").appendingPathComponent("\(self.rawValue)")
+    }
+}
+
 class TermsPresenter: BasePresenter {
     private let storageService: StorageProtocol
     private let networkVocabularySerivce: NetworkVocabularyProtocol
@@ -25,7 +33,6 @@ class TermsPresenter: BasePresenter {
     private let view: TermsViewProtocol
     private let fileManager = FileManager.default
     private var pronunciationPlayer: AVAudioPlayer?
-    private var removedCards: [Card] = []
 
     func getTopic() -> TopicModel {
         return topic
@@ -70,14 +77,34 @@ class TermsPresenter: BasePresenter {
         view.dismissLoadingIndicator()
     }
 
+    func backToPreviousScreen() {
+        if let addUrl = AudioFolderDirectory.add.url(folder: folder, topic: topic) {
+            removeFolder(url: addUrl)
+        }
+
+        if let removeUrl = AudioFolderDirectory.remove.url(folder: folder, topic: topic),
+           let mainUrl = AudioFolderDirectory.main.url(folder: folder, topic: topic) {
+            moveFilesToFolder(at: removeUrl, toUrl: mainUrl)
+        }
+    }
+
     func playAudio(card: Card) {
-        if card.isAudioFileExists(folder: folder, topic: topic),
-           let url = card.audioFilePath(folder: folder, topic: topic) {
+        if let url = card.audioFilePath(folder: folder, topic: topic),
+           fileManager.fileExists(atPath: url.relativePath) {
             do {
                 pronunciationPlayer = try AVAudioPlayer(contentsOf: url)
                 pronunciationPlayer?.play()
             } catch {
                 debugPrint(error.localizedDescription)
+            }
+        } else {
+            if let url = AudioFolderDirectory.add.url(folder: folder, topic: topic)?.appendingPathComponent(card.audioFileName) {
+                do {
+                    pronunciationPlayer = try AVAudioPlayer(contentsOf: url)
+                    pronunciationPlayer?.play()
+                } catch {
+                    debugPrint(error.localizedDescription)
+                }
             }
         }
     }
@@ -158,11 +185,14 @@ class TermsPresenter: BasePresenter {
                     debugPrint("☠️: \(error.localizedDescription)")
                 } else if var wordItem = wordItem {
                     wordItem.idOfCard = card.idOfCard
+                    if card.termDisplay != wordItem.termDisplay {
+                        removeAudioFileOfPreviousCard(card: card)
+                    }
                     // Download Audio
                     if !wordItem.isAudioFileExists(folder: self.folder, topic: self.topic) {
                         self.downloadAudioPronunciation(
-                            url: URL(string: wordItem.pronunciation?.audioFile ?? "")!,
-                            fileName: wordItem.audioFileName
+                            downloadUrl: URL(string: wordItem.pronunciation?.audioFile ?? "")!,
+                            card: wordItem
                         ) {
                             self.updateItemOfListCards(
                                 card: wordItem,
@@ -179,6 +209,75 @@ class TermsPresenter: BasePresenter {
                     }
                 }
             })
+    }
+
+    // move all files of folder to new folder
+    private func moveFilesToFolder(at url: URL, toUrl: URL) {
+        do {
+            let fileUrls = try fileManager.contentsOfDirectory(at: url, includingPropertiesForKeys: nil)
+            for url in fileUrls {
+                try fileManager.moveItem(at: url, to: toUrl.appendingPathComponent(url.lastPathComponent))
+            }
+            removeFolder(url: url)
+        } catch {
+            debugPrint("😓: \(error.localizedDescription)")
+        }
+    }
+
+    // remove folder
+    private func removeFolder(url: URL) {
+        do {
+            if fileManager.fileExists(atPath: url.relativePath) {
+                try fileManager.removeItem(at: url)
+            }
+        } catch {
+            debugPrint("😓: \(error.localizedDescription)")
+        }
+    }
+
+    // remove audio
+    private func removeAudioFileOfPreviousCard(card: Card) {
+        guard let currentPath = card.audioFilePath(folder: folder, topic: topic),
+              let removeDirectory = directoryOfAudioPronunciation(audioDirectory: .remove) else {
+            return
+        }
+        try? fileManager.moveItem(at: currentPath, to: removeDirectory.appendingPathComponent("\(card.audioFileName)"))
+    }
+
+    // new audio
+    private func downloadAudioPronunciation(
+        downloadUrl: URL,
+        card: Card,
+        completionHandler: @escaping (() -> Void)
+    ) {
+        let session = URLSession(configuration: .default)
+        let request = URLRequest(url: downloadUrl)
+        let downloadTask = session.downloadTask(with: request) { localUrl, _, error in
+            guard let localUrl = localUrl else { return }
+            guard error == nil else { return }
+            do {
+                guard let saveUrl = self.directoryOfAudioPronunciation(audioDirectory: .add) else { return }
+                try self.fileManager.moveItem(at: localUrl, to: saveUrl.appendingPathComponent(card.audioFileName))
+                completionHandler()
+            } catch {
+                print("Error saving file: \(error.localizedDescription)")
+            }
+        }
+        downloadTask.resume()
+    }
+
+    private func directoryOfAudioPronunciation(audioDirectory: AudioFolderDirectory) -> URL? {
+        if let url = try? Path.inLibrary("\(folder.id ?? "")/\(topic.topicId ?? "")/\(audioDirectory.rawValue)") {
+            guard !fileManager.fileExists(atPath: url.relativePath) else { return url }
+            do {
+                try fileManager.createDirectory(at: url, withIntermediateDirectories: true)
+                return url
+            } catch {
+                print("😓: \(error.localizedDescription)")
+                return nil
+            }
+        }
+        return nil
     }
 
     private func updateItemOfListCards(card: Card, cell: TermTableCell, updateCardView: Bool) {
@@ -204,30 +303,6 @@ class TermsPresenter: BasePresenter {
 //            let index = self.updateCardList(card: phrasalVerb)
 //        }
     }
-
-    private func downloadAudioPronunciation(
-        url: URL,
-        fileName: String,
-        completionHandler: @escaping (() -> Void)
-    ) {
-        let session = URLSession(configuration: .default)
-        let request = URLRequest(url: url)
-        let downloadTask = session.downloadTask(with: request) { localUrl, _, error in
-            guard let localUrl = localUrl else { return }
-            guard error == nil else { return }
-            do {
-                let savedUrl = try Path.inLibrary(fileName)
-                try self.fileManager.moveItem(at: localUrl, to: savedUrl)
-                let realStoreFolder = try Path.createFolder(folderName: "Engword")
-                try FileManager.default.copyItem(atPath: savedUrl.relativePath, toPath: realStoreFolder)
-                completionHandler()
-            } catch {
-                print("Error saving file: \(error.localizedDescription)")
-            }
-        }
-        downloadTask.resume()
-    }
-
     func addNewCard() {
         cards?.insert(WordsApiWordItem(), at: 0)
         view.addNewCard()
@@ -251,10 +326,6 @@ class TermsPresenter: BasePresenter {
             || card.selectedExample != oldCard?.selectedExample
             || card.selectedDefinition != oldCard?.selectedDefinition {
             view.showSaveButton()
-        }
-        if let oldCard = cards?[index],
-           !(cards?[index].isEqual(card: card) ?? true) {
-            removedCards.append(oldCard)
         }
         cards?[index] = card
         return index
@@ -297,6 +368,7 @@ class TermsPresenter: BasePresenter {
                 folder.topics.append(newTopic)
                 NotificationCenter.default.post(name: .updateFolderNotification, object: folder)
             }
+            updateAudioFilesInFolder()
             DispatchQueue.main.async {
                 self.view.dismissLoadingIndicator()
                 self.view.hideSaveButton()
@@ -335,9 +407,7 @@ class TermsPresenter: BasePresenter {
                 })
                 _ = try await storageService.updateTopic(topic, folder: folder)
 
-                removedCards.forEach {
-                    $0.removeAudioFile(folder: folder, topic: topic)
-                }
+                updateAudioFilesInFolder()
 
                 DispatchQueue.main.async {
                     self.view.hideSaveButton()
@@ -359,10 +429,30 @@ class TermsPresenter: BasePresenter {
         }
     }
 
+    private func updateAudioFilesInFolder() {
+        if let url = AudioFolderDirectory.remove.url(folder: folder, topic: topic) {
+            removeFolder(url: url)
+        }
+        if let addUrl = AudioFolderDirectory.add.url(folder: folder, topic: topic),
+           let mainUrl = directoryOfAudioPronunciation(audioDirectory: .main) {
+            moveFilesToFolder(at: addUrl, toUrl: mainUrl)
+        }
+    }
+
     func removeCard(_ card: (any Card)?) {
         if let deleteIndex = cards?.firstIndex(where: { $0.isEqual(card: card) }) {
             if let removedCard = cards?.remove(at: deleteIndex) {
-                removedCards.append(removedCard)
+                if card?.isAudioFileExists(folder: folder, topic: topic) ?? false {
+                    removeAudioFileOfPreviousCard(card: removedCard)
+                } else {
+
+                    if let audioName = card?.audioFileName,
+                       let path = directoryOfAudioPronunciation(audioDirectory: .add) {
+                        if fileManager.fileExists(atPath: path.appendingPathComponent(audioName).relativePath) {
+                            try? fileManager.removeItem(atPath: path.appendingPathComponent(audioName).relativePath)
+                        }
+                    }
+                }
             }
             view.deleteCard(at: deleteIndex)
         }
@@ -386,13 +476,3 @@ class TermsPresenter: BasePresenter {
         view.reviewCard(card: card)
     }
 }
-
-//extension TermsPresenter: URLSessionDelegate {
-//
-//    func urlSession(
-//        _ session: URLSession,
-//        downloadTask: URLSessionDownloadTask,
-//        didFinishDownloadingTo location: URL) {
-//
-//    }
-//}

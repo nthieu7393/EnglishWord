@@ -56,12 +56,12 @@ extension Card {
     }
 
     func isAudioFileExists(folder: SetTopicModel, topic: TopicModel) -> Bool {
-        guard let path = (try? Path.inLibrary("\(folder.id ?? "")/\(topic.ID ?? "")/\(audioFileName).mp3"))?.relativePath else { return false }
+        guard let path = (try? Path.inLibrary("\(folder.id ?? "")/\(topic.ID ?? "")/\(AudioFolderDirectory.main.rawValue)/\(audioFileName)"))?.relativePath else { return false }
         return FileManager.default.fileExists(atPath: path)
     }
     
     func audioFilePath(folder: SetTopicModel, topic: TopicModel) -> URL? {
-        return try? Path.inLibrary("\(folder.id ?? "")/\(topic.topicId ?? "")/\(audioFileName).mp3")
+        return try? Path.inLibrary("\(folder.id ?? "")/\(topic.topicId ?? "")/\(AudioFolderDirectory.main.rawValue)/\(audioFileName)")
     }
 
     func isEqual(card: (any Card)?) -> Bool {

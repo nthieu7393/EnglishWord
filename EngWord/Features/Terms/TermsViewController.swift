@@ -103,6 +103,11 @@ class TermsViewController: BaseViewController {
             folder: termsPresenter.getFolder()
         )
     }
+
+    override func backToPreviousScreen() {
+        super.backToPreviousScreen()
+        termsPresenter.backToPreviousScreen()
+    }
 }
 
 extension TermsViewController: Storyboarded {}

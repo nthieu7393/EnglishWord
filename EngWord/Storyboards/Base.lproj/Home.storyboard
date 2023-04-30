@@ -501,7 +501,7 @@
                                                     <constraint firstAttribute="height" constant="40" id="HnC-jr-WHC"/>
                                                 </constraints>
                                                 <connections>
-                                                    <action selector="doneButtonOnTap:" destination="20C-Ie-KVC" eventType="valueChanged" id="5F7-7m-1aa"/>
+                                                    <action selector="doneButtonOnTap:" destination="20C-Ie-KVC" eventType="touchUpInside" id="QmC-Un-ek4"/>
                                                 </connections>
                                             </view>
                                         </subviews>
@@ -1387,7 +1387,7 @@
                                     <constraint firstAttribute="height" constant="34" id="Grt-35-dkg"/>
                                 </constraints>
                                 <connections>
-                                    <action selector="createButtonOnTap:" destination="Uji-Zb-d1p" eventType="valueChanged" id="mPU-i2-WE4"/>
+                                    <action selector="createButtonOnTap:" destination="Uji-Zb-d1p" eventType="touchUpInside" id="NYO-PY-R8f"/>
                                 </connections>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="LuH-7L-Plu">
@@ -1792,17 +1792,17 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SortedByMenuCell" id="IHJ-73-BHw" customClass="SortedByMenuCell" customModule="EngWord" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="390" height="36.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="50" width="390" height="37.333332061767578"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IHJ-73-BHw" id="13x-Da-fPX">
-                                            <rect key="frame" x="0.0" y="0.0" width="390" height="36.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="390" height="37.333332061767578"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GxZ-br-sQU" customClass="ResponsiveView" customModule="EngWord" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="390" height="36.666666666666664"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="390" height="37.333333333333336"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rRI-KS-fIc">
-                                                            <rect key="frame" x="8" y="8.0000000000000018" width="374" height="20.666666666666671"/>
+                                                            <rect key="frame" x="8" y="7.9999999999999982" width="374" height="21.333333333333329"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
